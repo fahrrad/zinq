@@ -1,0 +1,65 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C72D51A0-09CE-7E24-208A-5FE3A637F08E" name="Language">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:36:42 UTC</createdTime>
+<generatorID>F8412A5C-1A6F-00D6-0F04-5DB1D9E5A6AF</generatorID>
+<ownerDesignName>datamodel</ownerDesignName>
+<engineerTo>
+<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+<item key="455146FA-330F-680F-1A4D-72351D9F0F97" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="502F69BD-0A2C-47B7-F930-5AD32197CE57">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:36:42 UTC</createdTime>
+<generatorID>BC674E99-42BD-51BD-F0A5-4CD27B7C582C</generatorID>
+<ownerDesignName>datamodel</ownerDesignName>
+<engineerTo>
+<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+<item key="455146FA-330F-680F-1A4D-72351D9F0F97" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+</Attribute>
+<Attribute name="language tag" id="E5701BDA-CCE0-E70A-4023-9D2FDB66DC64">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:36:42 UTC</createdTime>
+<comment>see http://rishida.net/utils/subtags/index.php?find=dutch&amp;submit=Find&lt;br/&gt;&lt;br/&gt;for codes </comment>
+<generatorID>0028666C-E47F-0B84-2692-8A371088716F</generatorID>
+<ownerDesignName>datamodel</ownerDesignName>
+<engineerTo>
+<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+<item key="455146FA-330F-680F-1A4D-72351D9F0F97" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="321D0D79-CD78-66C0-0B45-F1FCC00F0118" name="Language PK">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:36:42 UTC</createdTime>
+<generatorID>08AB5C88-29D7-F47E-6423-E66692D27479</generatorID>
+<ownerDesignName>datamodel</ownerDesignName>
+<engineerTo>
+<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+<item key="455146FA-330F-680F-1A4D-72351D9F0F97" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>502F69BD-0A2C-47B7-F930-5AD32197CE57</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

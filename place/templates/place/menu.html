@@ -1,0 +1,28 @@
+{% extends "place/base.html" %}
+
+{% block title %}
+    menu for {{ place }}
+{% endblock %}
+
+{% block content %}
+
+    <table>
+        <!-- header -->
+        <tr>
+            <th scope="col">
+                item
+            </th>
+            <th scope="col">
+                price
+            </th>
+        </tr>
+{% for menuitem in menu.menuitem_set.all %}
+    <tr>
+        <td class="menuitem">{{ menuitem.name }}</td>
+        <td class="menuitemprice">{{ menuitem.price }}</td>
+    </tr>
+
+{% endfor   %}
+    </table>
+
+{% endblock %}

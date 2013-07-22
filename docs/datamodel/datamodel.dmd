@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="datamodel" id="55CC9E85-AF79-BFB1-E899-E17CAF0CE65B" version="3.5">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:18:57 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>55CC9E85-AF79-BFB1-E899-E17CAF0CE65B</designId>
+</OSDM_Design>

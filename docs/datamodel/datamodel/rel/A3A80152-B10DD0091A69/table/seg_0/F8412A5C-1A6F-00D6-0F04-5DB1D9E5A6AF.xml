@@ -1,0 +1,43 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F8412A5C-1A6F-00D6-0F04-5DB1D9E5A6AF" name="Language">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:27:30 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="BC674E99-42BD-51BD-F0A5-4CD27B7C582C">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:32:58 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="language_tag" id="0028666C-E47F-0B84-2692-8A371088716F">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:32:58 UTC</createdTime>
+<comment>see http://rishida.net/utils/subtags/index.php?find=dutch&amp;submit=Find&lt;br/&gt;&lt;br/&gt;for codes </comment>
+<ownerDesignName>datamodel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="08AB5C88-29D7-F47E-6423-E66692D27479" name="Language_PK">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:32:58 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BC674E99-42BD-51BD-F0A5-4CD27B7C582C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

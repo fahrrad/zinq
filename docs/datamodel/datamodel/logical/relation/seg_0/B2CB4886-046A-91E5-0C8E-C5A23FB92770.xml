@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Translation_MenuItem_FK" directorySegmentName="seg_0" id="B2CB4886-046A-91E5-0C8E-C5A23FB92770">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:36:42 UTC</createdTime>
+<generatorID>981F871D-9986-024A-8E1D-D64142099DA3</generatorID>
+<ownerDesignName>datamodel</ownerDesignName>
+<engineerTo>
+<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+<item key="455146FA-330F-680F-1A4D-72351D9F0F97" value="true"/>
+</engineerTo>
+<sourcePk>70855199-6129-91E1-52FA-7F761D7E65D9</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>DF3D6EF6-E2DD-9086-8D84-0370BC16D77C</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>C17B1DB4-4D5D-375F-FD75-3A8B707B7D4E</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

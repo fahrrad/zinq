@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="61454A46-3B2A-6D50-D4F2-18A6E1069DF3" name="Translation">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:25:38 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="translation" id="D549E61E-F938-E4A0-A904-9F72AAC371AD">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:27:15 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id" id="8957987E-6186-8248-6FCA-9806FE9502CE">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:27:15 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Language_id" id="D1B4FCCC-952B-2EE6-E6AE-91C23232FA50">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:34:07 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>BC674E99-42BD-51BD-F0A5-4CD27B7C582C</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F2DDBCD9-D065-C068-2355-8D4592B206EB" referredColumn="BC674E99-42BD-51BD-F0A5-4CD27B7C582C"/>
+</associations>
+</Column>
+<Column name="MenuItem_id" id="40684768-AC0C-E634-758D-CDA4F18BC6D3">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:35:27 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>F64498CF-AC80-7357-1728-9E8981C5920D</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="981F871D-9986-024A-8E1D-D64142099DA3" referredColumn="F64498CF-AC80-7357-1728-9E8981C5920D"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BB5FA38A-7892-2D41-D879-5CDBD28736F7" name="translation_PK">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:27:15 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8957987E-6186-8248-6FCA-9806FE9502CE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EE780CEC-118B-759C-7E84-B0652E28D7C1" name="Translation_Language_FK">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:34:07 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D1B4FCCC-952B-2EE6-E6AE-91C23232FA50"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B2D1EC62-CBE1-FFCB-0F2A-91A1D513213E" name="Translation_MenuItem_FK">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:35:27 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="40684768-AC0C-E634-758D-CDA4F18BC6D3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

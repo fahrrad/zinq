@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F2DDBCD9-D065-C068-2355-8D4592B206EB" name="Translation_Language_FK">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:34:07 UTC</createdTime>
+<ownerDesignName>datamodel</ownerDesignName>
+<containerWithKeyObject>61454A46-3B2A-6D50-D4F2-18A6E1069DF3</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>EE780CEC-118B-759C-7E84-B0652E28D7C1</localFKIndex>
+<keyObject>08AB5C88-29D7-F47E-6423-E66692D27479</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

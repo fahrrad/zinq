@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="67C2E501-E6F1-EFC8-38FD-B368B9A17041" name="MenuItem_Menu_FK">
+<createdBy>ward</createdBy>
+<createdTime>2013-07-21 11:23:48 UTC</createdTime>
+<comment>One menu is build up from many menuItems&lt;br/&gt;One menuitem can only belong to one menu</comment>
+<ownerDesignName>datamodel</ownerDesignName>
+<containerWithKeyObject>702B6EF6-C9AA-C973-3BB0-13170AFB5C6D</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>A2572F02-936D-AB43-2EBC-1418161A14F7</localFKIndex>
+<keyObject>7511A688-8626-68E8-0E89-0EF06948292B</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
