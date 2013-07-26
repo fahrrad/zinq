@@ -12,7 +12,7 @@ class Place(models.Model):
 
 class Table(models.Model):
     # uuid to map to this table
-    uuid = models.CharField(max_length=32, default=uuid4().hex, primary_key=True)
+    uuid = models.CharField(max_length=32, default=lambda : uuid4().hex, primary_key=True)
 
     # where this table located?
     place = models.ForeignKey(Place)
