@@ -6,7 +6,7 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from menu.models import MenuItem, Menu, Order
+from menu.models import MenuItem, Menu, Order, OrderMenuItem
 from place.models import Place, Table
 from decimal import  Decimal
 
@@ -88,8 +88,8 @@ class MenuTest(TestCase):
         # the setup-created menu
         m1 = Menu.objects.get(pk=1)
 
-        self.assertEquals(m1.menuitem_set.get(name="fanta").price, 2.5 )
-        self.assertEquals(m1.menuitem_set.get(name="cola").price, 1.85 )
+        self.assertAlmostEquals(m1.menuitem_set.get(name="fanta").price, Decimal(2.5) )
+        self.assertAlmostEquals(m1.menuitem_set.get(name="cola").price, Decimal(1.85) )
         # start with 2 items
         self.assertEquals(len(m1.menuitem_set.all()), 2)
 
@@ -107,10 +107,28 @@ class MenuTest(TestCase):
         order = Order(table=self.t1)
         order.save()
 
-
         order.addItem(cola, 2)
 
+        # When comparing with equals, the decimals are converted into floats
+        # i guess.
         self.assertAlmostEqual(order.calculate_total_price(), Decimal(3.7))
+
+    def test_more_elaborate_order(self):
+
+        order = Order(table=self.t1)
+        order.save()
+
+        order.addItem(self.m1.menuitem_set.get(name="cola"), 3)
+        order.addItem(self.m1.menuitem_set.get(name="fanta"), 1)
+
+        self.assertAlmostEqual(order.calculate_total_price(), Decimal(8.05))
+        self.assertEquals(len(order.menuItems.all()), 2)
+
+        # get the menuitem count
+        orderMenuItem = OrderMenuItem.objects.get(menuItem=self.m1.menuitem_set.get(name="cola"),
+                                                  order=order)
+        self.assertEquals(orderMenuItem.amount, 3)
+
 
 
 
