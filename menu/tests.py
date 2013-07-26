@@ -6,25 +6,38 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from menu.models import MenuItem, Menu
-from uuid import uuid4
+from menu.models import MenuItem, Menu, Order
+from place.models import Place, Table
+from decimal import  Decimal
 
 class MenuTest(TestCase):
     """ Simple tests on the MenuItem object, and there menu group """
 
     def setUp(self):
         """create some stuff"""
-        m1 = Menu.objects.create(name="menu1")
+        self.m1 = Menu.objects.create(name="menu1")
 
-        MenuItem.objects.create(name="fanta", price=2.5, menu=m1)
-        MenuItem.objects.create(name="cola", price=1.85, menu=m1)
+        MenuItem.objects.create(name="fanta", price=2.5, menu=self.m1)
+        MenuItem.objects.create(name="cola", price=1.85, menu=self.m1)
 
+        self.speyker = Place(name="speyker", menu=self.m1)
+        self.speyker.save()
+
+
+        self.t1 = Table(place=self.speyker)
+        self.t1.save()
+
+        self.t2 = Table(place=self.speyker)
+        self.t2.save()
+
+        self.t3 = Table(place=self.speyker)
+        self.t3.save()
 
     def test_filter_contains_a(self):
         # find stuff that contains an 'a' ( 2 )
         a_tems = MenuItem.objects.filter(name__contains='a')
         self.assertEquals(len(a_tems), 2)
-       
+
 
     def test_menu_item(self):
         # two items are created
@@ -86,6 +99,18 @@ class MenuTest(TestCase):
         found_menu = Menu.objects.get(pk=1)
 
         self.assertEquals(len(m1.menuitem_set.all()), 3)
+
+
+    def test_create_an_order(self):
+        cola = self.t1.get_menu().menuitem_set.get(name='cola')
+
+        order = Order(table=self.t1)
+        order.save()
+
+
+        order.addItem(cola, 2)
+
+        self.assertAlmostEqual(order.calculate_total_price(), Decimal(3.7))
 
 
 
