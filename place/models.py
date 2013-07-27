@@ -11,7 +11,11 @@ class Place(models.Model):
 
 class Table(models.Model):
     # uuid to map to this table
-    uuid = models.CharField(max_length=32, default=lambda : uuid4().hex, primary_key=True)
+    uuid = models.CharField(max_length=32, default=lambda : uuid4().hex, 
+                            primary_key=True)
+
+    # place specific identification of tables
+    table_nr = models.CharField(max_length=255, blank=True, default="")
 
     # where is this table located?
     place = models.ForeignKey(Place)
@@ -20,3 +24,5 @@ class Table(models.Model):
         """get the menu for a table"""
         return self.place.menu
 
+    def __unicode__(self):
+        return "table %s at %s" % (self.table_nr, self.place)
