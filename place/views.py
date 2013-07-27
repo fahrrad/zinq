@@ -21,3 +21,6 @@ def menu(request, table_uuid):
 
     return  render(request, "place/menu.html", {'menu': menu,
                                                 'place': place})
+
+def landing(request):
+    return render(request, 'landing.html')
