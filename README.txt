@@ -26,12 +26,14 @@ andere pc gedaan Bel me, of stuur me een mail. We'll figure it out
 Django
 ------
 
-Om de server te starten:
+
 
 in de qmenu folder ( waar manage.py staat )
 
+
 1. Om de database te generenen :
- > python manage.py syncdb
+ > python manage.py syncdb --noinput
+( Dit moet je alleen doen de eerste keer, en als je een model wijzigt)
 
 2. de embedded webserver starten
  > python manage.py runserver [poort]   
