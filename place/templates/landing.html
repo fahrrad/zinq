@@ -1,0 +1,14 @@
+{% extends "place/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Landing page</h1>
+<h3>some links</h3>
+<ul>
+<li><a href="{% url "place.views.menu" 123456 %}">invalid menu</a></li>
+<li><a href="{% url "place.views.menu" "f64f609e75bd4afbbc18cf7f29fcafde" %}">valid menu</a></li>
+<li><a href="admin">admin page </a></li>
+
+</ul>
+{% endblock %}
