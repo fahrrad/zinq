@@ -16,11 +16,7 @@ om zeker te zijn dat we dezelfde versies hebben
 https://fahrrad@bitbucket.org/fahrrad/qmenu.git
 
 4. install packages >
-pip install -r req-dev.txt
-
-
-Als het niet zou lukken, heb geduld. Ik heb dit nog nooit op een
-andere pc gedaan Bel me, of stuur me een mail. We'll figure it out
+pip install -r requirements.txt
 
 
 Django
