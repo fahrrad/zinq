@@ -38,8 +38,7 @@ in de qmenu folder ( waar manage.py staat )
 Admin interface
 ---------------
 
-De standaard CRUD schermen zitten onder host:poort/admin. Het paswoord en login is wat
-je tijdens 'manage syncdb' hebt opgegeven
+De standaard CRUD schermen zitten onder host:poort/admin. Het paswoord en login is admin/admin
 
 
 
