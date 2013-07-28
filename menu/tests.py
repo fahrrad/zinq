@@ -135,6 +135,17 @@ class MenuTest(TestCase):
         # fist status is ordered ( default )
         self.assertEquals(order.get_status_display(), 'Ordered')
 
+        order.proceed()
+        # second status is done
+        self.assertEquals(order.get_status_display(), 'Done')
+
+        order.proceed()
+        # last status is payed
+        self.assertEquals(order.get_status_display(), 'Payed')
+
+        # no next step, except an exception
+        self.assertRaises(order.proceed)
+
 
 
 

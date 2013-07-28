@@ -95,7 +95,7 @@ class Order(models.Model):
 
         return total
 
-    def proceed_order(self):
+    def proceed(self):
         if self.status == self.ORDERED:
             self.status = self.DONE
 
