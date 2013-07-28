@@ -66,6 +66,11 @@ class SimpleTest(TestCase):
 
         self.assertEquals(len(self.dambert.table_set.all()), 5)
 
+    def test_1to1_menu_place(self):
+        self.assertRaises(Place.objects.create,
+                          name="some place that copies a menu",
+                          menu=self.dambert_menu)
+
 
 
 

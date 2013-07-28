@@ -4,7 +4,9 @@ from uuid import uuid4
 
 class Place(models.Model):
     name = models.CharField(max_length=255)
-    menu = models.ForeignKey("menu.Menu", null=True)
+
+    # One - One
+    menu = models.ForeignKey("menu.Menu", null=True, unique=True)
 
     def __unicode__(self):
         return self.name
