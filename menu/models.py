@@ -36,7 +36,11 @@ class OrderMenuItem(models.Model):
 
     # mapping fields
     menuItem = models.ForeignKey(MenuItem)
+    # need a string because the Order model is not yet defined here
     order = models.ForeignKey("Order")
+
+
+
 
 class Order(models.Model):
     """An placed order. This contains a reference to who placed the order, and
@@ -45,17 +49,35 @@ class Order(models.Model):
 
     The lifecycle of an order:
 
-    ordered -> started -> done -> payed
+    ordered -> done -> payed
 
     """
+
+    # the status a order can be in
+    ORDERED = 'OR'
+    DONE = 'DO'
+    PAYED = 'PA'
+
+    ORDER_STATUSES = (
+        (ORDERED, 'Ordered'),
+        (DONE, 'Done'),
+        (PAYED, 'Payed'),
+    )
 
     # the table that ordered
     table = models.ForeignKey(Table)
     menuItems = models.ManyToManyField(MenuItem, through=OrderMenuItem)
 
+    # the status of the order ( ordered -> done -> payed)
+    # to display the status user friendly, use
+    # self.get_status_display()
+    status = models.CharField(max_length=2, choices=ORDER_STATUSES,
+                              default=ORDERED)
+
 
     def addItem(self, menuItem, amount):
-        """ add amount menuitems to the order. Will also add the total price to the total
+        """ add amount menuitems to the order. Will also add the total
+        price to the total
         """
 
         price = amount * menuItem.price
@@ -72,6 +94,17 @@ class Order(models.Model):
             total += orderMenuItem.price
 
         return total
+
+    def proceed_order(self):
+        if self.status == self.ORDERED:
+            self.status = self.DONE
+
+        elif self.status == self.DONE:
+            self.status = self.PAYED
+
+        else:
+            raise Exception('Cannot proceed. Item is payed')
+
 
 
 

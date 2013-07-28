@@ -15,7 +15,7 @@ class MenuTest(TestCase):
 
     def setUp(self):
         """create some stuff"""
-        self.m1 = Menu.objects.create(name="menu1")
+        self.m1 = Menu.objects.create(name="menu_test")
 
         MenuItem.objects.create(name="fanta", price=2.5, menu=self.m1)
         MenuItem.objects.create(name="cola", price=1.85, menu=self.m1)
@@ -35,29 +35,29 @@ class MenuTest(TestCase):
 
     def test_filter_contains_a(self):
         # find stuff that contains an 'a' ( 2 )
-        a_tems = MenuItem.objects.filter(name__contains='a')
+        a_tems = MenuItem.objects.filter(name__contains='a', menu=self.m1)
         self.assertEquals(len(a_tems), 2)
 
 
     def test_menu_item(self):
         # two items are created
-        self.assertEquals(len(MenuItem.objects.all()), 2)
+        self.assertEquals(len(MenuItem.objects.filter(menu=self.m1)), 2)
 
 
     def test_find_cola(self):
         # find back cola
-        cola = MenuItem.objects.get(name="cola")
+        cola = MenuItem.objects.get(name="cola", menu=self.m1)
         self.assertTrue(cola)
 
 
     def test_no_more_fristi(self):
         # do not find fristi
-        fristi = MenuItem.objects.filter(name="fristi")
+        fristi = MenuItem.objects.filter(name="fristi", menu=self.m1)
         self.assertFalse(fristi)
 
     def test_find_menu(self):
         # try to find all the menuitems for 1 menu
-        menu = Menu.objects.get(name="menu1")
+        menu = Menu.objects.get(name="menu_test")
 
         self.assertEquals(len(menu.menuitem_set.all()), 2)
 
@@ -86,7 +86,7 @@ class MenuTest(TestCase):
 
     def test_add_items_to_a_menu(self):
         # the setup-created menu
-        m1 = Menu.objects.get(pk=1)
+        m1 = Menu.objects.get(name="menu_test")
 
         self.assertAlmostEquals(m1.menuitem_set.get(name="fanta").price, Decimal(2.5) )
         self.assertAlmostEquals(m1.menuitem_set.get(name="cola").price, Decimal(1.85) )
@@ -128,6 +128,12 @@ class MenuTest(TestCase):
         orderMenuItem = OrderMenuItem.objects.get(menuItem=self.m1.menuitem_set.get(name="cola"),
                                                   order=order)
         self.assertEquals(orderMenuItem.amount, 3)
+
+    def test_order_statuses(self):
+        order = Order(table=self.t1)
+
+        # fist status is ordered ( default )
+        self.assertEquals(order.get_status_display(), 'Ordered')
 
 
 
