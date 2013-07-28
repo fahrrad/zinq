@@ -1,6 +1,19 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from place.views import welcome, menu, landing
+from rest_framework import viewsets, routers
+from menu.models import Order, Menu
+
+
+class OrderViewSets(viewsets.ModelViewSet):
+    model = Order
+
+class MenuViewSet(viewsets.ModelViewSet):
+    model = Menu
+
+router = routers.DefaultRouter()
+router.register(r'orders', OrderViewSets)
+router.register(r'menus', MenuViewSet)
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -20,5 +33,9 @@ urlpatterns = patterns('',
     url(r'^welcome/$', welcome),
     url(r'^menu/(\w{4,32})$', menu),
     url(r'^$', landing),
+
+    # Rest
+    url(r'^rest/', include(router.urls)),
+    url(r'^rest/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
                        
 )
