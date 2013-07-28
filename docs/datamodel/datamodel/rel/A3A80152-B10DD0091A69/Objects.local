@@ -1,12 +1,15 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <oracle.dbtools.crest.model.design.relational.RelationalDesign>
-   <object objectType="Table" objectID="F8412A5C-1A6F-00D6-0F04-5DB1D9E5A6AF" name="Language" seqName="seg_0"/>
-   <object objectType="Table" objectID="93017737-51A1-7683-7D3A-503D78EACC82" name="Menu" seqName="seg_0"/>
-   <object objectType="Table" objectID="702B6EF6-C9AA-C973-3BB0-13170AFB5C6D" name="MenuItem" seqName="seg_0"/>
-   <object objectType="Table" objectID="61454A46-3B2A-6D50-D4F2-18A6E1069DF3" name="Translation" seqName="seg_0"/>
+   <object objectType="Table" objectID="93017737-51A1-7683-7D3A-503D78EACC82" name="menu" seqName="seg_0"/>
+   <object objectType="Table" objectID="702B6EF6-C9AA-C973-3BB0-13170AFB5C6D" name="menuitem" seqName="seg_0"/>
+   <object objectType="Table" objectID="39349BCB-1E91-72A7-697A-2847B7E853BA" name="order" seqName="seg_0"/>
+   <object objectType="Table" objectID="7815EB9D-4F85-5F9A-B808-2B420A567F93" name="order_menuitem" seqName="seg_0"/>
    <object objectType="Table" objectID="45DB1FA1-A021-EFC7-50C1-37C9F0731B8A" name="place" seqName="seg_0"/>
    <object objectType="Table" objectID="9F721E63-5C64-B9E4-DB3B-E2CA30B255F6" name="table" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="08A94837-15EF-81F9-1C73-2584774D3BFA" name="order_table_FK" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="67C2E501-E6F1-EFC8-38FD-B368B9A17041" name="MenuItem_Menu_FK" seqName="seg_0"/>
-   <object objectType="FKIndexAssociation" objectID="F2DDBCD9-D065-C068-2355-8D4592B206EB" name="Translation_Language_FK" seqName="seg_0"/>
-   <object objectType="FKIndexAssociation" objectID="981F871D-9986-024A-8E1D-D64142099DA3" name="Translation_MenuItem_FK" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="DAAF21F1-87A7-D1B1-4716-65532DCB3C91" name="order_menuitem_MenuItem_FK" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="2C173D00-578C-E456-3B91-4EF578691234" name="order_menuitem_order_FK" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="44F1D92C-A469-F0D7-8EED-4C681999E80F" name="place_Menu_FK" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="718EEB79-C262-CC25-04E2-6EAED53698EE" name="table_place_FK" seqName="seg_0"/>
 </oracle.dbtools.crest.model.design.relational.RelationalDesign>
