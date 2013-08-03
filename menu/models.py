@@ -21,6 +21,10 @@ class MenuItem(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        # no menu can contain the same menuitem twice!
+        unique_together =  ("menu", "name")
+
 class OrderMenuItem(models.Model):
     """ Many to Many mapping table that maps between an order and the menu items that are stored on it.
     This mapping table will also contain a amount, and a price. This is to avoid that if a menu item should

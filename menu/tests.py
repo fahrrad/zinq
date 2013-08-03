@@ -146,6 +146,8 @@ class MenuTest(TestCase):
         # no next step, except an exception
         self.assertRaises(order.proceed)
 
+    def test_menu_can_not_have_twice_the_same_item(self):
+        self.assertRaises(MenuItem.objects.create, name="fanta", price=2.5, menu=self.m1)
 
 
 
