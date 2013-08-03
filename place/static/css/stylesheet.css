@@ -1,7 +1,29 @@
 body {
-    color : cadetblue
+    color : red;
+    background-color: black;
+    padding: 35px;
 }
 
 .error {
     color : red;
 }
+
+input.amount {
+    color: red;
+    max-width: 25px;
+}
+
+td.button{
+    width: 20px;
+}
+
+td.amount{
+    width: 185px;
+    text-align: left;
+}
+
+table.menu {
+    width: 370px;
+}
+
+
