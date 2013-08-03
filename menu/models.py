@@ -80,7 +80,7 @@ class Order(models.Model):
         price to the total
         """
 
-        price = amount * menuItem.price
+        price = Decimal(amount) * menuItem.price
 
         orderMenuItem = OrderMenuItem(menuItem=menuItem, order=self,
                                       amount=amount, price=price)
