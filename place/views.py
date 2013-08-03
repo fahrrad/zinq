@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from menu.services import place_order
 from place.models import Place, Table
 from menu.models import Menu, MenuItem, Order, OrderMenuItem
 import logging
@@ -53,12 +54,6 @@ def landing(request):
     return render(request, 'landing.html')
 
 
-def place_order(items, table_uuid):
-    table = Table.objects.get(uuid=table_uuid)
-    order = Order.objects.create(table=table)
 
-    for item_name, amount in items:
-        menu_item = MenuItem.objects.get(menu=table.get_menu(), name=item_name)
-        order.addItem(menu_item, amount)
 
-    return order
+

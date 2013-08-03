@@ -6,9 +6,12 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from menu import services
 from menu.models import MenuItem, Menu, Order, OrderMenuItem
+from menu.services import place_order
 from place.models import Place, Table
 from decimal import  Decimal
+from place import models as place_models
 
 class MenuTest(TestCase):
     """ Simple tests on the MenuItem object, and there menu group """
@@ -147,7 +150,24 @@ class MenuTest(TestCase):
         self.assertRaises(order.proceed)
 
     def test_menu_can_not_have_twice_the_same_item(self):
+
+        # trying to add fanta twice
         self.assertRaises(MenuItem.objects.create, name="fanta", price=2.5, menu=self.m1)
+
+
+    def test_place_order(self):
+        all_open_orders = services.get_open_orders(self.speyker)
+
+        # starting with no orders
+        self.assertEquals(len(all_open_orders), 0)
+
+        order = place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
+
+        all_open_orders = services.get_open_orders(self.speyker)
+        self.assertEquals(len(all_open_orders), 1)
+
+        self.assertEquals(len(all_open_orders[0].ordermenuitem_set.all()), 2)
+
 
 
 
