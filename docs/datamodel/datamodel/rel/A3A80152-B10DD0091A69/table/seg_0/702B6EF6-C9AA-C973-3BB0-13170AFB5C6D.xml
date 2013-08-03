@@ -65,6 +65,18 @@
 <colUsage columnID="F64498CF-AC80-7357-1728-9E8981C5920D"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="361B99E3-21E6-6830-93B7-3D0D763BA3D9" name="menuitem__UN">
+<createdBy>ward</createdBy>
+<createdTime>2013-08-03 17:27:19 UTC</createdTime>
+<notes>name has to unique in one menu</notes>
+<ownerDesignName>datamodel</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1F8E09E3-A975-916E-8493-92A19FF8EAEB"/>
+<colUsage columnID="DDE05DFD-9F0D-923C-736C-3FC7A23BAB30"/>
+</indexColumnUsage>
+</ind_PK_UK>
 <ind_PK_UK id="A2572F02-936D-AB43-2EBC-1418161A14F7" name="MenuItem_Menu_FK">
 <createdBy>ward</createdBy>
 <createdTime>2013-07-21 11:23:48 UTC</createdTime>

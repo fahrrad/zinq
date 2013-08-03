@@ -1,14 +1,14 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <oracle.dbtools.crest.model.design.logical.LogicalDesign>
+   <object objectType="Entity" objectID="C17B1DB4-4D5D-375F-FD75-3A8B707B7D4E" name="Translation" seqName="seg_0"/>
    <object objectType="Entity" objectID="C72D51A0-09CE-7E24-208A-5FE3A637F08E" name="Language" seqName="seg_0"/>
+   <object objectType="Entity" objectID="D1AB9D65-026A-35AD-84A3-913467BDB1C7" name="table" seqName="seg_0"/>
+   <object objectType="Entity" objectID="6A6A1981-EBB3-B466-2DFE-30C38E1B9359" name="place" seqName="seg_0"/>
    <object objectType="Entity" objectID="1C342841-BD8A-820A-2BDE-0D8B6AEAA125" name="Menu" seqName="seg_0"/>
    <object objectType="Entity" objectID="DF3D6EF6-E2DD-9086-8D84-0370BC16D77C" name="MenuItem" seqName="seg_0"/>
-   <object objectType="Entity" objectID="C17B1DB4-4D5D-375F-FD75-3A8B707B7D4E" name="Translation" seqName="seg_0"/>
-   <object objectType="Entity" objectID="6A6A1981-EBB3-B466-2DFE-30C38E1B9359" name="place" seqName="seg_0"/>
-   <object objectType="Entity" objectID="D1AB9D65-026A-35AD-84A3-913467BDB1C7" name="table" seqName="seg_0"/>
    <object objectType="Relation" objectID="F62A6ED6-EB8C-6C28-96E0-051EDCB7D55D" name="MenuItem_Menu_FK" seqName="seg_0"/>
-   <object objectType="Relation" objectID="C0D700B0-C903-49BE-FC31-F28C1FE1F893" name="Translation_Language_FK" seqName="seg_0"/>
    <object objectType="Relation" objectID="B2CB4886-046A-91E5-0C8E-C5A23FB92770" name="Translation_MenuItem_FK" seqName="seg_0"/>
-   <object objectType="Relation" objectID="4F329E2F-C066-226F-707E-15956941148F" name="place_Menu_FK" seqName="seg_0"/>
+   <object objectType="Relation" objectID="C0D700B0-C903-49BE-FC31-F28C1FE1F893" name="Translation_Language_FK" seqName="seg_0"/>
    <object objectType="Relation" objectID="BA79EE5A-F2BA-BAA0-CF3F-AFEB3E8575EB" name="table_place_FK" seqName="seg_0"/>
+   <object objectType="Relation" objectID="4F329E2F-C066-226F-707E-15956941148F" name="place_Menu_FK" seqName="seg_0"/>
 </oracle.dbtools.crest.model.design.logical.LogicalDesign>
