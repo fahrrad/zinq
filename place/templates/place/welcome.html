@@ -1,11 +1,18 @@
 {%  extends "place/base.html" %}
 {% load staticfiles %}
 
+{% block scripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{% static "js/scripts.js" %}"></script>
+{% endblock %}
+
 {%  block title %}
     Welcome!
 {% endblock %}
 
 {% block content %}
+
+    <h1>Lorem blablah</h1>
 
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id mauris sed erat ultricies euismod. Donec feugiat
     aliquam magna, in luctus mauris pulvinar id. Nulla fringilla augue a nibh tincidunt ornare. Donec eget semper
@@ -39,5 +46,7 @@
     pellentesque ipsum iaculis at. Cras sit amet fringilla risus, vitae laoreet sem. Suspendisse eu mattis velit.
     Maecenas vitae laoreet nunc, laoreet tincidunt lectus. Phasellus interdum quis velit a condimentum. Nullam luctus
     tempor tempor.</p>
+
+    <
 
 {% endblock %}
