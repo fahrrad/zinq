@@ -25,14 +25,24 @@
             <th scope="col">
                 price
             </th>
+            <th scope="col">
+                amount
+            </th>
+            <th scope="col">
+
+            </th>
+            <th scope="col">
+
+            </th>
         </tr>
 
 {% for menuitem in menu.menuitem_set.all %}
     <tr>
         <td class="menuitem">{{ menuitem.name }}</td>
-        <td class="f">{{ menuitem.price }}
-            <input class="amount" type="text" name="{{ menuitem.name }}_amount" maxlength="2" value="0"/>
-            <button class="add_button">+</button><button class="decr_button">-</button></td>
+        <td class="f">{{ menuitem.price }} </td>
+        <td class="amount"><input class="amount" type="text" name="{{ menuitem.name }}_amount" maxlength="2" value="0"/> </td>
+        <td class="button"><button class="add_button">+</button></td>
+        <td class="button"><button class="decr_button">-</button></td>
 
     </tr>
 {% endfor   %}
