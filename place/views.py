@@ -27,18 +27,26 @@ def menu(request, table_uuid):
         # Loop over items in the order, and ad them to a temp collection
         item_name_amount = []
         for key, amount in request.POST.items():
-            if str(key).__contains__("_amount") and int(amount) > 0:
-                item_name = string.replace(key, "_amount", "")
-                logger.info("key " + item_name)
-                logger.info("amount " + amount)
-                item_name_amount.append((item_name, amount))
+
+            # only keys that end in _amount should have a numeric value
+            if string.find(key, "_amount") > -1:
+                amount = int(amount)
+                if amount > 0:
+                    item_name = string.replace(key, "_amount", "")
+
+                    logger.info("key " + item_name)
+                    logger.info("amount %d" % amount)
+
+                    item_name_amount.append((item_name, amount))
 
         # place the order
         order = place_order(item_name_amount, table_uuid)
+        logger.info("saved an order")
 
         return HttpResponseRedirect("/menu/" + table_uuid)
 
     else:
+        logger.info("menu requested for table %s", table_uuid)
         try:
             table = Table.objects.get(uuid=table_uuid)
             place = table.place

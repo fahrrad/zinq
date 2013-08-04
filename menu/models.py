@@ -84,7 +84,7 @@ class Order(models.Model):
         price to the total
         """
 
-        price = Decimal(amount) * menuItem.price
+        price = amount * menuItem.price
 
         orderMenuItem = OrderMenuItem(menuItem=menuItem, order=self,
                                       amount=amount, price=price)
@@ -92,7 +92,7 @@ class Order(models.Model):
         orderMenuItem.save()
 
     def calculate_total_price(self):
-        total = Decimal(0)
+        total = Decimal('0')
 
         for orderMenuItem in OrderMenuItem.objects.filter(order=self).all():
             total += orderMenuItem.price

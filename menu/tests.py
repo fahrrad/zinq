@@ -86,13 +86,12 @@ class MenuTest(TestCase):
 
         self.assertEquals(len(found_menu.menuitem_set.all()), 2 )
 
-
     def test_add_items_to_a_menu(self):
         # the setup-created menu
         m1 = Menu.objects.get(name="menu_test")
 
-        self.assertAlmostEquals(m1.menuitem_set.get(name="fanta").price, Decimal(2.5) )
-        self.assertAlmostEquals(m1.menuitem_set.get(name="cola").price, Decimal(1.85) )
+        self.assertEquals(m1.menuitem_set.get(name="fanta").price, Decimal('2.5'))
+        self.assertEquals(m1.menuitem_set.get(name="cola").price, Decimal('1.85'))
         # start with 2 items
         self.assertEquals(len(m1.menuitem_set.all()), 2)
 
@@ -114,7 +113,7 @@ class MenuTest(TestCase):
 
         # When comparing with equals, the decimals are converted into floats
         # i guess.
-        self.assertAlmostEqual(order.calculate_total_price(), Decimal(3.7))
+        self.assertEqual(order.calculate_total_price(), Decimal('3.7'))
 
     def test_more_elaborate_order(self):
 
@@ -124,7 +123,7 @@ class MenuTest(TestCase):
         order.addItem(self.m1.menuitem_set.get(name="cola"), 3)
         order.addItem(self.m1.menuitem_set.get(name="fanta"), 1)
 
-        self.assertAlmostEqual(order.calculate_total_price(), Decimal(8.05))
+        self.assertEqual(order.calculate_total_price(), Decimal('8.05'))
         self.assertEquals(len(order.menuItems.all()), 2)
 
         # get the menuitem count
@@ -167,6 +166,12 @@ class MenuTest(TestCase):
         self.assertEquals(len(all_open_orders), 1)
 
         self.assertEquals(len(all_open_orders[0].ordermenuitem_set.all()), 2)
+
+    def test_place_order_price(self):
+
+        order = place_order([('fanta', 2), ('cola', 1)], self.t1.pk)
+        self.assertEqual(order.calculate_total_price(), Decimal('6.85'))
+
 
 
 
