@@ -5,6 +5,7 @@ from place.models import Place, Table
 from menu.models import Menu, MenuItem, Order, OrderMenuItem
 import logging
 import string
+from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +14,8 @@ def welcome(request):
     return render(request, "place/welcome.html")
 
 
+# needed because
+@csrf_exempt
 def menu(request, table_uuid):
     """Typically called from a mobile device when scanning a qr code.
      The second parameter is the unique place identifier. This corresponds to a
@@ -61,6 +64,19 @@ def menu(request, table_uuid):
 def landing(request):
     return render(request, 'landing.html')
 
+
+def orders(request, place_pk):
+    """list all the orders for a given place"""
+
+    # try get place
+    try:
+        place = Place.objects.get(pk=place_pk)
+    except:
+        return render(request, "place/error.html", {'error_msg': "No place found with id %s!" % place_pk})
+
+    orders = place.get_orders()
+
+    return render(request, "place/orders.html", {'orders': orders})
 
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 from uuid import uuid4
-
+import menu
 
 class Place(models.Model):
     name = models.CharField(max_length=255)
@@ -11,9 +11,14 @@ class Place(models.Model):
     def __unicode__(self):
         return self.name
 
+    # Get all orders for this place
+    def get_orders(self):
+        return list(menu.models.Order.objects.filter(table__place=self).all())
+
+
 class Table(models.Model):
     # uuid to map to this table
-    uuid = models.CharField(max_length=32, default=lambda : uuid4().hex, 
+    uuid = models.CharField(max_length=32, default=lambda: uuid4().hex,
                             primary_key=True)
 
     # place specific identification of tables

@@ -1,0 +1,16 @@
+{% extends "place/base.html" %}
+
+{% block content %}
+    {% for order in orders %}
+       <p>{{ order.table.pk }}</p>
+        <ul>
+        {% for menuItem in order.menuItems.all %}
+            <li>{{ menuItem.name }} </li>
+        {% endfor %}
+        <button class="delete">delete</button>
+        </ul>
+    {% empty %}
+        No Orders, go smoke a sigaret
+    {% endfor %}
+
+{% endblock %}

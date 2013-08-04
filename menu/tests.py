@@ -10,8 +10,11 @@ from menu import services
 from menu.models import MenuItem, Menu, Order, OrderMenuItem
 from menu.services import place_order
 from place.models import Place, Table
-from decimal import  Decimal
-from place import models as place_models
+from decimal import Decimal
+
+# integration testing
+from django.test.client import Client
+
 
 class MenuTest(TestCase):
     """ Simple tests on the MenuItem object, and there menu group """
@@ -41,17 +44,14 @@ class MenuTest(TestCase):
         a_tems = MenuItem.objects.filter(name__contains='a', menu=self.m1)
         self.assertEquals(len(a_tems), 2)
 
-
     def test_menu_item(self):
         # two items are created
         self.assertEquals(len(MenuItem.objects.filter(menu=self.m1)), 2)
-
 
     def test_find_cola(self):
         # find back cola
         cola = MenuItem.objects.get(name="cola", menu=self.m1)
         self.assertTrue(cola)
-
 
     def test_no_more_fristi(self):
         # do not find fristi
@@ -73,7 +73,7 @@ class MenuTest(TestCase):
 
 
         # menuItems
-        duvel = MenuItem(name="Duvel", price=3.8, menu=menu)
+        duvel = MenuItem(name="Duvel", price=3.8, menu=menu);
         duvel.save()
 
         vedet = MenuItem(name="Vedet", price=2.5, menu=menu)
@@ -101,7 +101,6 @@ class MenuTest(TestCase):
         found_menu = Menu.objects.get(pk=1)
 
         self.assertEquals(len(m1.menuitem_set.all()), 3)
-
 
     def test_create_an_order(self):
         cola = self.t1.get_menu().menuitem_set.get(name='cola')
@@ -153,7 +152,6 @@ class MenuTest(TestCase):
         # trying to add fanta twice
         self.assertRaises(MenuItem.objects.create, name="fanta", price=2.5, menu=self.m1)
 
-
     def test_place_order(self):
         all_open_orders = services.get_open_orders(self.speyker)
 
@@ -173,6 +171,29 @@ class MenuTest(TestCase):
         self.assertEqual(order.calculate_total_price(), Decimal('6.85'))
 
 
+    def test_posting_an_order(self):
+        table_pk = 'f64f609e75bd4afbbc18cf7f29fcafde'
+
+        c = Client()
+
+        # Een colaatje astublief
+        response = c.post("/menu/%s/" % table_pk, {'cola_amount': '3'})
+
+        print response.status_code
+
+        print response.content
+
+        # find the order in the database
+        orders = Order.objects.filter(table__pk=table_pk).all()
+        self.assertEquals(len(orders), 1)
+
+    def test_getting_all_orders_for_speyker(self):
+        Order.objects.create(table=self.t2)
+
+        orders = self.speyker.get_orders()
+
+        self.assertEquals(len(orders), 1)
+        self.assertEquals(orders[0].table, self.t2 )
 
 
 

@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from place.views import welcome, menu, landing
+from place.views import welcome, menu, landing, orders
 from rest_framework import viewsets, routers
 from menu.models import Order, Menu, MenuItem
 
@@ -38,6 +38,8 @@ urlpatterns = patterns('',
     url(r'^menu/(\w{4,32})/$', menu),
     url(r'^$', landing),
 
+    # view orders
+    url(r'orders/(\w{1,5})', orders),
 
     # Rest
     url(r'^rest/', include(router.urls)),
