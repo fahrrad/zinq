@@ -7,15 +7,18 @@
  */
 
 
-function delete_order(this_button, order_id){
+function delete_order(this_button){
+    var order_id = $(this_button).closest("div").find("div.id").text()
     $.ajax({
-        url: "/rest/orders/" + order_id,
-        type: "DELETE"
+        url: "/rest/orders/delete/" + order_id + "/",
+        type: "GET"
      }).done(function(){
-            this_button.closest("tr").hide()
+            $(this_button).closest("div").hide()
         });
+
+    return false;
 };
 
 $(document).ready(function(){
-    $("button.delete").click(function(){return delete_order(this);});
+    $("button.delete").click(function(){return delete_order(this, 1);});
 })

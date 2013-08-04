@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from menu.services import place_order
 from place.models import Place, Table
 from menu.models import Menu, MenuItem, Order, OrderMenuItem
@@ -64,6 +64,17 @@ def menu(request, table_uuid):
 def landing(request):
     return render(request, 'landing.html')
 
+
+def rm_order(request, order_id):
+    try:
+        Order.objects.get(pk=order_id).delete()
+    except Exception as e:
+        logger.error(e)
+        return render(request, "place/error.html", {"error_msg" : e})
+
+    logger.info('Order id %s is deleted' % order_id)
+
+    return HttpResponse("Order %s deleted" % order_id)
 
 def orders(request, place_pk):
     """list all the orders for a given place"""
