@@ -193,7 +193,29 @@ class MenuTest(TestCase):
         orders = self.speyker.get_orders()
 
         self.assertEquals(len(orders), 1)
-        self.assertEquals(orders[0].table, self.t2 )
+        self.assertEquals(orders[0].table, self.t2)
+
+
+    def test_place_order_get_ordered_items(self):
+        order = place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
+
+        all_open_orders = services.get_open_orders(self.speyker)
+        self.assertEquals(len(all_open_orders), 1)
+
+        menuitems_amounts = all_open_orders[0].get_menuitems_amounts();
+
+
+        for item, amount in menuitems_amounts:
+            if item == "fanta":
+                self.assertEquals(amount, 2)
+
+            elif item == "cola":
+                self.assertEquals(amount, 1)
+
+            else:
+                raise Exception("only cola and fanta!!")
+
+
 
 
 

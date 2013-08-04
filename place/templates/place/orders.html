@@ -8,11 +8,11 @@
 
 {% block content %}
     {% for order in orders %}
-       <div class="order_table">{{ order.table.pk }}
+       <div class="order_table"><p>Table number {{ order.table.table_nr }}</p>
        <div class="hidden id">{{ order.pk }}</div>
             <ul>
-            {% for menuItem in order.menuItems.all %}
-                <li>{{ menuItem.name }} </li>
+            {% for name, amount in order.get_menuitems_amounts %}
+                <li>  {{ amount }} x {{ name }} </li>
 
             {% endfor %}
             <button class="delete">delete</button>

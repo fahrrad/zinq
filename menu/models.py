@@ -110,6 +110,17 @@ class Order(models.Model):
             raise Exception('Cannot proceed. Item is payed')
 
 
+    def get_menuitems_amounts(self):
+        """returns a list of tuples, containing the menuitem name, and the ordered amount"""
+
+        menuitems_amounts = []
+        for ordermenuitem in self.ordermenuitem_set.all():
+            menuitems_amounts.append((ordermenuitem.menuItem.name,
+                                        ordermenuitem.amount))
+
+        return menuitems_amounts
+
+
 
 
 

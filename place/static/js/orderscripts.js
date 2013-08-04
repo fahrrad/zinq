@@ -13,12 +13,12 @@ function delete_order(this_button){
         url: "/rest/orders/delete/" + order_id + "/",
         type: "GET"
      }).done(function(){
-            $(this_button).closest("div").hide()
+            $(this_button).closest("div").slideUp()
         });
 
     return false;
 };
 
 $(document).ready(function(){
-    $("button.delete").click(function(){return delete_order(this, 1);});
+    $("button.delete").click(function(){return delete_order(this);});
 })
