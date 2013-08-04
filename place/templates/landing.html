@@ -1,15 +1,32 @@
 {% extends "place/base.html" %}
 {% load static %}
 
+{% block stylesheets %}
+<style type="text/css" >
+    body {
+        background-color: wheat;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 
 <h1>Landing page</h1>
 <h3>some links</h3>
 <ul>
-<li><a href="{% url "place.views.menu" 123456 %}">invalid menu</a></li>
-<li><a href="{% url "place.views.menu" "f64f609e75bd4afbbc18cf7f29fcafde" %}">valid menu</a></li>
+    <li><a href="{% url "place.views.menu" "123456" %}">
+        invalid menu
+    </a></li>
+    <li><a href="{% url "place.views.menu" "f64f609e75bd4afbbc18cf7f29fcafde" %}">
+        menu for speyker
+    </a></li>
+    <li><a href="{%  url "place.views.orders" 1 %}" >
+        orders for speyker
+    </a></li>
+
+    <!-- ready made stuff -->
     <li><a href="rest/" >rest methods</a></li>
-<li><a href="admin">admin page </a></li>
+    <li><a href="admin">admin page </a></li>
 
 </ul>
 {% endblock %}
