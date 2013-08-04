@@ -3,12 +3,14 @@ from place.models import Place, Table
 
 from decimal import Decimal
 
+
 class Menu(models.Model):
     """ An aggregate of MenuItems. """
     name = models.CharField(max_length=255, blank=False)
 
     def __unicode__(self):
         return self.name
+
 
 class MenuItem(models.Model):
     """ A single item on a menu"""
@@ -23,7 +25,8 @@ class MenuItem(models.Model):
 
     class Meta:
         # no menu can contain the same menuitem twice!
-        unique_together =  ("menu", "name")
+        unique_together = ("menu", "name")
+
 
 class OrderMenuItem(models.Model):
     """ Many to Many mapping table that maps between an order and the menu items that are stored on it.
@@ -42,8 +45,6 @@ class OrderMenuItem(models.Model):
     menuItem = models.ForeignKey(MenuItem)
     # need a string because the Order model is not yet defined here
     order = models.ForeignKey("Order")
-
-
 
 
 class Order(models.Model):
@@ -77,7 +78,6 @@ class Order(models.Model):
     # self.get_status_display()
     status = models.CharField(max_length=2, choices=ORDER_STATUSES,
                               default=ORDERED)
-
 
     def addItem(self, menuItem, amount):
         """ add amount menuitems to the order. Will also add the total
