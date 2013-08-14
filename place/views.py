@@ -14,7 +14,7 @@ def welcome(request):
     return render(request, "place/welcome.html")
 
 
-# needed because
+# needed because cannot use curl
 @csrf_exempt
 def menu(request, table_uuid):
     """Typically called from a mobile device when scanning a qr code.
