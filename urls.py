@@ -34,6 +34,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
+
     url(r'^welcome/$', welcome),
     url(r'^menu/(\w{4,32})/$', menu),
     url(r'^$', landing),
