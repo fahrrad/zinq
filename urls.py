@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from place.views import welcome, menu, landing, orders, rm_order
+from place.views import welcome, menu, landing, orders, rm_order, wait
 from rest_framework import viewsets, routers
 from menu.models import Order, Menu, MenuItem
 
@@ -43,9 +43,11 @@ urlpatterns = patterns('',
     url(r'^orders/(\w{1,5})/$', orders),
 
     # Rest
-    url(r'^rest/orders/delete/(\w{1,5})/$', rm_order),
+    url(r'^rest/orders/delete/(\w{4,32})/$', rm_order),
 
     url(r'^rest/', include(router.urls)),
     url(r'^rest/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^wait/(\w{4,32})/$', wait)
                        
 )

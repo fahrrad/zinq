@@ -1,0 +1,26 @@
+{% extends "place/base.html" %}
+{% load bootstrap_toolkit %}
+{% load static %}
+
+{% block stylesheets %}
+
+<link href="{% static "css/stylesheet.css" %}" type="text/css" rel="stylesheet">
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{% static "js/waitscript.js" %}" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+<div class="span4"></div>
+<div class="span4" id="waitstate">
+Thnx for the order!
+</div>
+<div class="span4"></div>
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
+
 import menu
 
 class Place(models.Model):
@@ -17,7 +18,8 @@ class Place(models.Model):
 
     # Get all orders for this place
     def get_orders(self):
-        return list(menu.models.Order.objects.filter(table__place=self).all())
+        return list(menu.models.Order.objects.filter(table__place=self,
+                                                     status=menu.models.Order.ORDERED).all())
 
 
 class Table(models.Model):

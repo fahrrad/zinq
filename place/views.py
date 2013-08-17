@@ -6,6 +6,7 @@ from menu.models import Menu, MenuItem, Order, OrderMenuItem
 import logging
 import string
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +47,8 @@ def menu(request, table_uuid):
         order = place_order(item_name_amount, table_uuid)
         logger.info("saved an order")
 
-        return HttpResponseRedirect("/menu/" + table_uuid)
+        # ok, order is place, please wait now!
+        return HttpResponseRedirect("/wait/" + str(order.pk))
 
     else:
         logger.info("menu requested for table %s", table_uuid)
@@ -67,7 +69,10 @@ def landing(request):
 
 def rm_order(request, order_id):
     try:
-        Order.objects.get(pk=order_id).delete()
+        order = Order.objects.get(pk=order_id)
+        order.status = Order.DONE
+        order.save()
+
     except Exception as e:
         logger.error(e)
         return render(request, "place/error.html", {"error_msg" : e})
@@ -89,5 +94,30 @@ def orders(request, place_pk):
 
     return render(request, "place/orders.html", {'orders': orders})
 
+
+def wait(request, order_uuid):
+    logger.debug("request type " + str(request.encoding))
+    logger.debug("is ajax: " + str(request.is_ajax()))
+    logger.debug("request.META.CONTENT_TYPE " + str(request.META["HTTP_ACCEPT"]))
+
+    if request.META["HTTP_ACCEPT"].split(',')[0] == "application/json":
+        response_data = dict()
+
+        # lookup the order in the database
+        status = Order.objects.get(pk=order_uuid).get_status_display()
+
+        response_data['state'] = status
+        response_data['next_check'] = 10
+
+
+        return_json = json.dumps(response_data)
+        logger.debug(return_json)
+
+
+        return HttpResponse(return_json, content_type="application/json")
+
+
+
+    return render(request, "place/waiting.html")
 
 
