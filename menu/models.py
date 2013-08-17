@@ -1,5 +1,6 @@
 from django.db import models
 from place.models import Place, Table
+from uuid import uuid4
 
 from decimal import Decimal
 
@@ -68,6 +69,9 @@ class Order(models.Model):
         (DONE, 'Done'),
         (PAYED, 'Payed'),
     )
+    # generated pk
+    uuid = models.CharField(max_length=32, default=lambda: uuid4().hex,
+                            primary_key=True)
 
     # the table that ordered
     table = models.ForeignKey(Table)
