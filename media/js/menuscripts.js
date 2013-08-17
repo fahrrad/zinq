@@ -12,6 +12,8 @@ function add_button(button){
     var input = $(button).closest("tr").find("input.amount");
     var old_val = parseInt(input.val());
 
+    old_val = isNaN(old_val) ? 0 : old_val
+
     input.val(old_val+1);
 
 
@@ -22,8 +24,10 @@ function add_button(button){
 // subtract 1 from the amount textbox under the same tablerow as the button that was just clicked
 function decr_button(button){
     var input = $(button).closest("tr").find("input.amount");
-    var old_val = parseInt(input.val());
-    var new_val = old_val > 0 ? old_val - 1 : old_val;
+
+    var old_val = parseInt(input.val()) - 1;
+
+    var new_val = old_val < 0 || isNaN(old_val) ? 0 : old_val;
 
     input.val(new_val);
 
