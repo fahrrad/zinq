@@ -4,6 +4,7 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
+import logging
 
 from django.test import TestCase
 from menu import services
@@ -14,6 +15,8 @@ from decimal import Decimal
 
 # integration testing
 from django.test.client import Client
+
+logger = logging.getLogger(__name__)
 
 
 class MenuTest(TestCase):
@@ -214,6 +217,34 @@ class MenuTest(TestCase):
 
             else:
                 raise Exception("only cola and fanta!!")
+
+
+    def test_ordered_status(self):
+        import json
+        order = place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
+
+        c = Client()
+        response = c.get("/wait/" + str(order.pk) + "/",
+                         {}, False,
+                         HTTP_ACCEPT="application/json",
+                         HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        response = json.loads(response.content)
+        self.assertEquals(Order.ORDERED, response['status_code'])
+        self.assertTrue(response['check_next'])
+
+        order.status = Order.DONE
+        order.save()
+
+        # response should contain
+        response = c.get("/wait/" + str(order.pk) + "/",
+                         {}, False,
+                         HTTP_ACCEPT="application/json",
+                         HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        response = json.loads(response.content)
+        self.assertEquals(Order.DONE, response['status_code'])
+        self.assertFalse(response['check_next'])
 
 
 
