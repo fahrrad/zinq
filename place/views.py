@@ -8,6 +8,9 @@ import string
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+from django.core import urlresolvers
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -85,6 +88,8 @@ def orders(request, place_pk):
     """list all the orders for a given place"""
 
     # try get place
+
+
     try:
         place = Place.objects.get(pk=place_pk)
     except:
@@ -96,10 +101,10 @@ def orders(request, place_pk):
 
 
 def wait(request, order_uuid):
-    logger.debug("request type " + str(request.encoding))
-    logger.debug("is ajax: " + str(request.is_ajax()))
-    logger.debug("request.META.CONTENT_TYPE " + str(request.META["HTTP_ACCEPT"]))
-
+    """returns the view where the drinker is asked to wait.
+     This view returns a rendered view when HTTP_ACCEPT is not json, and a status
+     code if json is requested.
+    """
     if request.META["HTTP_ACCEPT"].split(',')[0] == "application/json":
         response_data = dict()
 
@@ -109,6 +114,7 @@ def wait(request, order_uuid):
         status_code = order.status
 
         response_data['status_display'] = status_display
+        response_data['status_code'] = status_code
 
         # should I check again
         check_next = status_code != Order.DONE
@@ -129,3 +135,24 @@ def wait(request, order_uuid):
     return render(request, "place/waiting.html")
 
 
+def qr_codes(request, place_id):
+    """Renders a view containing a QR code for every table in the place!"""
+    host_prefix = "http://192.168.0.227:8000/menu/"
+
+
+    place = Place.objects.get(pk=int(place_id))
+    table_qr_list = [host_prefix + x.pk + "/" for x in place.table_set.all()]
+
+    return render(request, "place/qr_codes.html", {'table_qr_list': table_qr_list,
+                                                   'place_name': place.name})
+
+
+def MENU(request, table_uuid):
+    """ QR codes can be encoded more efficiently when they only contain capitals.
+     To make it a bit easier on the eyes, I will make them lowercase here, and then
+     call our normal menu function
+
+     see http://code.google.com/p/zxing/wiki/BarcodeContents
+    """
+    url = urlresolvers.reverse("place.views.menu", args=(table_uuid.lower(),))
+    return HttpResponseRedirect(url )

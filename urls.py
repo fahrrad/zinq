@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from place.views import welcome, menu, landing, orders, rm_order, wait
+from place.views import welcome, menu, landing, orders, rm_order, wait, qr_codes
 from rest_framework import viewsets, routers
 from menu.models import Order, Menu, MenuItem
 
@@ -37,6 +37,7 @@ urlpatterns = patterns('',
 
     url(r'^welcome/$', welcome),
     url(r'^menu/(\w{4,32})/$', menu),
+    url(r'^MENU/(\w{4,32})/$', "place.views.MENU"),
     url(r'^$', landing),
 
     # view orders
@@ -48,6 +49,8 @@ urlpatterns = patterns('',
     url(r'^rest/', include(router.urls)),
     url(r'^rest/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^wait/(\w{4,32})/$', wait)
+    url(r'^wait/(\w{4,32})/$', wait),
+
+    url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
                        
 )
