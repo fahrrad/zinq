@@ -104,15 +104,23 @@ def wait(request, order_uuid):
         response_data = dict()
 
         # lookup the order in the database
-        status = Order.objects.get(pk=order_uuid).get_status_display()
+        order = Order.objects.get(pk=order_uuid)
+        status_display = order.get_status_display()
+        status_code = order.status
 
-        response_data['state'] = status
-        response_data['next_check'] = 10
+        response_data['status_display'] = status_display
 
+        # should I check again
+        check_next = status_code != Order.DONE
+
+        # how long should I wait for next check
+        next_check_timeout = 2000
+
+        response_data['next_check_timeout'] = next_check_timeout
+        response_data['check_next'] = check_next
 
         return_json = json.dumps(response_data)
         logger.debug(return_json)
-
 
         return HttpResponse(return_json, content_type="application/json")
 
