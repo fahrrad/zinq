@@ -1,11 +1,16 @@
-import os, sys
+import os
+import sys
 
 
 # ===========================
 # = Directory Declaractions =
 # ===========================
 
-PROJECT_PATH 		= os.path.dirname(os.path.abspath(__file__))
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+
+# this url will be prepended to all the menu urls where
+# QR codes for are generated
+MENU_URL = "HTTP://192.168.0.227/MENU/"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
