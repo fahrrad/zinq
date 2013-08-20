@@ -18,6 +18,17 @@ def welcome(request):
     return render(request, "place/welcome.html")
 
 
+def MENU(request, table_uuid):
+    """ QR codes can be encoded more efficiently when they only contain capitals.
+     To make it a bit easier on the eyes, I will make them lowercase here, and then
+     call our normal menu function
+
+     see http://code.google.com/p/zxing/wiki/BarcodeContents
+    """
+    url = urlresolvers.reverse("place.views.menu", args=(table_uuid.lower(),))
+    return HttpResponseRedirect(url)
+
+
 # needed because cannot use curl
 @csrf_exempt
 def menu(request, table_uuid):
@@ -25,7 +36,6 @@ def menu(request, table_uuid):
      The second parameter is the unique place identifier. This corresponds to a
      table, and uniquely identifies a menu
     """
-
     if request.POST:
         # Got an order!!
         logger.info("order!")
@@ -54,15 +64,18 @@ def menu(request, table_uuid):
         return HttpResponseRedirect("/wait/" + str(order.pk))
 
     else:
-        logger.info("menu requested for table %s", table_uuid)
+        logger.debug("menu requested for table %s", table_uuid)
         try:
             table = Table.objects.get(uuid=table_uuid)
             place = table.place
             menu = table.get_menu()
+
         except:
             return render(request, "place/error.html", {'error_msg': "No table found with id %s!" % table_uuid})
 
-        return render(request, "place/menu.html", {'menu': menu,
+        else:
+            # render the template
+            return render(request, "place/menu.html", {'menu': menu,
                                                    'place': place})
 
 
@@ -84,20 +97,34 @@ def rm_order(request, order_id):
 
     return HttpResponse("Order %s deleted" % order_id)
 
+
 def orders(request, place_pk):
     """list all the orders for a given place"""
 
     # try get place
-
-
     try:
         place = Place.objects.get(pk=place_pk)
+        orders = place.get_orders()
+
     except:
         return render(request, "place/error.html", {'error_msg': "No place found with id %s!" % place_pk})
 
-    orders = place.get_orders()
+            # check if the request is coming from an ajax call (The refresh code on the page)
+    if 'application/json' in request.META['HTTP_ACCEPT'].split(','):
+        return_values = dict()
+        # interval to wait for next request
+        return_values['interval'] = 2000
+        return_values['orders'] = dict()
 
-    return render(request, "place/orders.html", {'orders': orders})
+        for order in orders:
+            return_values['orders'][order.pk] = dict()
+            return_values['orders'][order.pk]['table_nr'] = order.table.table_nr
+            return_values['orders'][order.pk]['item_amounts'] = order.get_menuitems_amounts()
+
+        # just return the data
+        return HttpResponse(json.dumps(return_values), content_type='application/json')
+    else:
+        return render(request, "place/orders.html", {'orders': orders})
 
 
 def wait(request, order_uuid):
@@ -145,14 +172,3 @@ def qr_codes(request, place_id):
 
     return render(request, "place/qr_codes.html", {'table_qr_list': table_qr_list,
                                                    'place_name': place.name})
-
-
-def MENU(request, table_uuid):
-    """ QR codes can be encoded more efficiently when they only contain capitals.
-     To make it a bit easier on the eyes, I will make them lowercase here, and then
-     call our normal menu function
-
-     see http://code.google.com/p/zxing/wiki/BarcodeContents
-    """
-    url = urlresolvers.reverse("place.views.menu", args=(table_uuid.lower(),))
-    return HttpResponseRedirect(url )

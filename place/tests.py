@@ -4,11 +4,14 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
+import json
+import logging
 
-from django.test import TestCase
+from django.test import TestCase, Client
 from models import Place, Table
-from menu.models import Menu, MenuItem
+from menu.models import Menu, MenuItem, Order
 
+logger = logging.getLogger(__name__)
 
 class SimpleTest(TestCase):
     def setUp(self):
@@ -33,10 +36,10 @@ class SimpleTest(TestCase):
 
 
         # tables
-        Table.objects.create(place=self.dambert)
-        Table.objects.create(place=self.dambert)
-        Table.objects.create(place=self.dambert)
-        Table.objects.create(place=self.dambert)
+        Table.objects.create(place=self.dambert, table_nr=1)
+        Table.objects.create(place=self.dambert, table_nr=2)
+        Table.objects.create(place=self.dambert, table_nr=3)
+        Table.objects.create(place=self.dambert, table_nr=4)
 
     def test_finding_tables_for_dambert(self):
 
@@ -71,9 +74,48 @@ class SimpleTest(TestCase):
                           name="some place that copies a menu",
                           menu=self.dambert_menu)
 
+    def test_get_menu(self):
+        c = Client()
 
+        response = c.get('/orders/%s/' % self.dambert.pk,
+                         HTTP_ACCEPT="application/json")
 
+        logger.debug(response.content)
+        self.assertEquals(json.loads(response.content)['interval'], 2000)
 
+        table = self.dambert.table_set.get(table_nr=2)
+        order = Order.objects.create(table=table)
+
+        order.addItem(MenuItem.objects.get(name="duvel"), 2)
+        order.addItem(MenuItem.objects.get(name="fanta"), 3)
+
+        response = c.get('/orders/%s/' % self.dambert.pk,
+                         HTTP_ACCEPT="application/json")
+
+        logger.debug(response.content)
+
+        json_object = json.loads(response.content)
+        self.assertEquals(1, len(json_object['orders']))
+
+        # one key, so we can fetch it
+        key = json_object['orders'].keys()[0]
+        self.assertEquals(key, order.pk)
+
+        # tableNr
+        self.assertEquals(json_object['orders'][key]['table_nr'], u'2')
+
+        # table_nr + items
+        self.assertEquals(len(json_object['orders'][key]), 2)
+
+        # 2 items
+        self.assertEquals(len(json_object['orders'][key]['item_amounts']), 2)
+
+        # 2x duvel, 3x fanta
+        for (item, amount) in json_object['orders'][key]['item_amounts']:
+            if item == "duvel":
+                self.assertEquals(amount, 2)
+            if item == "fanta":
+                self.assertEquals(amount, 3)
 
 
 
