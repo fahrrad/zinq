@@ -218,7 +218,6 @@ class MenuTest(TestCase):
             else:
                 raise Exception("only cola and fanta!!")
 
-
     def test_ordered_status(self):
         import json
         order = place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
