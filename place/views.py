@@ -99,7 +99,31 @@ def rm_order(request, order_id):
 
 
 def orders(request, place_pk):
-    """list all the orders for a given place"""
+    """list all the orders for a given place
+        Results in something like this:
+
+        |-------------------------------------------
+        | interval  = 2000
+        | orders: |---------------------------------
+        |         | pk : |--------------------------
+        |         |      | tableNr
+        |         |      | item_amounts:|-----------
+        |         |      |              | (name, amount)
+        |         |      |              | (name, amount) 
+        |         |      |              |-----------
+        |         |      |--------------------------
+        |         |      
+        |         | pk : |--------------------------
+        |         |      | tableNr
+        |         |      | item_amounts:|-----------
+        |         |      |              | (name, amount)
+        |         |      |              | (name, amount) 
+        |         |      |              |-----------
+        |         |      |--------------------------
+        |         |---------------------------------   
+        |-------------------------------------------
+
+    """
 
     # try get place
     try:
@@ -156,8 +180,6 @@ def wait(request, order_uuid):
         logger.debug(return_json)
 
         return HttpResponse(return_json, content_type="application/json")
-
-
 
     return render(request, "place/waiting.html")
 
