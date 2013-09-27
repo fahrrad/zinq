@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from order.models import Order
 from place.views import welcome, menu, landing, orders, rm_order, wait, qr_codes
 from rest_framework import viewsets, routers
-from menu.models import Order, Menu, MenuItem
+from menu.models import Menu, MenuItem
 
 
 class OrderViewSets(viewsets.ModelViewSet):

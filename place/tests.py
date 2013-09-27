@@ -9,7 +9,8 @@ import logging
 
 from django.test import TestCase, Client
 from models import Place, Table
-from menu.models import Menu, MenuItem, Order
+from menu.models import Menu, MenuItem
+from order.models import Order
 
 logger = logging.getLogger(__name__)
 

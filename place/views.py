@@ -1,14 +1,17 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
-from menu.services import place_order
-from place.models import Place, Table
-from menu.models import Menu, MenuItem, Order, OrderMenuItem
 import logging
 import string
-from django.views.decorators.csrf import csrf_exempt
 import json
 
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core import urlresolvers
+
+from menu.services import place_order
+from order.models import Order
+from place.models import Place, Table
+
+
 
 
 logger = logging.getLogger(__name__)
