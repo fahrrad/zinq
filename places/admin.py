@@ -1,10 +1,10 @@
-from menu.models import Menu
+from menus.models import Menu
 
 __author__ = 'ward'
 
 from django.contrib import admin
 from django.contrib.auth.models import User
-from place.models import Table, Place
+from places.models import Table, Place
 
 
 # only show the tables from places linked to the current user
@@ -30,7 +30,7 @@ class PlaceModelAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
-            if db_field.name == "menu" :
+            if db_field.name == "menus" :
                 kwargs["queryset"] = Menu.objects.filter(place__user=request.user)
         return super(PlaceModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)
@@ -43,7 +43,7 @@ class TableModelAdmin(admin.ModelAdmin):
         return qs.filter(place__user=request.user)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "place":
+        if db_field.name == "places":
             kwargs["queryset"] = Place.objects.filter(user=request.user)
         return super(TableModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)

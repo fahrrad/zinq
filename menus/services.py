@@ -1,4 +1,4 @@
-from menu.models import MenuItem
+from menus.models import MenuItem
 from order.models import Order
 from place.models import Table
 
@@ -16,7 +16,7 @@ def get_open_orders(place):
 # Helper methods
 def place_order(items, table_uuid):
     """
-    Places an order. The first argument is a list of pairs with menu names
+    Places an order. The first argument is a list of pairs with menus names
     """
     table = Table.objects.get(uuid=table_uuid)
     order = Order.objects.create(table=table)

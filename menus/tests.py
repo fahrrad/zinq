@@ -8,9 +8,9 @@ import logging
 from decimal import Decimal
 
 from django.test import TestCase
-from menu import services
-from menu.models import MenuItem, Menu
-from menu.services import place_order
+from menus import services
+from menus.models import MenuItem, Menu
+from menus.services import place_order
 from order.models import Order
 from place.models import Place, Table
 
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 class MenuTest(TestCase):
-    """ Simple tests on the MenuItem object, and there menu group """
+    """ Simple tests on the MenuItem object, and there menus group """
 
     def setUp(self):
         """create some stuff"""
@@ -64,16 +64,16 @@ class MenuTest(TestCase):
         self.assertFalse(fristi)
 
     def test_find_menu(self):
-        # try to find all the menuitems for 1 menu
+        # try to find all the menuitems for 1 menus
         menu = Menu.objects.get(name="menu_test")
 
         self.assertEquals(len(menu.menuitem_set.all()), 2)
 
     def test_find_a_menu_and_find_also_menuitems(self):
-        """ Fetch a menu, and list the menu items  """
+        """ Fetch a menus, and list the menus items  """
 
         # Menu
-        menu = Menu(name="some menu")
+        menu = Menu(name="some menus")
         menu.save()
 
 
@@ -84,7 +84,7 @@ class MenuTest(TestCase):
         vedet = MenuItem(name="Vedet", price=2.5, menu=menu)
         vedet.save()
 
-        found_menu_list = Menu.objects.filter(name="some menu")
+        found_menu_list = Menu.objects.filter(name="some menus")
         self.assertEquals(len(found_menu_list.all()), 1)
 
         found_menu = found_menu_list[0]
@@ -92,7 +92,7 @@ class MenuTest(TestCase):
         self.assertEquals(len(found_menu.menuitem_set.all()), 2 )
 
     def test_add_items_to_a_menu(self):
-        # the setup-created menu
+        # the setup-created menus
         m1 = Menu.objects.get(name="menu_test")
 
         self.assertEquals(m1.menuitem_set.get(name="fanta").price, Decimal('2.5'))

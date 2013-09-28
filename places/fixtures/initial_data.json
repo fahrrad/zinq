@@ -1,33 +1,5 @@
 [
-    {
-        "pk": 1,
-        "model": "contenttypes.contenttype",
-        "fields": {
-            "model": "permission",
-            "name": "permission",
-            "app_label": "auth"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "contenttypes.contenttype",
-        "fields": {
-            "model": "group",
-            "name": "group",
-            "app_label": "auth"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "contenttypes.contenttype",
-        "fields": {
-            "model": "user",
-            "name": "user",
-            "app_label": "auth"
-        }
-    },
-
-    {
+      {
         "pk": "1xhoybktnmgoyuh3a004iwc8g3lbmifc",
         "model": "sessions.session",
         "fields": {
@@ -84,21 +56,21 @@
         "pk": 4,
         "model": "menu.menu",
         "fields": {
-            "name": "default menu"
+            "name": "default menus"
         }
     },
     {
         "pk": 5,
         "model": "menu.menu",
         "fields": {
-            "name": "default menu"
+            "name": "default menus"
         }
     },
     {
         "pk": 6,
         "model": "menu.menu",
         "fields": {
-            "name": "default menu"
+            "name": "default menus"
         }
     },
     {
@@ -367,7 +339,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "add_menu",
-            "name": "Can add menu",
+            "name": "Can add menus",
             "content_type": 7
         }
     },
@@ -376,7 +348,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "change_menu",
-            "name": "Can change menu",
+            "name": "Can change menus",
             "content_type": 7
         }
     },
@@ -385,7 +357,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "delete_menu",
-            "name": "Can delete menu",
+            "name": "Can delete menus",
             "content_type": 7
         }
     },
@@ -394,7 +366,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "add_menuitem",
-            "name": "Can add menu item",
+            "name": "Can add menus item",
             "content_type": 8
         }
     },
@@ -403,7 +375,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "change_menuitem",
-            "name": "Can change menu item",
+            "name": "Can change menus item",
             "content_type": 8
         }
     },
@@ -412,7 +384,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "delete_menuitem",
-            "name": "Can delete menu item",
+            "name": "Can delete menus item",
             "content_type": 8
         }
     },
@@ -421,7 +393,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "add_ordermenuitem",
-            "name": "Can add order menu item",
+            "name": "Can add orders menus item",
             "content_type": 9
         }
     },
@@ -430,7 +402,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "change_ordermenuitem",
-            "name": "Can change order menu item",
+            "name": "Can change orders menus item",
             "content_type": 9
         }
     },
@@ -439,7 +411,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "delete_ordermenuitem",
-            "name": "Can delete order menu item",
+            "name": "Can delete orders menus item",
             "content_type": 9
         }
     },
@@ -448,7 +420,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "add_order",
-            "name": "Can add order",
+            "name": "Can add orders",
             "content_type": 10
         }
     },
@@ -457,7 +429,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "change_order",
-            "name": "Can change order",
+            "name": "Can change orders",
             "content_type": 10
         }
     },
@@ -466,7 +438,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "delete_order",
-            "name": "Can delete order",
+            "name": "Can delete orders",
             "content_type": 10
         }
     },
@@ -475,7 +447,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "add_place",
-            "name": "Can add place",
+            "name": "Can add places",
             "content_type": 11
         }
     },
@@ -484,7 +456,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "change_place",
-            "name": "Can change place",
+            "name": "Can change places",
             "content_type": 11
         }
     },
@@ -493,7 +465,7 @@
         "model": "auth.permission",
         "fields": {
             "codename": "delete_place",
-            "name": "Can delete place",
+            "name": "Can delete places",
             "content_type": 11
         }
     },
@@ -624,7 +596,7 @@
         "model": "place.place",
         "fields": {
             "menu": 4,
-            "name": "cofffee place",
+            "name": "cofffee places",
             "user": 2
         }
     },
@@ -972,7 +944,7 @@
         "fields": {
             "action_flag": 1,
             "action_time": "2013-08-14T21:18:58.408Z",
-            "object_repr": "default menu",
+            "object_repr": "default menus",
             "object_id": "4",
             "change_message": "",
             "user": 1,
@@ -985,7 +957,7 @@
         "fields": {
             "action_flag": 1,
             "action_time": "2013-08-14T21:19:09.532Z",
-            "object_repr": "default menu",
+            "object_repr": "default menus",
             "object_id": "5",
             "change_message": "",
             "user": 1,
@@ -998,7 +970,7 @@
         "fields": {
             "action_flag": 1,
             "action_time": "2013-08-14T21:19:20.834Z",
-            "object_repr": "default menu",
+            "object_repr": "default menus",
             "object_id": "6",
             "change_message": "",
             "user": 1,
@@ -1024,7 +996,7 @@
         "fields": {
             "action_flag": 1,
             "action_time": "2013-08-14T21:22:25.332Z",
-            "object_repr": "cofffee place",
+            "object_repr": "cofffee places",
             "object_id": "4",
             "change_message": "",
             "user": 1,
@@ -1037,7 +1009,7 @@
         "fields": {
             "action_flag": 2,
             "action_time": "2013-08-14T21:23:10.916Z",
-            "object_repr": "cofffee place",
+            "object_repr": "cofffee places",
             "object_id": "4",
             "change_message": "Changed user.",
             "user": 1,
@@ -1050,7 +1022,7 @@
         "fields": {
             "action_flag": 2,
             "action_time": "2013-08-14T21:23:46.022Z",
-            "object_repr": "cofffee place",
+            "object_repr": "cofffee places",
             "object_id": "4",
             "change_message": "Changed user.",
             "user": 1,
@@ -1063,7 +1035,7 @@
         "fields": {
             "action_flag": 1,
             "action_time": "2013-08-14T21:24:06.323Z",
-            "object_repr": "table 1 at cofffee place",
+            "object_repr": "table 1 at cofffee places",
             "object_id": "f4cf03a7180f4c45ab96e8c5066fabbf",
             "change_message": "",
             "user": 2,
@@ -1076,7 +1048,7 @@
         "fields": {
             "action_flag": 1,
             "action_time": "2013-08-14T21:24:34.323Z",
-            "object_repr": "table 2 at cofffee place",
+            "object_repr": "table 2 at cofffee places",
             "object_id": "dedc81ff3f124a2ebd15ea001966af9b",
             "change_message": "",
             "user": 2,
@@ -1089,7 +1061,7 @@
         "fields": {
             "action_flag": 1,
             "action_time": "2013-08-14T21:24:38.925Z",
-            "object_repr": "table 3 at cofffee place",
+            "object_repr": "table 3 at cofffee places",
             "object_id": "726b2bec93d44c15808c0298a17cb4ea",
             "change_message": "",
             "user": 2,

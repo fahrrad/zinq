@@ -7,10 +7,10 @@ Replace this with more appropriate tests for your application.
 from decimal import Decimal
 
 from django.test import TestCase, Client
-from menu import services
-from menu.models import MenuItem, Menu
-from menu.services import place_order
-from order.models import Order, OrderMenuItem
+from menus import services
+from menus.models import MenuItem, Menu
+from menus.services import place_order
+from orders.models import Order, OrderMenuItem
 from place.models import Place, Table
 
 
@@ -110,13 +110,13 @@ class SimpleTest(TestCase):
         c = Client()
 
         # Een colaatje astublief
-        response = c.post("/menu/%s/" % table_pk, {'cola_amount': '3'})
+        response = c.post("/menus/%s/" % table_pk, {'cola_amount': '3'})
 
         print response.status_code
 
         print response.content
 
-        # find the order in the database
+        # find the orders in the database
         orders = Order.objects.filter(table__pk=table_pk).all()
         self.assertEquals(len(orders), 1)
 

@@ -7,9 +7,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core import urlresolvers
 
-from menu.services import place_order
-from order.models import Order
-from place.models import Place, Table
+from menus.services import place_order
+from orders.models import Order
+from places.models import Place, Table
 
 
 
@@ -24,11 +24,11 @@ def welcome(request):
 def MENU(request, table_uuid):
     """ QR codes can be encoded more efficiently when they only contain capitals.
      To make it a bit easier on the eyes, I will make them lowercase here, and then
-     call our normal menu function
+     call our normal menus function
 
      see http://code.google.com/p/zxing/wiki/BarcodeContents
     """
-    url = urlresolvers.reverse("place.views.menu", args=(table_uuid.lower(),))
+    url = urlresolvers.reverse("places.views.menus", args=(table_uuid.lower(),))
     return HttpResponseRedirect(url)
 
 
@@ -36,15 +36,15 @@ def MENU(request, table_uuid):
 @csrf_exempt
 def menu(request, table_uuid):
     """Typically called from a mobile device when scanning a qr code.
-     The second parameter is the unique place identifier. This corresponds to a
-     table, and uniquely identifies a menu
+     The second parameter is the unique places identifier. This corresponds to a
+     table, and uniquely identifies a menus
     """
     if request.POST:
-        # Got an order!!
-        logger.info("order!")
+        # Got an orders!!
+        logger.info("orders!")
         logger.info("Post:" + repr(request.POST))
 
-        # Loop over items in the order, and ad them to a temp collection
+        # Loop over items in the orders, and ad them to a temp collection
         item_name_amount = []
         for key, amount in request.POST.items():
 
@@ -59,15 +59,15 @@ def menu(request, table_uuid):
 
                     item_name_amount.append((item_name, amount))
 
-        # place the order
+        # places the orders
         order = place_order(item_name_amount, table_uuid)
-        logger.info("saved an order")
+        logger.info("saved an orders")
 
-        # ok, order is place, please wait now!
+        # ok, orders is places, please wait now!
         return HttpResponseRedirect("/wait/" + str(order.pk))
 
     else:
-        logger.debug("menu requested for table %s", table_uuid)
+        logger.debug("menus requested for table %s", table_uuid)
         try:
             table = Table.objects.get(uuid=table_uuid)
             place = table.place
@@ -78,8 +78,8 @@ def menu(request, table_uuid):
 
         else:
             # render the template
-            return render(request, "place/menu.html", {'menu': menu,
-                                                   'place': place})
+            return render(request, "place/menu.html", {'menus': menu,
+                                                   'places': place})
 
 
 def landing(request):
@@ -102,7 +102,7 @@ def rm_order(request, order_id):
 
 
 def orders(request, place_pk):
-    """list all the orders for a given place
+    """list all the orders for a given places
         Results in something like this:
 
         |-------------------------------------------
@@ -128,13 +128,13 @@ def orders(request, place_pk):
 
     """
 
-    # try get place
+    # try get places
     try:
         place = Place.objects.get(pk=place_pk)
         orders = place.get_orders()
 
     except:
-        return render(request, "place/error.html", {'error_msg': "No place found with id %s!" % place_pk})
+        return render(request, "place/error.html", {'error_msg': "No places found with id %s!" % place_pk})
 
             # check if the request is coming from an ajax call (The refresh code on the page)
     if 'application/json' in request.META['HTTP_ACCEPT'].split(','):
@@ -162,7 +162,7 @@ def wait(request, order_uuid):
     if request.META["HTTP_ACCEPT"].split(',')[0] == "application/json":
         response_data = dict()
 
-        # lookup the order in the database
+        # lookup the orders in the database
         order = Order.objects.get(pk=order_uuid)
         status_display = order.get_status_display()
         status_code = order.status
@@ -188,8 +188,8 @@ def wait(request, order_uuid):
 
 
 def qr_codes(request, place_id):
-    """Renders a view containing a QR code for every table in the place!"""
-    host_prefix = "http://192.168.0.227:8000/menu/"
+    """Renders a view containing a QR code for every table in the places!"""
+    host_prefix = "http://192.168.0.227:8000/menus/"
 
 
     place = Place.objects.get(pk=int(place_id))

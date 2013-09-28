@@ -9,14 +9,14 @@ import logging
 
 from django.test import TestCase, Client
 from models import Place, Table
-from menu.models import Menu, MenuItem
-from order.models import Order
+from menus.models import Menu, MenuItem
+from orders.models import Order
 
 logger = logging.getLogger(__name__)
 
 class SimpleTest(TestCase):
     def setUp(self):
-        # place of all places
+        # places of all places
         self.dambert = Place.objects.create(name="dambert")
 
         self.dambert_menu = Menu.objects.create(name="default")
@@ -54,10 +54,10 @@ class SimpleTest(TestCase):
 
         menu = Table.objects.get(uuid=t1_uuid).get_menu()
 
-        # should have a menu!
+        # should have a menus!
         self.assertIsNotNone(menu)
 
-        # menu should contain4 things
+        # menus should contain4 things
         self.assertEquals(len(menu.menuitem_set.all()), 4)
 
         # and fanta costs 1.5 here
@@ -72,7 +72,7 @@ class SimpleTest(TestCase):
 
     def test_1to1_menu_place(self):
         self.assertRaises(Place.objects.create,
-                          name="some place that copies a menu",
+                          name="some places that copies a menus",
                           menu=self.dambert_menu)
 
     def test_get_menu(self):

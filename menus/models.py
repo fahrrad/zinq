@@ -14,7 +14,7 @@ class Menu(models.Model):
 
 
 class MenuItem(models.Model):
-    """ A single item on a menu"""
+    """ A single item on a menus"""
     name = models.CharField(max_length=255, blank=False, null=False)
     price = models.DecimalField(null=False, decimal_places=2, max_digits=6)
     
@@ -24,8 +24,8 @@ class MenuItem(models.Model):
         return self.name
 
     class Meta:
-        # no menu can contain the same menuitem twice!
-        unique_together = ("menu", "name")
+        # no menus can contain the same menuitem twice!
+        unique_together = ("menus", "name")
 
 
 

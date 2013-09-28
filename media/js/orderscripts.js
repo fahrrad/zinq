@@ -13,7 +13,6 @@ var path_name;
 
 
 function delete_order(this_button){
-    // TODO: make this find the id to delete!
     var order_uuid = $(this_button).closest("div").find("div.id").text()
     $.ajax({
         url: "/rest/orders/delete/" + order_uuid + "/",
@@ -72,6 +71,12 @@ function refresh(){
                 id_text.setAttribute("class", "id");
                 id_text.innerHTML = item;
                 div.appendChild(id_text);
+
+                // Add the table number
+                var tableNr_div = document.createElement("div");
+                var tableNr = data.orders[item].table_nr;
+                tableNr_div.innerHTML = "Table " + tableNr;
+                div.appendChild(tableNr_div);
 
                 // This list will contain the amount and names of the order
                 // items
