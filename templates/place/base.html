@@ -25,7 +25,7 @@
     </style>
     {% bootstrap_javascript_tag %}
 
- <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -36,13 +36,11 @@
 
     {% block content %}Empty page{% endblock %}
 
-    <p>
-    <hr>
-    </p>
+    <p>    <hr>    </p>
 
     <footer class="row">
         <div class="span6">
-            <p><a href="{% url "place.views.landing" %}">home</a></p>
+            <p><a href="{% url "places.views.landing" %}">home</a></p>
         </div>
         <div class="span6" style="text-align:right">
             <p>

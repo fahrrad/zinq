@@ -11,8 +11,8 @@ from django.test import TestCase
 from menus import services
 from menus.models import MenuItem, Menu
 from menus.services import place_order
-from order.models import Order
-from place.models import Place, Table
+from orders.models import Order
+from places.models import Place, Table
 
 
 # integration testing

@@ -1,6 +1,4 @@
 import os
-import sys
-
 
 # ===========================
 # = Directory Declaractions =
@@ -28,10 +26,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'qmenu',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': 'qmenu_owner',
+        'PASSWORD': 'qmenu',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'PORT': '5432',                      # Set to empty string for default.
     }
 }
 
@@ -139,16 +137,16 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap_toolkit',
-    'menu',
-    'order',
-    'place',
+    'menus',
+    'orders',
+    'places',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     # REST
-    'rest_framework',
-    'qrcode',
+    # 'rest_framework',
+    # 'qrcode',
 )
 
 # A sample logging configuration. The only tangible logging

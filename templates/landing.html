@@ -11,18 +11,14 @@
 <h1>Landing page</h1>
 <h3>some links</h3>
 <ul>
-    <li><a href="{% url "place.views.menu" "123456" %}">
+    <li><a href="{% url "places.views.menu" "123456" %}">
         invalid menu
     </a></li>
-    <li><a href="{% url "place.views.menu" "f64f609e75bd4afbbc18cf7f29fcafde" %}">
+    <li><a href="{% url "places.views.menu" "f64f609e75bd4afbbc18cf7f29fcafde" %}">
         menu for speyker
     </a></li>
-    <li><a href="{%  url "place.views.orders" 1 %}" >
+    <li><a href="{%  url "places.views.orders" 1 %}" >
         orders for speyker
-    </a></li>
-
-    <li><a href="{% url "place.views.qr_codes" 1 %}" >
-        QR codes for speyker
     </a></li>
 
     <!-- ready made stuff -->

@@ -1,6 +1,6 @@
 from menus.models import MenuItem
-from order.models import Order
-from place.models import Table
+from orders.models import Order
+from places.models import Table
 
 __author__ = 'ward'
 

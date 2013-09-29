@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 from menus.models import MenuItem
-from place.models import Table
+from places.models import Table
 
 
 class OrderMenuItem(models.Model):
