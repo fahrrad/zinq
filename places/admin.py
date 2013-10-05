@@ -40,15 +40,19 @@ class PlaceModelAdmin(admin.ModelAdmin):
 class TableModelAdmin(admin.ModelAdmin):
     def queryset(self, request):
         qs = super(TableModelAdmin, self).queryset(request)
-        return qs.filter(place__user=request.user)
+        if request.user.is_superuser:
+            return qs
+        else:
+            return qs.filter(place__user=request.user)
+
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "places":
-            kwargs["queryset"] = Place.objects.filter(user=request.user)
+        # if db_field.name == "places":
+        #     kwargs["queryset"] = Place.objects.filter(user=request.user)
         return super(TableModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)
 
-    exclude = ("uuid",)
+    # exclude = ("uuid",)
 
 admin.site.register(Place, PlaceModelAdmin)
 admin.site.register(Table, TableModelAdmin)

@@ -71,19 +71,19 @@ def menu(request, table_uuid):
         try:
             table = Table.objects.get(uuid=table_uuid)
             place = table.place
-            menu = table.get_menu()
+            abc123 = table.get_menu()
 
         except:
-            return render(request, "place/error.html", {'error_msg': "No table found with id %s!" % table_uuid})
+            return render(request, "place/error.html", {'error_msg': "No table find with id %s!" % table_uuid})
 
         else:
             # render the template
-            return render(request, "place/menu.html", {'menus': menu,
-                                                   'places': place})
+            return render(request, "place/menu.html", {'menu': abc123,
+                                                   'place': place})
 
 
 def landing(request):
-    return render(request, 'landing.html')
+    return render(request, 'place/landing.html')
 
 
 def rm_order(request, order_id):
