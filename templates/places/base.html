@@ -36,11 +36,18 @@
 
     {% block content %}Empty page{% endblock %}
 
-    <p>    <hr>    </p>
+    <p>
+    <hr>
+    </p>
 
     <footer class="row">
         <div class="span6">
-            <p><a href="{% url "places.views.landing" %}">home</a></p>
+            <p><a href="{% url "places.views.landing" %}">home</a>
+                {% if user.is_authenticated %}
+                    <div>Welcome, {{ user.username }}, <a
+                            href="{% url "qmenu.views.auth_logout" %}">logout</a> </div>
+                {% endif %}
+            </p>
         </div>
         <div class="span6" style="text-align:right">
             <p>

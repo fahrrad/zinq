@@ -1,6 +1,7 @@
 import logging
 import string
 import json
+from django.contrib.auth.decorators import login_required
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
@@ -11,14 +12,11 @@ from menus.services import place_order
 from orders.models import Order
 from places.models import Place, Table
 
-
-
-
 logger = logging.getLogger(__name__)
 
 
 def welcome(request):
-    return render(request, "place/welcome.html")
+    return render(request, "places/welcome.html")
 
 
 def MENU(request, table_uuid):
@@ -71,19 +69,19 @@ def menu(request, table_uuid):
         try:
             table = Table.objects.get(uuid=table_uuid)
             place = table.place
-            abc123 = table.get_menu()
+            menu = table.get_menu()
 
         except:
-            return render(request, "place/error.html", {'error_msg': "No table find with id %s!" % table_uuid})
+            return render(request, "places/error.html",
+                          {'error_msg': "No table find with id %s!" % table_uuid})
 
         else:
             # render the template
-            return render(request, "place/menu.html", {'menu': abc123,
-                                                   'place': place})
+            return render(request, "places/menu.html", {'menu': menu, 'place': place})
 
 
 def landing(request):
-    return render(request, 'place/landing.html')
+    return render(request, 'places/landing.html')
 
 
 def rm_order(request, order_id):
@@ -94,13 +92,22 @@ def rm_order(request, order_id):
 
     except Exception as e:
         logger.error(e)
-        return render(request, "place/error.html", {"error_msg" : e})
+        return render(request, "places/error.html", {"error_msg" : e})
 
     logger.info('Order id %s is deleted' % order_id)
 
     return HttpResponse("Order %s deleted" % order_id)
 
+def orderlist(request, place_pk):
+    """Will return a list of orders for a given place. Note that these orders will not contain actual
+    info on what is ordered, only who ordered, and a link how to findt the content of the order"""
 
+    if request.user.is_authenticated():
+        pass
+
+
+
+@login_required
 def orders(request, place_pk):
     """list all the orders for a given places
         Results in something like this:
@@ -134,7 +141,7 @@ def orders(request, place_pk):
         orders = place.get_orders()
 
     except:
-        return render(request, "place/error.html", {'error_msg': "No places found with id %s!" % place_pk})
+        return render(request, "places/error.html", {'error_msg': "No places found with id %s!" % place_pk})
 
             # check if the request is coming from an ajax call (The refresh code on the page)
     if 'application/json' in request.META['HTTP_ACCEPT'].split(','):
@@ -151,7 +158,7 @@ def orders(request, place_pk):
         # just return the data
         return HttpResponse(json.dumps(return_values), content_type='application/json')
     else:
-        return render(request, "place/orders.html", {'orders': orders})
+        return render(request, "places/orders.html", {'orders': orders})
 
 
 def wait(request, order_uuid):
@@ -184,7 +191,7 @@ def wait(request, order_uuid):
 
         return HttpResponse(return_json, content_type="application/json")
 
-    return render(request, "place/waiting.html")
+    return render(request, "places/waiting.html")
 
 
 def qr_codes(request, place_id):
@@ -195,5 +202,5 @@ def qr_codes(request, place_id):
     place = Place.objects.get(pk=int(place_id))
     table_qr_list = [host_prefix + x.pk + "/" for x in place.table_set.all()]
 
-    return render(request, "place/qr_codes.html", {'table_qr_list': table_qr_list,
+    return render(request, "places/qr_codes.html", {'table_qr_list': table_qr_list,
                                                    'place_name': place.name})

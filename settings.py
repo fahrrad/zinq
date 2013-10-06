@@ -79,6 +79,9 @@ STATIC_ROOT = ''
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 
+# login URL
+LOGIN_URL= '/auth_login'
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -185,7 +188,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'place':{
+        'places': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'qmenu': {
             'handlers': ['console'],
             'level': 'DEBUG',
         }

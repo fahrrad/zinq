@@ -1,5 +1,7 @@
-{% extends "place/base.html" %}
+{% extends "places/base.html" %}
 {% load static %}
+
+
 
 {% block scripts %}
         <script src="{% static "js/orderscripts.js" %}"></script>
@@ -9,8 +11,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static "css/stylesheet.css" %}" />
 {% endblock %}
 
-{% block content %}
+{%  block content %}
+    <div class="orders"> </div>
+{% endblock content %}
 
-  <div class="orders"> </div>
 
-{% endblock %}
