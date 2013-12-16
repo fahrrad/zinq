@@ -101,3 +101,21 @@ class Order(models.Model):
                                         ordermenuitem.amount))
 
         return menuitems_amounts
+
+
+class OrderLineTransferObject():
+    """represents one line in an order that will be sent to the server"""
+    def __init__(self, menu_item_uuid, amount):
+        self.menu_item_uuid = menu_item_uuid
+        self.amount = amount
+
+
+
+class OrderTransferObject():
+    """This object will be serialised on the client, and sent to the server"""
+    def __init__(self, uuid, table_uuid, order_line_list):
+        self.uuid = uuid
+        self.table_uuid = uuid
+        self.order_line_list = order_line_list
+
+

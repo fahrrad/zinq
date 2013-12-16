@@ -30,7 +30,7 @@ class PlaceModelAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
-            if db_field.name == "menus" :
+            if db_field.name == "menus":
                 kwargs["queryset"] = Menu.objects.filter(place__user=request.user)
         return super(PlaceModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)

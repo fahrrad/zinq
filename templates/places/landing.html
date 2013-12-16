@@ -1,10 +1,12 @@
-{% extends "places/base.html" %}
-{% load bootstrap_toolkit %}
-{% load static %}
+{% load staticfiles %}
 
-{% block stylesheets %}
 
-{% endblock %}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
 {% block content %}
 
@@ -14,7 +16,7 @@
     <li><a href="{% url "places.views.menu" "123456" %}">
         invalid menu
     </a></li>
-    <li><a href="{% url "places.views.menu" "f64f609e75bd4afbbc18cf7f29fcafde" %}">
+    <li><a href="{% url "places.views.menu" "81447b7d78914a42b91133cb727aa706" %}">
         menu for speyker
     </a></li>
     <li><a href="{%  url "places.views.orders" 1 %}" >

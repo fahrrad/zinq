@@ -1,85 +1,93 @@
-{% extends "places/base.html" %}
-
-{% load bootstrap_toolkit %}
 {% load staticfiles %}
 
-{% block scripts %}
-    <script src="{% static "js/menuscripts.js" %}"></script>
-{% endblock %}
-
-{% block title %}
-    menu for {{ place }}
-{% endblock %}
+{% load bootstrap3 %}
 
 
-{% block content %}
+<!DOCTYPE html>
+<html>
 
+<head>
+    <title> menu for {{ place }} </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
 
 <div class="container">
-<div class="row">
-<div class="span4"></div>
-<div class="span4">
-    <h3>menu for {{ place | capfirst }} </h3>
-    <form action="" method="post" class="form">
-        {% csrf_token %}
-        {% bootstrap_form form layout="vertical" %}
+    <div class="row">
+        <div class="span4"></div>
+        <div class="span4">
+            <h3>menu for {{ place | capfirst }} </h3>
 
-        <table class="table-striped">
-        <caption>Place an order</caption>
-            <!-- header -->
-        <trhead>
-            <tr>
-                <th scope="col">
-                    item
-                </th>
-                <th scope="col">
-                    price
-                </th>
-                <th scope="col">
-                    amount
-                </th>
-                <th scope="col">
+            <form action="" method="post" class="form">
+                {% csrf_token %}
 
-                </th>
-                <th scope="col">
+                <table class="table-striped">
+                    <caption>Place an order</caption>
+                    <!-- header -->
+                    <trhead>
+                        <tr>
+                            <th scope="col">
+                                item
+                            </th>
+                            <th scope="col">
+                                price
+                            </th>
+                            <th scope="col">
+                                amount
+                            </th>
+                            <th scope="col">
 
-                </th>
-                <th scope="col">
+                            </th>
+                            <th scope="col">
 
-                </th>
-            </tr>
-        </trhead>
-        <tbody>
+                            </th>
+                            <th scope="col">
 
-            {% for menuitem in menu.menuitem_set.all %}
-                <tr>
-                    <td class="menuitem">{{ menuitem.name }}</td>
-                    <td class="f">{{ menuitem.price }} </td>
-                    <td class="amount">
-                        <input class="amount input-mini uneditable-input" type="text" name="{{ menuitem.name }}_amount"
-                            value="0"/></td>
+                            </th>
+                        </tr>
+                    </trhead>
+                    <tbody>
 
-                    <td><span></span></td>
-                    <td class="button">
-                        <button class="add_button">+</button>
-                    </td>
+                    {% for menuitem in menu.menuitem_set.all %}
+                        <tr>
+                            <td class="menuitem">{{ menuitem.name }}</td>
+                            <td class="f">{{ menuitem.price }} </td>
+                            <td class="amount">
+                                <input class="amount input-mini uneditable-input" type="text"
+                                       name="{{ menuitem.name }}_amount"
+                                       value="0"/></td>
 
-                    <td class="button">
-                        <button class="decr_button">-</button>
-                    </td>
+                            <td><span></span></td>
+                            <td class="button">
+                                <button class="add_button">+</button>
+                            </td>
 
-                </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-        <div class="form-actions">
-            <input type="submit" name="bestel" value="Bestellen" class="btn btn-primary btn-large"/>
+                            <td class="button">
+                                <button class="decr_button">-</button>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                    <button value="Bestellen" class="btn btn-primary">{% bootstrap_icon "star" %} Bestel</button>
+
+
+            </form>
         </div>
-
-    </form>
-</div> <!-- span -->
-<div class="span4"></div>
-</div> <!-- row -->
+        <!-- span -->
+        <div class="span4"></div>
+    </div>
+    <!-- row -->
 </div> <!-- container -->
 
-{% endblock %}
+    <!-- Scripts -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <script src="{% static "js/menuscripts.js" %}"></script>
+</body>
+
+</html>

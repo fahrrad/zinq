@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from places.views import welcome, menu, landing, orders, rm_order, wait
+from places.views import welcome, menu, landing, orders, rm_order, wait, menu2
 from qmenu.views import auth_login, auth_logout
 
 from menus.models import Menu, MenuItem
@@ -26,6 +26,7 @@ urlpatterns = patterns('',
 
     url(r'^welcome/$', welcome),
     url(r'^menu/(\w{4,32})/$', menu),
+    url(r'^menu2/$', menu2),
     url(r'^MENU/(\w{4,32})/$', "places.views.MENU"),
     url(r'^$', landing),
 

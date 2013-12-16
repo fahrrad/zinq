@@ -2,6 +2,7 @@ import logging
 import string
 import json
 from django.contrib.auth.decorators import login_required
+from django import forms
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
@@ -107,7 +108,7 @@ def orderlist(request, place_pk):
 
 
 
-@login_required
+# @login_required
 def orders(request, place_pk):
     """list all the orders for a given places
         Results in something like this:
@@ -132,6 +133,8 @@ def orders(request, place_pk):
         |         |      |--------------------------
         |         |---------------------------------   
         |-------------------------------------------
+
+
 
     """
 
@@ -204,3 +207,11 @@ def qr_codes(request, place_id):
 
     return render(request, "places/qr_codes.html", {'table_qr_list': table_qr_list,
                                                    'place_name': place.name})
+
+
+
+class testForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+
+def menu2(request):
+    return render(request, "places/menu2.html", {"form" : testForm()})
