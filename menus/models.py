@@ -1,5 +1,5 @@
 from django.db import models
-from place.models import Place, Table
+from places.models import Place, Table
 from uuid import uuid4
 
 from decimal import Decimal

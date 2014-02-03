@@ -76,11 +76,11 @@ def menu(request, table_uuid):
             menu = table.get_menu()
 
         except:
-            return render(request, "place/error.html", {'error_msg': "No table found with id %s!" % table_uuid})
+            return render(request, "places/error.html", {'error_msg': "No table found with id %s!" % table_uuid})
 
         else:
             # render the template
-            return render(request, "place/menu.html", {'menu': menu,
+            return render(request, "places/menu.html", {'menu': menu,
                                                        'places': place})
 
 
@@ -96,7 +96,7 @@ def rm_order(request, order_id):
 
     except Exception as e:
         logger.error(e)
-        return render(request, "place/error.html", {"error_msg" : e})
+        return render(request, "places/error.html", {"error_msg" : e})
 
     logger.info('Order id %s is deleted' % order_id)
 
@@ -153,7 +153,7 @@ def orders(request, place_pk):
         # just return the data
         return HttpResponse(json.dumps(return_values), content_type='application/json')
     else:
-        return render(request, "place/orders.html", {'orders': orders})
+        return render(request, "places/orders.html", {'orders': orders})
 
 
 def wait(request, order_uuid):
@@ -186,7 +186,7 @@ def wait(request, order_uuid):
 
         return HttpResponse(return_json, content_type="application/json")
 
-    return render(request, "place/waiting.html")
+    return render(request, "places/waiting.html")
 
 
 def qr_codes(request, place_id):
@@ -197,5 +197,5 @@ def qr_codes(request, place_id):
     place = Place.objects.get(pk=int(place_id))
     table_qr_list = [host_prefix + x.pk + "/" for x in place.table_set.all()]
 
-    return render(request, "place/qr_codes.html", {'table_qr_list': table_qr_list,
+    return render(request, "places/qr_codes.html", {'table_qr_list': table_qr_list,
                                                    'place_name': place.name})

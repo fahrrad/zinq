@@ -158,6 +158,7 @@ INSTALLED_APPS = (
     # 'rest_framework',
     # 'qrcode',
     'debug_toolbar',
+    'bootstrap3',
 )
 
 # A sample logging configuration. The only tangible logging
