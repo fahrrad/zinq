@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
 
-import menus
 import orders
 
 
@@ -14,7 +13,7 @@ class Place(models.Model):
     user = models.ForeignKey(User,  null=True)
 
     # One - One
-    menu = models.ForeignKey("menu.Menu", null=True, unique=True)
+    menu = models.ForeignKey("menus.Menu", null=True, unique=True)
 
     def __unicode__(self):
         return self.name
@@ -22,7 +21,7 @@ class Place(models.Model):
     # Get all orders for this places
     def get_orders(self):
         return list(orders.models.Order.objects.filter(table__place=self,
-                                                     status=orders.models.Order.ORDERED).all())
+                                                       status=orders.models.Order.ORDERED).all())
 
 
 class Table(models.Model):

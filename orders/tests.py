@@ -11,7 +11,7 @@ from menus import services
 from menus.models import MenuItem, Menu
 from menus.services import place_order
 from orders.models import Order, OrderMenuItem
-from place.models import Place, Table
+from places.models import Place, Table
 
 
 class SimpleTest(TestCase):

@@ -1,9 +1,11 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 from django.contrib import admin
-from order.models import Order
-from place.views import welcome, menu, landing, orders, rm_order, wait, qr_codes
+from orders.models import Order
+from places.views import welcome, menu, landing, orders, rm_order, wait, qr_codes
 from rest_framework import viewsets, routers
-from menu.models import Menu, MenuItem
+from menus.models import Menu, MenuItem
+import settings
 
 
 class OrderViewSets(viewsets.ModelViewSet):
@@ -37,8 +39,8 @@ urlpatterns = patterns('',
 
 
     url(r'^welcome/$', welcome),
-    url(r'^menu/(\w{4,32})/$', menu),
-    url(r'^MENU/(\w{4,32})/$', "place.views.MENU"),
+    url(r'^menus/(\w{4,32})/$', menu),
+    url(r'^MENU/(\w{4,32})/$', "places.views.MENU"),
     url(r'^$', landing),
 
     # view orders
@@ -54,4 +56,4 @@ urlpatterns = patterns('',
 
     url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
                        
-)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

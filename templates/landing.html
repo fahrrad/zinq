@@ -11,23 +11,23 @@
 <h1>Landing page</h1>
 <h3>some links</h3>
 <ul>
-    <li><a href="{% url "place.views.menu" "123456" %}">
-        invalid menu
+    <li><a href="{% url "places.views.menu" "123456" %}">
+        Invalid menu
     </a></li>
-    <li><a href="{% url "place.views.menu" "f64f609e75bd4afbbc18cf7f29fcafde" %}">
-        menu for speyker
+    <li><a href="{% url "places.views.menu" "bd701c3d0400432eac661fe889bb0341" %}">
+        Menu for Barbar Palace
     </a></li>
-    <li><a href="{%  url "place.views.orders" 1 %}" >
-        orders for speyker
+    <li><a href="{%  url "places.views.orders" 2 %}" >
+        Orders for Barbar Palace
     </a></li>
 
-    <li><a href="{% url "place.views.qr_codes" 1 %}" >
-        QR codes for speyker
+    <li><a href="{% url "places.views.qr_codes" 2 %}" >
+        QR codes for Barbar Palace
     </a></li>
 
     <!-- ready made stuff -->
-    <li><a href="rest/" >rest methods</a></li>
-    <li><a href="admin">admin page </a></li>
+    <li><a href="rest/" >Rest methods</a></li>
+    <li><a href="admin">Admin page </a></li>
 
 </ul>
 {% endblock %}

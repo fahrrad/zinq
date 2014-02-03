@@ -30,7 +30,7 @@ class PlaceModelAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
-            if db_field.name == "menus" :
+            if db_field.name == "menus":
                 kwargs["queryset"] = Menu.objects.filter(place__user=request.user)
         return super(PlaceModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)
@@ -40,7 +40,10 @@ class PlaceModelAdmin(admin.ModelAdmin):
 class TableModelAdmin(admin.ModelAdmin):
     def queryset(self, request):
         qs = super(TableModelAdmin, self).queryset(request)
-        return qs.filter(place__user=request.user)
+        if not request.user.is_superuser:
+            return qs.filter(place__user=request.user)
+        else:
+            return qs
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "places":
@@ -48,7 +51,6 @@ class TableModelAdmin(admin.ModelAdmin):
         return super(TableModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)
 
-    exclude = ("uuid",)
 
 admin.site.register(Place, PlaceModelAdmin)
 admin.site.register(Table, TableModelAdmin)

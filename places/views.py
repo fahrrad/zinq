@@ -40,7 +40,7 @@ def menu(request, table_uuid):
      table, and uniquely identifies a menus
     """
     if request.POST:
-        # Got an orders!!
+        # Got an order!!
         logger.info("orders!")
         logger.info("Post:" + repr(request.POST))
 
@@ -78,8 +78,8 @@ def menu(request, table_uuid):
 
         else:
             # render the template
-            return render(request, "place/menu.html", {'menus': menu,
-                                                   'places': place})
+            return render(request, "place/menu.html", {'menu': menu,
+                                                       'places': place})
 
 
 def landing(request):

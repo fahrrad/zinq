@@ -8,7 +8,7 @@ import sys
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
-# this url will be prepended to all the menu urls where
+# this url will be prepended to all the menus urls where
 # QR codes for are generated
 MENU_URL = "HTTP://192.168.0.227/MENU/"
 
@@ -17,7 +17,6 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Ward Coessens', 'ward.coessens@gmail.com'),
-    ('Frederik De Paepe', 'frederikdepaepe@webkomeet.be'),
     # ('Your Name', 'your_email@example.com'),
 )
 
@@ -139,9 +138,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap_toolkit',
-    'menu',
-    'order',
-    'place',
+    'menus',
+    'orders',
+    'places',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -187,7 +186,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'place':{
+        'places':{
             'handlers': ['console'],
             'level': 'DEBUG',
         }
