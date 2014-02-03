@@ -1,9 +1,14 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 from django.contrib import admin
-from order.models import Order
-from place.views import welcome, menu, landing, orders, rm_order, wait, qr_codes
+<<<<<<< HEAD
+from orders.models import Order
+from places.views import welcome, menu, landing, orders, rm_order, wait, qr_codes
 from rest_framework import viewsets, routers
-from menu.models import Menu, MenuItem
+from menus.models import Menu, MenuItem
+import settings
+=======
+>>>>>>> e9f5ab6cb4565f6d3163160336c49484c34b97ae
 
 from places.views import welcome, menu, landing, orders, rm_order, wait, menu2
 from qmenu.views import auth_login, auth_logout
@@ -29,8 +34,12 @@ urlpatterns = patterns('',
     url(r'^logout/$', auth_logout),
 
     url(r'^welcome/$', welcome),
+<<<<<<< HEAD
+    url(r'^menus/(\w{4,32})/$', menu),
+=======
     url(r'^menu/(\w{4,32})/$', menu),
     url(r'^menu2/$', menu2),
+>>>>>>> e9f5ab6cb4565f6d3163160336c49484c34b97ae
     url(r'^MENU/(\w{4,32})/$', "places.views.MENU"),
     url(r'^$', landing),
 
@@ -40,12 +49,12 @@ urlpatterns = patterns('',
     # Rest
     url(r'^rest/orders/delete/(\w{4,32})/$', rm_order),
 
-    url(r'^rest/', include(router.urls)),
-    url(r'^rest/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
     url(r'^wait/(\w{4,32})/$', wait),
-)
+<<<<<<< HEAD
 
     url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
                        
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+=======
+)
+>>>>>>> e9f5ab6cb4565f6d3163160336c49484c34b97ae

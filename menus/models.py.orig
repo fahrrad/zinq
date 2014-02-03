@@ -1,9 +1,8 @@
 from django.db import models
-from place.models import Place, Table
-from uuid import uuid4
+<<<<<<< HEAD
+=======
 
-from decimal import Decimal
-
+>>>>>>> e9f5ab6cb4565f6d3163160336c49484c34b97ae
 
 class Menu(models.Model):
     """ An aggregate of MenuItems. """
@@ -25,7 +24,11 @@ class MenuItem(models.Model):
 
     class Meta:
         # no menus can contain the same menuitem twice!
+<<<<<<< HEAD
+        unique_together = ('menu', "name")
+=======
         unique_together = ("menu", "name")
+>>>>>>> e9f5ab6cb4565f6d3163160336c49484c34b97ae
 
 
 

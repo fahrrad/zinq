@@ -15,6 +15,7 @@ from places.models import Place, Table
 
 
 class SimpleTest(TestCase):
+
     def setUp(self):
         """create some stuff"""
         self.m1 = Menu.objects.create(name="menu_test")
@@ -106,11 +107,9 @@ class SimpleTest(TestCase):
 
     def test_posting_an_order(self):
         table_pk = self.t1.pk
-
         c = Client()
-
         # Een colaatje astublief
-        response = c.post("/menus/%s/" % table_pk, {'cola_amount': '3'})
+        response = c.post("/menu/%s/" % table_pk, {'cola_amount': '3'})
 
         print response.status_code
 

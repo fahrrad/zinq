@@ -1,4 +1,3 @@
-{% load bootstrap_toolkit %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
@@ -12,27 +11,16 @@
     </title>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
-    {% block scripts %} {% endblock %}
 
+    {% block scripts %} {% endblock %}
     {% block stylesheets %}  {% endblock %}
 
-    {% bootstrap_stylesheet_tag %}
-    {% bootstrap_stylesheet_tag "responsive" %}
-    <style type="text/css">
-        body {
-            padding-top: 60px;
-        }
-    </style>
-    {% bootstrap_javascript_tag %}
-
- <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" >
     {% block extra_head %}{% endblock %}
 </head>
 <body>
 
 <div class="container">
 
-    {% bootstrap_messages %}
 
     {% block content %}Empty page{% endblock %}
 
@@ -40,11 +28,22 @@
     <hr>
     </p>
 
+<<<<<<< HEAD:templates/place/base.html
     <footer class="row">
         <div class="span6">
             <p><a href="{% url "places.views.landing" %}">home</a></p>
+=======
+    <footer>
+        <div >
+            <p><a href="{% url "places.views.landing" %}">home</a>
+                {% if user.is_authenticated %}
+                    <div>Welcome, {{ user.username }}, <a
+                            href="{% url "qmenu.views.auth_logout" %}">logout</a> </div>
+                {% endif %}
+            </p>
+>>>>>>> e9f5ab6cb4565f6d3163160336c49484c34b97ae:templates/places/base.html
         </div>
-        <div class="span6" style="text-align:right">
+        <div >
             <p>
 
             </p>

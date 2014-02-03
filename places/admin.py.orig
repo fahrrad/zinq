@@ -45,13 +45,12 @@ class TableModelAdmin(admin.ModelAdmin):
         else:
             return qs
 
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "places":
-            kwargs["queryset"] = Place.objects.filter(user=request.user)
+        # if db_field.name == "places":
+        #     kwargs["queryset"] = Place.objects.filter(user=request.user)
         return super(TableModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)
-
-    exclude = ("uuid",)
 
 admin.site.register(Place, PlaceModelAdmin)
 admin.site.register(Table, TableModelAdmin)
