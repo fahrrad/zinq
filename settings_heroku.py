@@ -11,7 +11,7 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # this url will be prepended to all the menus urls where
 # QR codes for are generated
-MENU_URL = "HTTP://192.168.0.227/MENU/"
+MENU_URL = "HTTP://stormy-peak-3604.herokuapp.com/MENU/"
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -195,7 +195,7 @@ ALLOWED_HOSTS = ['*']
 # Static asset configuration
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'static'
+STATIC_ROOT = 'media'
 STATIC_URL = '/static/'
 
 
