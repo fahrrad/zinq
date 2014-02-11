@@ -191,7 +191,7 @@ def wait(request, order_uuid):
 
 def qr_codes(request, place_id):
     """Renders a view containing a QR code for every table in the places!"""
-    host_prefix = "http://192.168.0.227:8000/menus/"
+    host_prefix = "HTTP://stormy-peak-3604.herokuapp.com/MENU/"
 
 
     place = Place.objects.get(pk=int(place_id))
