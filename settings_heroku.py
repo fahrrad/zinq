@@ -137,7 +137,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     # REST
     'rest_framework',
-    # 'qrcode',
+    'qrcode',
 )
 
 # A sample logging configuration. The only tangible logging
