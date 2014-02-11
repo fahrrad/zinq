@@ -191,7 +191,7 @@ def wait(request, order_uuid):
 
 def qr_codes(request, place_id):
     """Renders a view containing a QR code for every table in the places!"""
-    host_prefix = "HTTP://stormy-peak-3604.herokuapp.com/MENU/"
+    host_prefix = "HTTP://stormy-peak-3604.herokuapp.com/menu/"
 
     place = Place.objects.get(pk=int(place_id))
     table_qr_list = [host_prefix + x.pk + "/" for x in place.table_set.all()]
