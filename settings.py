@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     # 'qrcode',
     'debug_toolbar',
     'bootstrap3',
+    'qrcode',
 )
 
 # A sample logging configuration. The only tangible logging
