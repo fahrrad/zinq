@@ -5,6 +5,7 @@ import sys
 # ===========================
 # = Directory Declaractions =
 # ===========================
+import dj_database_url
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -180,6 +181,7 @@ LOGGING = {
         }
     }
 }
+DATABASES = {}
 
 DATABASES['default'] = dj_database_url.config()
 
