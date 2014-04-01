@@ -24,6 +24,16 @@ class Place(models.Model):
 
 
 class Table(models.Model):
+
+    def hex_2_base62(self, uuid):
+        """Converts a hex number into a base 36 ( shorter, using all characters available in QR"""
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+        for (c,d,e) in zip(uuid[0::3], uuid[1::3], uuid[2::3]):
+            print c,d,e
+            print
+
+
     # uuid to map to this table
     uuid = models.CharField(max_length=32, default=lambda: uuid4().hex,
                             primary_key=True)
