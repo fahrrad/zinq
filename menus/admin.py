@@ -5,7 +5,6 @@ from menus.models import Menu, MenuItem
 class MenuModelAdmin(admin.ModelAdmin):
     def queryset(self, request):
         qs = super(MenuModelAdmin, self).queryset(request)
-
         if not request.user.is_superuser:
             return qs.filter(place__user=request.user)
         else:
@@ -15,7 +14,6 @@ class MenuModelAdmin(admin.ModelAdmin):
 class MenuItemModelAdmin(admin.ModelAdmin):
     def queryset(self, request):
         qs = super(MenuItemModelAdmin, self).queryset(request)
-
         if not request.user.is_superuser:
             return qs.filter(menu__place__user=request.user)
         else:

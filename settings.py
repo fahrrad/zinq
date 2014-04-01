@@ -1,4 +1,6 @@
 import os
+import sys
+
 
 # ===========================
 # = Directory Declaractions =
@@ -6,7 +8,7 @@ import os
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
-# this url will be prepended to all the menu urls where
+# this url will be prepended to all the menus urls where
 # QR codes for are generated
 MENU_URL = "HTTP://192.168.0.227/MENU/"
 
@@ -25,10 +27,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'qmenu',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'qmenu_owner',
-        'PASSWORD': 'qmenu',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '5432',                      # Set to empty string for default.
+        'PORT': '',                      # Set to empty string for default.
     }
 }
 
@@ -142,7 +144,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap3',
+    'bootstrap_toolkit',
     'menus',
     'orders',
     'places',
@@ -156,6 +158,8 @@ INSTALLED_APPS = (
     # 'rest_framework',
     # 'qrcode',
     'debug_toolbar',
+    'bootstrap3',
+    'qrcode',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -194,11 +198,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'places': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-        'qmenu': {
+        'place':{
             'handlers': ['console'],
             'level': 'DEBUG',
         }

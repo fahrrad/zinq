@@ -13,11 +13,14 @@ from menus.services import place_order
 from orders.models import Order
 from places.models import Place, Table
 
+
+
+
 logger = logging.getLogger(__name__)
 
 
 def welcome(request):
-    return render(request, "places/welcome.html")
+    return render(request, "place/welcome.html")
 
 
 def MENU(request, table_uuid):
@@ -39,7 +42,7 @@ def menu(request, table_uuid):
      table, and uniquely identifies a menus
     """
     if request.POST:
-        # Got an orders!!
+        # Got an order!!
         logger.info("orders!")
         logger.info("Post:" + repr(request.POST))
 
@@ -73,16 +76,16 @@ def menu(request, table_uuid):
             menu = table.get_menu()
 
         except:
-            return render(request, "places/error.html",
-                          {'error_msg': "No table find with id %s!" % table_uuid})
+            return render(request, "places/error.html", {'error_msg': "No table found with id %s!" % table_uuid})
 
         else:
             # render the template
-            return render(request, "places/menu.html", {'menu': menu, 'place': place})
+            return render(request, "places/menu.html", {'menu': menu,
+                                                       'places': place})
 
 
 def landing(request):
-    return render(request, 'places/landing.html')
+    return render(request, 'landing.html')
 
 
 def rm_order(request, order_id):
@@ -99,16 +102,7 @@ def rm_order(request, order_id):
 
     return HttpResponse("Order %s deleted" % order_id)
 
-def orderlist(request, place_pk):
-    """Will return a list of orders for a given place. Note that these orders will not contain actual
-    info on what is ordered, only who ordered, and a link how to findt the content of the order"""
 
-    if request.user.is_authenticated():
-        pass
-
-
-
-# @login_required
 def orders(request, place_pk):
     """list all the orders for a given places
         Results in something like this:
@@ -134,8 +128,6 @@ def orders(request, place_pk):
         |         |---------------------------------   
         |-------------------------------------------
 
-
-
     """
 
     # try get places
@@ -144,7 +136,7 @@ def orders(request, place_pk):
         orders = place.get_orders()
 
     except:
-        return render(request, "places/error.html", {'error_msg': "No places found with id %s!" % place_pk})
+        return render(request, "place/error.html", {'error_msg': "No places found with id %s!" % place_pk})
 
             # check if the request is coming from an ajax call (The refresh code on the page)
     if 'application/json' in request.META['HTTP_ACCEPT'].split(','):
@@ -199,7 +191,7 @@ def wait(request, order_uuid):
 
 def qr_codes(request, place_id):
     """Renders a view containing a QR code for every table in the places!"""
-    host_prefix = "http://192.168.0.227:8000/menus/"
+    host_prefix = "HTTP://stormy-peak-3604.herokuapp.com/MENU/"
 
 
     place = Place.objects.get(pk=int(place_id))
@@ -207,11 +199,3 @@ def qr_codes(request, place_id):
 
     return render(request, "places/qr_codes.html", {'table_qr_list': table_qr_list,
                                                    'place_name': place.name})
-
-
-
-class testForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-
-def menu2(request):
-    return render(request, "places/menu2.html", {"form" : testForm()})

@@ -1,0 +1,31 @@
+{% extends "places/base.html" %}
+{% load bootstrap_toolkit %}
+{% load static %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Landing page</h1>
+<h3>some links</h3>
+<ul>
+    <li><a href="{% url "places.views.menu" "123456" %}">
+        Invalid menu
+    </a></li>
+    <li><a href="{% url "places.views.menu" "bd701c3d0400432eac661fe889bb0341" %}">
+        Menu for Barbar Palace
+    </a></li>
+    <li><a href="{%  url "places.views.orders" 1 %}" >
+        Orders for Barbar Palace
+    </a></li>
+
+    <li><a href="{% url "places.views.qr_codes" 1 %}" >
+        QR codes for Barbar Palace
+    </a></li>
+
+    <li><a href="admin">Admin page </a></li>
+
+</ul>
+{% endblock %}
