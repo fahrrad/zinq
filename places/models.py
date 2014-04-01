@@ -5,7 +5,6 @@ from uuid import uuid4
 import orders
 
 
-
 class Place(models.Model):
     name = models.CharField(max_length=255)
 
