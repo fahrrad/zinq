@@ -1,8 +1,7 @@
 import logging
 import string
 import json
-from django.contrib.auth.decorators import login_required
-from django import forms
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
@@ -13,14 +12,11 @@ from menus.services import place_order
 from orders.models import Order
 from places.models import Place, Table
 
-
-
-
 logger = logging.getLogger(__name__)
 
 
 def welcome(request):
-    return render(request, "place/welcome.html")
+    return render(request, "places/welcome.html")
 
 
 def MENU(request, table_uuid):
@@ -74,7 +70,6 @@ def menu(request, table_uuid):
             table = Table.objects.get(uuid=table_uuid)
             place = table.place
             menu = table.get_menu()
-
         except:
             return render(request, "places/error.html", {'error_msg': "No table found with id %s!" % table_uuid})
 
@@ -135,8 +130,8 @@ def orders(request, place_pk):
         place = Place.objects.get(pk=place_pk)
         orders = place.get_orders()
 
-    except:
-        return render(request, "place/error.html", {'error_msg': "No places found with id %s!" % place_pk})
+    except ObjectDoesNotExist:
+        return render(request, "places/error.html", {'error_msg': "No places found with id %s!" % place_pk})
 
             # check if the request is coming from an ajax call (The refresh code on the page)
     if 'application/json' in request.META['HTTP_ACCEPT'].split(','):
@@ -193,7 +188,12 @@ def qr_codes(request, place_id):
     """Renders a view containing a QR code for every table in the places!"""
     host_prefix = "HTTP://stormy-peak-3604.herokuapp.com/menu/"
 
-    place = Place.objects.get(pk=int(place_id))
+    try:
+        place = Place.objects.get(pk=int(place_id))
+
+    except ObjectDoesNotExist as e:
+        return render(request, "places/error.html",
+                      {'error_msg': "No place found with id %s!" % place_id})
     table_qr_list = [host_prefix + x.pk + "/" for x in place.table_set.all()]
 
     return render(request, "places/qr_codes.html", {'table_qr_list': table_qr_list,
