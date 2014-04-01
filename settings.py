@@ -15,7 +15,6 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Ward Coessens', 'ward.coessens@gmail.com'),
-    ('Frederik De Paepe', 'frederikdepaepe@webkomeet.be'),
     # ('Your Name', 'your_email@example.com'),
 )
 
