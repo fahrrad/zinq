@@ -1,16 +1,19 @@
 import logging
 import string
 import json
+from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.core import urlresolvers
 
 from menus.services import place_order
 from orders.models import Order
 from places.models import Place, Table
+
+from menus.models import MenuItem
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +73,7 @@ def menu(request, table_uuid):
             table = Table.objects.get(uuid=table_uuid)
             place = table.place
             menu = table.get_menu()
-        except:
+        except :
             return render(request, "places/error.html", {'error_msg': "No table found with id %s!" % table_uuid})
 
         else:
@@ -96,6 +99,29 @@ def rm_order(request, order_id):
     logger.info('Order id %s is deleted' % order_id)
 
     return HttpResponse("Order %s deleted" % order_id)
+
+
+def menu_items(request, table_uuid):
+    # only for GET Requests
+    if request.method == "GET":
+        logger.debug("Got an GET for menu_items" )
+
+        try:
+            table = Table.objects.get(pk=table_uuid)
+            menu = table.get_menu()
+
+            logger.info("getting menutitems for menu id %d" % menu.id)
+            return_str = serializers.serialize('json', MenuItem.objects.filter(menu=menu))
+
+            return HttpResponse(return_str, content_type="text/json")
+        except:
+            logger.error("")
+            raise Http404
+
+
+
+    else:
+        return HttpResponse("No Get " + table_uuid)
 
 
 def orders(request, place_pk):

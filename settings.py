@@ -151,6 +151,8 @@ INSTALLED_APPS = (
     # Bootstrap django admin
     # 'django_admin_bootstrapped',
     # Uncomment the next line to enable the admin:
+    'django_admin_bootstrapped.bootstrap3',
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
@@ -158,7 +160,7 @@ INSTALLED_APPS = (
     # 'rest_framework',
     # 'qrcode',
     'debug_toolbar',
-    'bootstrap3',
+    # 'bootstrap3',
     'qrcode',
 )
 
@@ -198,7 +200,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'place':{
+        'places':{
             'handlers': ['console'],
             'level': 'DEBUG',
         }

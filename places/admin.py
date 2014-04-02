@@ -3,7 +3,6 @@ from menus.models import Menu
 __author__ = 'ward'
 
 from django.contrib import admin
-from django.contrib.auth.models import User
 from places.models import Table, Place
 
 
@@ -51,7 +50,8 @@ class TableModelAdmin(admin.ModelAdmin):
         return super(TableModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)
 
-    exclude = ("uuid",)
+    # needed for easy test
+    # exclude = ("uuid",)
 
 admin.site.register(Place, PlaceModelAdmin)
 admin.site.register(Table, TableModelAdmin)

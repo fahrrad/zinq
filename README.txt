@@ -23,10 +23,25 @@ See wiki for more info on how to start the project
 
 ** TODO entry point for base-36
 
+** TODO Suggesties
+
+** TODO categorien
+
+** TODO SMS verwittigen
+
+** TODO feedbackback toevoegen bij klikken op toevoegen
+
 * domeinnamen
 
 | me.nu  | X |
 | nu.me  | X |
 | me.nf  | V |
 | n-u.me | V |
-|        |   |
+|    zinq.be    |  V |
+
+
+* voor installatie in Macos X Maverick
+Nodig voor het compileren van psyocpg2 en pil
+
+export CPPFLAGS=-Qunused-argument
+export CFLAGS=-Qunused-arguments

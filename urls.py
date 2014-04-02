@@ -1,14 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from orders.models import Order
-from places.views import welcome, menu, landing, orders, rm_order, wait, qr_codes
-from rest_framework import viewsets, routers
-from menus.models import Menu, MenuItem
+from places.views import qr_codes, menu_items
 
 from places.views import welcome, menu, landing, orders, rm_order, wait
 
-from menus.models import Menu, MenuItem
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -38,6 +34,9 @@ urlpatterns = patterns('',
     # view orders
     url(r'^orders/(\w{1,5})/$', orders),
 
+    # rest services for the order
+    url(r'^mi/(\w{4,32})/$', menu_items),
+
     # Rest
     url(r'^rest/orders/delete/(\w{4,32})/$', rm_order),
 
@@ -45,5 +44,7 @@ urlpatterns = patterns('',
 
     url(r'^wait/(\w{4,32})/$', wait),
     url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
+
+
                        
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
