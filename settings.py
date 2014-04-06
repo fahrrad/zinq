@@ -81,7 +81,7 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 # login URL
-LOGIN_URL= '/auth_login'
+LOGIN_URL = '/auth_login'
 
 # Needed for debug_template
 INTERNAL_IPS = ('127.0.0.1',)
@@ -99,7 +99,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -109,10 +109,8 @@ SECRET_KEY = '+fk^91ak$e74&8u+x%30rzseqv@s2+dh#*0=@2ze3^1w_od)@q'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #   'django.template.loaders.eggs.Loader',
 )
-
-
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -156,11 +154,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    # REST
-    # 'rest_framework',
-    # 'qrcode',
     'debug_toolbar',
-    # 'bootstrap3',
     'qrcode',
 )
 

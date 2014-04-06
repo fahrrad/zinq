@@ -36,23 +36,18 @@ def menu_items(request, table_uuid):
         return HttpResponse("No Get " + table_uuid)
 
 
-def MENU(request, table_uuid):
-    """ QR codes can be encoded more efficiently when they only contain capitals.
-     To make it a bit easier on the eyes, I will make them lowercase here, and then
-     call our normal menus function
-
-     see http://code.google.com/p/zxing/wiki/BarcodeContents
-    """
-    url = urlresolvers.reverse("places.views.menus", args=(table_uuid.lower(),))
-    return HttpResponseRedirect(url)
-
-
 # When testing using Curl, need exempt
 @csrf_exempt
 def menu(request, table_uuid):
     """Typically called from a mobile device when scanning a qr code.
      The second parameter is the unique places identifier. This corresponds to a
-     table, and uniquely identifies a menus
+     table, and uniquely identifies a menus.
+
+     QR codes can be encoded more efficiently when they only contain capitals.
+     To make it a bit easier on the eyes, I will make them lowercase here, and then
+     call our normal menus function
+
+     see http://code.google.com/p/zxing/wiki/BarcodeContents
     """
     if request.POST:
         # Got an order!!
@@ -74,8 +69,8 @@ def menu(request, table_uuid):
 
                     item_name_amount.append((item_name, amount))
 
-        # places the orders
-        order = place_order(item_name_amount, table_uuid)
+        # places the orders. using Lower: see comment for this function
+        order = place_order(item_name_amount, table_uuid.lower())
         logger.info("saved an orders")
 
         # ok, orders is places, please wait now!

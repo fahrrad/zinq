@@ -6,20 +6,21 @@ Replace this with more appropriate tests for your application.
 """
 import logging
 from decimal import Decimal
+from django.db import IntegrityError, transaction
 
 from django.test import TestCase
 from menus import services
-from menus.models import MenuItem, Menu
+from menus.models import MenuItem, Menu, Category
 from menus.services import place_order
 from orders.models import Order
 from places.models import Place, Table
-
 
 # integration testing
 from django.test.client import Client
 
 logger = logging.getLogger(__name__)
 
+import contextlib
 
 class MenuTest(TestCase):
     """ Simple tests on the MenuItem object, and there menus group """
@@ -168,3 +169,36 @@ class MenuTest(TestCase):
         expected_price = mi.price * 2 + mi2.price * 3
         self.assertAlmostEqual(o.calculate_total_price(), expected_price)
         self.assertEqual(2, o.menuItems.count())
+
+    def test_create_category(self):
+        c = Category(name='beer', place=self.speyker)
+        c.save()
+
+        found_c = Category.objects.filter(place=self.speyker)
+        self.assertEqual(found_c.count(), 1)
+
+        found_c = found_c.all()[0]
+
+        self.assertEqual(found_c.name, 'beer')
+
+    def test_category_has_to_be_unique(self):
+        self.assertEqual(Category.objects.all().count(), 0)
+
+        Category.objects.create(name='beer', place=self.speyker)
+
+        # Cannot add a second beer to this place
+        #
+        # the atomic() is needed because of the error we expect. If I did not do this,
+        # later questions to this transaction would result in
+        # "An error occurred in the current transaction. You can't execute queries until
+        # the end of the 'atomic' block."
+        # see https://docs.djangoproject.com/en/1.6/topics/db/transactions/#django.db.transaction.atomic
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Category.objects.create(name='beer', place=self.speyker)
+
+        # But another Category is no problem
+        Category.objects.create(name='ham&cheese', place=self.speyker)
+
+        # Also, Beer can be added to another place!
+        p2 = Place.objects.create(name="bogus place")
+        Category.objects.create(name='beer', place=p2)

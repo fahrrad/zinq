@@ -1,20 +1,15 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+
 from menus.views import menu_items, menu
 from orders.views import wait, orders, rm_order
 from places.views import qr_codes
-
 from places.views import welcome, landing
-
-
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
 import settings
 
+
 admin.autodiscover()
-
-
 
 urlpatterns = patterns('',
     # Examples:
@@ -30,7 +25,7 @@ urlpatterns = patterns('',
 
     url(r'^welcome/$', welcome),
     url(r'^menu/(\w{4,32})/$', menu),
-    url(r'^MENU/(\w{4,32})/$', "menus.views.MENU"),
+    url(r'^MENU/(\w{4,32})/$', menu),
     url(r'^$', landing),
 
     # view orders
@@ -41,8 +36,6 @@ urlpatterns = patterns('',
 
     # Rest
     url(r'^rest/orders/delete/(\w{4,32})/$', rm_order),
-
-    url(r'^rest/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^wait/(\w{4,32})/$', wait),
     url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),

@@ -3,13 +3,9 @@ App to take orders from tables in cafe/ restaurants
 See wiki for more info on how to start the project
 
 
-** TODO Beer with dissapearing foam when order is ready
-
 ** TODO notification via twitter
 
 ** TODO notification via SMS
-
-** TODO Write fixture
 
 ** TODO Require Login for orders
 

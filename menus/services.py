@@ -4,6 +4,7 @@ from places.models import Table
 
 __author__ = 'ward'
 
+
 def get_open_orders(place):
     """
     Get a list of all the open (status = ordered) orders for one places.

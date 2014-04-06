@@ -1,8 +1,6 @@
 import logging
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
-
 
 from places.models import Place
 
@@ -24,8 +22,7 @@ def qr_codes(request, place_id):
 
     try:
         place = Place.objects.get(pk=int(place_id))
-
-    except ObjectDoesNotExist as e:
+    except place.DoesNotExist:
         return render(request, "places/error.html",
                       {'error_msg': "No place found with id %s!" % place_id})
     table_qr_list = [host_prefix + x.pk + "/" for x in place.table_set.all()]
