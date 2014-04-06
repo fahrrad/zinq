@@ -1,10 +1,14 @@
 from decimal import Decimal
+import logging
 from uuid import uuid4
 from django.db import models
 
 # Create your models here.
 from menus.models import MenuItem
 from places.models import Table
+
+
+logger = logging.getLogger(__name__)
 
 
 class OrderMenuItem(models.Model):
@@ -15,7 +19,6 @@ class OrderMenuItem(models.Model):
 
     # How many 'things' were ordered
     amount = models.IntegerField(null=False)
-
 
     # the total price at the time of the orders ( item price * amount)
     price = models.DecimalField(null=False, decimal_places=2, max_digits=6)
@@ -34,7 +37,6 @@ class Order(models.Model):
     The lifecycle of an orders:
 
     ordered -> done -> payed
-
     """
 
     # the status a orders can be in
@@ -61,7 +63,7 @@ class Order(models.Model):
     status = models.CharField(max_length=2, choices=ORDER_STATUSES,
                               default=ORDERED)
 
-    def addItem(self, menuItem, amount):
+    def add_item_by_name(self, menuItem, amount):
         """ add amount menuitems to the orders. Will also add the total
         price to the total
         """
@@ -69,17 +71,25 @@ class Order(models.Model):
         price = amount * menuItem.price
 
         orderMenuItem = OrderMenuItem(menuItem=menuItem, order=self,
-                                      amount=amount, price=price)
+                                       amount=amount, price=price)
 
         orderMenuItem.save()
 
+    def add_item_by_pk(self, menu_item_pk, amount):
+        """add a menu item to this order. Fetches it by its PK. Adds @amount times."""
+        try:
+            mi = MenuItem.objects.get(pk=menu_item_pk)
+            price = amount * mi.price
+            order_menu_item = OrderMenuItem(menuItem=mi, order=self
+                                          ,amount=amount, price=price)
+
+            order_menu_item.save()
+
+        except MenuItem.DoesNotExist as mi_doesnotexist:
+            logger.warn("trying to get an unexistsing menuitem (id %d) " % menu_item_pk)
+
     def calculate_total_price(self):
-        total = Decimal('0')
-
-        for orderMenuItem in OrderMenuItem.objects.filter(order=self).all():
-            total += orderMenuItem.price
-
-        return total
+        return sum([omi.price for omi in OrderMenuItem.objects.filter(order=self)])
 
     def proceed(self):
         if self.status == self.ORDERED:
@@ -90,7 +100,6 @@ class Order(models.Model):
 
         else:
             raise Exception('Cannot proceed. Item is payed')
-
 
     def get_menuitems_amounts(self):
         """returns a list of tuples, containing the menuitem name, and the ordered amount"""
@@ -110,12 +119,9 @@ class OrderLineTransferObject():
         self.amount = amount
 
 
-
 class OrderTransferObject():
     """This object will be serialised on the client, and sent to the server"""
     def __init__(self, uuid, table_uuid, order_line_list):
         self.uuid = uuid
         self.table_uuid = uuid
         self.order_line_list = order_line_list
-
-

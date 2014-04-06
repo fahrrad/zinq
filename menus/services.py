@@ -23,7 +23,7 @@ def place_order(items, table_uuid):
 
     for item_name, amount in items:
         menu_item = MenuItem.objects.get(menu=table.get_menu(), name=item_name)
-        order.addItem(menu_item, amount)
+        order.add_item_by_name(menu_item, amount)
 
     return order
 

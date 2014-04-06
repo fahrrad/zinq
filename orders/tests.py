@@ -48,7 +48,7 @@ class SimpleTest(TestCase):
         order = Order(table=self.t1)
         order.save()
 
-        order.addItem(cola, 2)
+        order.add_item_by_name(cola, 2)
 
         # When comparing with equals, the decimals are converted into floats
         # i guess.
@@ -59,8 +59,8 @@ class SimpleTest(TestCase):
         order = Order(table=self.t1)
         order.save()
 
-        order.addItem(self.m1.menuitem_set.get(name="cola"), 3)
-        order.addItem(self.m1.menuitem_set.get(name="fanta"), 1)
+        order.add_item_by_name(self.m1.menuitem_set.get(name="cola"), 3)
+        order.add_item_by_name(self.m1.menuitem_set.get(name="fanta"), 1)
 
         self.assertEqual(order.calculate_total_price(), Decimal('8.05'))
         self.assertEquals(len(order.menuItems.all()), 2)
@@ -108,7 +108,8 @@ class SimpleTest(TestCase):
     def test_posting_an_order(self):
         table_pk = self.t1.pk
         c = Client()
-        # Een colaatje astublief
+
+        # a cola please
         response = c.post("/menu/%s/" % table_pk, {'cola_amount': '3'})
 
         print response.status_code

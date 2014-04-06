@@ -87,8 +87,8 @@ class SimpleTest(TestCase):
         table = self.dambert.table_set.get(table_nr=2)
         order = Order.objects.create(table=table)
 
-        order.addItem(MenuItem.objects.get(name="duvel"), 2)
-        order.addItem(MenuItem.objects.get(name="fanta"), 3)
+        order.add_item_by_name(MenuItem.objects.get(name="duvel"), 2)
+        order.add_item_by_name(MenuItem.objects.get(name="fanta"), 3)
 
         response = c.get('/orders/%s/' % self.dambert.pk,
                          HTTP_ACCEPT="application/json")

@@ -1,9 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from places.views import qr_codes, menu_items
+from menus.views import menu_items, menu
+from orders.views import wait, orders, rm_order
+from places.views import qr_codes
 
-from places.views import welcome, menu, landing, orders, rm_order, wait
+from places.views import welcome, landing
 
 
 # Uncomment the next two lines to enable the admin:
@@ -28,7 +30,7 @@ urlpatterns = patterns('',
 
     url(r'^welcome/$', welcome),
     url(r'^menu/(\w{4,32})/$', menu),
-    url(r'^MENU/(\w{4,32})/$', "places.views.MENU"),
+    url(r'^MENU/(\w{4,32})/$', "menus.views.MENU"),
     url(r'^$', landing),
 
     # view orders
