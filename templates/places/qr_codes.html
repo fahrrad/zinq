@@ -1,0 +1,23 @@
+{# This view shows a list of QR codes for a given places #}
+{% extends "places/base.html" %}
+{% load qr_tags %}
+
+{% block title %}
+    Qr Codes for {{ place_name }}
+{% endblock %}
+
+{% block content %}
+    <h2>Qr codes for {{ place_name }} </h2>
+
+    {% if table_qr_list %}
+
+        {% for table_qr in table_qr_list %}
+            <p></p>
+            {% qr_from_text table_qr %}
+        {% endfor %}
+
+    {% else %}
+        No tables for this place
+    {% endif %}
+
+{% endblock %}

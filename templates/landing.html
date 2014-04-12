@@ -1,12 +1,9 @@
-{% extends "place/base.html" %}
+{% extends "places/base.html" %}
+{% load bootstrap_toolkit %}
 {% load static %}
 
 {% block stylesheets %}
-<style type="text/css" >
-    body {
-        background-color: wheat;
-    }
-</style>
+
 {% endblock %}
 
 {% block content %}
@@ -14,19 +11,21 @@
 <h1>Landing page</h1>
 <h3>some links</h3>
 <ul>
-    <li><a href="{% url "place.views.menu" "123456" %}">
-        invalid menu
+    <li><a href="{% url "menus.views.menu" "123456" %}">
+        Invalid menu
     </a></li>
-    <li><a href="{% url "place.views.menu" "f64f609e75bd4afbbc18cf7f29fcafde" %}">
-        menu for speyker
+    <li><a href="{% url "menus.views.menu" "c530c9337e044bd6b4a7e656006e6b5f" %}">
+        Menu for Barbar Palace
     </a></li>
-    <li><a href="{%  url "place.views.orders" 1 %}" >
-        orders for speyker
+    <li><a href="{%  url "orders.views.orders" 1 %}" >
+        Orders for Barbar Palace
     </a></li>
 
-    <!-- ready made stuff -->
-    <li><a href="rest/" >rest methods</a></li>
-    <li><a href="admin">admin page </a></li>
+    <li><a href="{% url "places.views.qr_codes" 1 %}" >
+        QR codes for Barbar Palace
+    </a></li>
+
+    <li><a href="admin">Admin page </a></li>
 
 </ul>
 {% endblock %}

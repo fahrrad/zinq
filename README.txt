@@ -1,44 +1,43 @@
-Hello Free!!!
+App to take orders from tables in cafe/ restaurants
 
-Om de requirement te downloaden, zou je normaal het volgende moeten doen
-
-1. creeer een virtualenv
- > virtualenv qmenu
-
-2. activeer
- > cd qmenu
- > source bin/activate
-
-Deze stap moet je altijd doen voor je andere commandos kan uitvoeren,
-om zeker te zijn dat we dezelfde versies hebben
-
-3. clone git repo > git clone
-https://fahrrad@bitbucket.org/fahrrad/qmenu.git
-
-4. install packages >
-pip install -r requirements.txt
+See wiki for more info on how to start the project
 
 
-Django
-------
+** TODO notification via twitter
+
+** TODO notification via SMS
+
+** TODO Require Login for orders
+
+** TODO 'Suggestie' checkbox + orders
+
+** TODO Confirmation before order
+
+** TODO refactor aways Place app : use 2 apps: menu and orders
+
+** TODO per menu: 2 urls ( een voor manuele ingeven, met 'anti bot' check, een QR)
+
+** TODO entry point for base-36
+
+** TODO Suggesties
+
+** TODO categorien
+
+** TODO SMS verwittigen
+
+** TODO feedbackback toevoegen bij klikken op toevoegen
+
+* domeinnamen
+
+| me.nu  | X |
+| nu.me  | X |
+| me.nf  | V |
+| n-u.me | V |
+|    zinq.be    |  V |
 
 
+* voor installatie in Macos X Maverick
+Nodig voor het compileren van psyocpg2 en pil
 
-in de qmenu folder ( waar manage.py staat )
-
-
-1. Om de database te generenen :
- > python manage.py syncdb --noinput
-( Dit moet je alleen doen de eerste keer, en als je een model wijzigt)
-
-2. de embedded webserver starten
- > python manage.py runserver [poort]   
-(Standaard is de poort 8000)
-
-Admin interface
----------------
-
-De standaard CRUD schermen zitten onder host:poort/admin. Het paswoord en login is admin/admin
-
-
-
+export CPPFLAGS=-Qunused-argument
+export CFLAGS=-Qunused-arguments

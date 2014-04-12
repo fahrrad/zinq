@@ -1,26 +1,14 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 from django.contrib import admin
-from place.views import welcome, menu, landing, orders, rm_order
-from rest_framework import viewsets, routers
-from menu.models import Order, Menu, MenuItem
+
+from menus.views import menu_items, menu
+from orders.views import wait, orders, rm_order
+from places.views import qr_codes
+from places.views import welcome, landing
+import settings
 
 
-class OrderViewSets(viewsets.ModelViewSet):
-    model = Order
-
-class MenuViewSet(viewsets.ModelViewSet):
-    model = Menu
-
-class MenuItemsViewSet(viewsets.ModelViewSet):
-    model = MenuItem
-
-router = routers.DefaultRouter()
-router.register(r'orders', OrderViewSets)
-router.register(r'menus', MenuViewSet)
-router.register(r'menuitems', MenuItemsViewSet)
-
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -34,17 +22,24 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
+
     url(r'^welcome/$', welcome),
     url(r'^menu/(\w{4,32})/$', menu),
+    url(r'^MENU/(\w{4,32})/$', menu),
     url(r'^$', landing),
 
     # view orders
     url(r'^orders/(\w{1,5})/$', orders),
 
-    # Rest
-    url(r'^rest/orders/delete/(\w{1,5})/$', rm_order),
+    # rest services for the order
+    url(r'^mi/(\w{4,32})/$', menu_items),
 
-    url(r'^rest/', include(router.urls)),
-    url(r'^rest/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # Rest
+    url(r'^rest/orders/delete/(\w{4,32})/$', rm_order),
+
+    url(r'^wait/(\w{4,32})/$', wait),
+    url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
+
+
                        
-)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
