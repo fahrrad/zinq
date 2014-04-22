@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from menus.views import menu_items, menu
-from orders.views import wait, orders, rm_order, place_order, get_order_app
+from orders.views import wait, orders, rm_order, place_order, get_order_app, wait_status
 from places.views import qr_codes
 from places.views import welcome, landing
 import settings
@@ -39,5 +39,6 @@ urlpatterns = patterns('',
     url(r'^rest/orders/delete/(\w{4,32})/$', rm_order),
 
     url(r'^wait/(\w{4,32})/$', wait),
+    url(r'^wait_status/(\w{4,32})/$', wait_status),
     url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

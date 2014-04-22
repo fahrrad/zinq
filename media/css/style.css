@@ -758,6 +758,9 @@ h2 .arrow-down {
     height: 33%;
 }
 
+#done-order-icon{
+    height: 33%;
+}
 #wait-for-order-bottom{
     vertical-align:  50%;
     height: 34%;

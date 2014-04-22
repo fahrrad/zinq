@@ -2,12 +2,10 @@
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from orders.models import Order
 from places.models import Place, Table
 from places.views import logger
-
-import pika
 
 import logging
 
@@ -20,38 +18,30 @@ logging.basicConfig()
 # channel.queue_declare(queue='hello')
 
 
-def wait(request, order_uuid):
-    """returns the view where the drinker is asked to wait.
+def wait_status(request, order_uuid):
+    """
      This view returns a rendered view when HTTP_ACCEPT is not json, and a status
      code if json is requested.
     """
-    if "application/json" in request.META["HTTP_ACCEPT"].split(','):
-        response_data = dict()
+    response_data = dict()
 
-        # lookup the orders in the database
-        order = Order.objects.get(pk=order_uuid)
-        status_display = order.get_status_display()
-        status_code = order.status
+    # lookup the orders in the database
+    order = Order.objects.get(pk=order_uuid)
 
-        response_data['status_display'] = status_display
-        response_data['status_code'] = status_code
-        response_data['status_done'] = order.status == Order.DONE
+    response_data['status_done'] = order.status == Order.DONE
 
-        # should I check again
-        check_next = status_code != Order.DONE
+    # how long should I wait for next check
+    response_data['next_check_timeout'] = 2000
 
-        # how long should I wait for next check
-        next_check_timeout = 2000
+    return_json = json.dumps(response_data)
+    logger.debug(return_json)
 
-        response_data['next_check_timeout'] = next_check_timeout
-        response_data['check_next'] = check_next
+    return HttpResponse(return_json, content_type="application/json")
 
-        return_json = json.dumps(response_data)
-        logger.debug(return_json)
 
-        return HttpResponse(return_json, content_type="application/json")
-    else:
-        return render(request, "orders/wait.html", {"order_uuid": order_uuid})
+def wait(request, order_uuid):
+    """returns the view where the drinker is asked to wait."""
+    return render(request, "orders/wait.html", {"order_uuid": order_uuid})
 
 
 def orders(request, place_pk):
