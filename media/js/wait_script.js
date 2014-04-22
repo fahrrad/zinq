@@ -31,5 +31,5 @@ function refresh(){
     })
 };
 
-order_path = "/wait_status/" + $('#order_uuid').text();
+order_path = "/wait_status/" + $('#order_uuid').text() + "/";
 refresh();

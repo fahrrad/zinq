@@ -57,4 +57,5 @@ def menu(request, table_uuid):
 
     # render the template
     return render(request, "menus/order.html", {'menu': table_menu,
-                                                'place': place})
+                                                'place': place,
+                                                'table_uuid':table_uuid})
