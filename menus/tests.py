@@ -20,7 +20,6 @@ from django.test.client import Client
 
 logger = logging.getLogger(__name__)
 
-import contextlib
 
 class MenuTest(TestCase):
     """ Simple tests on the MenuItem object, and there menus group """
@@ -46,49 +45,45 @@ class MenuTest(TestCase):
 
     def test_filter_contains_a(self):
         # find stuff that contains an 'a' ( 2 )
-        a_items = MenuItem.objects.filter(name__contains='a', menu=self.m1)
-        self.assertEquals(len(a_items), 2)
+        self.assertEquals(MenuItem.objects.filter(name__contains='a', menu=self.m1).count(),
+                          2)
 
     def test_menu_item(self):
         # two items are created
-        self.assertEquals(len(MenuItem.objects.filter(menu=self.m1)), 2)
+        self.assertEquals(MenuItem.objects.filter(menu=self.m1).count(),
+                          2)
 
     def test_find_cola(self):
         # find back cola
-        cola = MenuItem.objects.get(name="cola", menu=self.m1)
-        self.assertTrue(cola)
+        self.assertIsNotNone(MenuItem.objects.get(name="cola", menu=self.m1))
 
     def test_no_more_fristi(self):
         # do not find fristi
-        fristi = MenuItem.objects.filter(name="fristi", menu=self.m1)
-        self.assertFalse(fristi)
+        with self.assertRaises(MenuItem.DoesNotExist):
+            MenuItem.objects.get(name="fristi", menu=self.m1)
 
     def test_find_menu(self):
         # try to find all the menu items for 1 menus
         menu = Menu.objects.get(name="menu_test")
 
-        self.assertEquals(len(menu.menuitem_set.all()), 2)
+        self.assertEquals(menu.menuitem_set.count(), 2)
 
     def test_find_a_menu_and_find_also_menu_items(self):
         """ Fetch a menus, and list the menus items  """
 
         # Menu
-        menu = Menu(name="some menus")
-        menu.save()
+        menu = Menu.objects.create(name="some menu")
 
-        # menuItems
-        duvel = MenuItem(name="Duvel", price=3.8, menu=menu)
-        duvel.save()
+        # menu items
+        MenuItem.objects.create(name="Duvel", price=3.8, menu=menu)
+        MenuItem.objects.create(name="Vedet", price=2.5, menu=menu)
 
-        vedet = MenuItem(name="Vedet", price=2.5, menu=menu)
-        vedet.save()
+        found_menu_list = Menu.objects.filter(name="some menu")
+        self.assertEquals(found_menu_list.count(), 1)
 
-        found_menu_list = Menu.objects.filter(name="some menus")
-        self.assertEquals(len(found_menu_list.all()), 1)
+        found_menu = found_menu_list.first()
 
-        found_menu = found_menu_list[0]
-
-        self.assertEquals(len(found_menu.menuitem_set.all()), 2)
+        self.assertEquals(found_menu.menuitem_set.count(), 2)
 
     def test_add_items_to_a_menu(self):
         # the setup-created menus
@@ -101,7 +96,7 @@ class MenuTest(TestCase):
         self.assertEquals(len(m1.menuitem_set.all()), 2)
 
         # adding coffee
-        MenuItem(name="koffie", price=1.8, menu=m1).save()
+        MenuItem.objects.create(name="coffee", price=1.8, menu=m1)
 
         found_menu = Menu.objects.get(pk=m1.pk)
 
@@ -139,6 +134,7 @@ class MenuTest(TestCase):
 
     def test_get_menu_items(self):
         """Testing the json response for menu items that"""
+
         # pks can not be stored, because in postgres the sequences are preserved in between tests
         json_menu_items = [{u'pk': self.mi_cola.pk, u'model': u'menus.menuitem',
                             u'fields': {u'menu': self.m1.pk, u'price': u'1.85', u'name': u'cola'}},
@@ -153,6 +149,7 @@ class MenuTest(TestCase):
 
     def test_add_items_to_order_by_id(self):
         """Testing that adding menu items by id has the correct effect on the price"""
+
         o = Order(table=self.t1)
         o.save()
 
@@ -171,6 +168,8 @@ class MenuTest(TestCase):
         self.assertEqual(2, o.menuItems.count())
 
     def test_create_category(self):
+        """can i create and find a category?"""
+
         c = Category(name='beer', place=self.speyker)
         c.save()
 
@@ -182,6 +181,8 @@ class MenuTest(TestCase):
         self.assertEqual(found_c.name, 'beer')
 
     def test_category_has_to_be_unique(self):
+        """I should not be able to add 2 categories with the same name and place"""
+
         self.assertEqual(Category.objects.all().count(), 0)
 
         Category.objects.create(name='beer', place=self.speyker)
@@ -199,6 +200,6 @@ class MenuTest(TestCase):
         # But another Category is no problem
         Category.objects.create(name='ham&cheese', place=self.speyker)
 
-        # Also, Beer can be added to another place!
+        # Also, beer can be added to another place!
         p2 = Place.objects.create(name="bogus place")
         Category.objects.create(name='beer', place=p2)

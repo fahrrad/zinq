@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html style="margin: 0px; height: 100%;">
+<head>
+    <title>waiting for order</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+<body class="wait-for-order" style="height:100%">
+<div hidden id="order_uuid">{{ order_uuid }}</div>
+<div id="wait-for-order-title">Uw bestelling <br>wordt verwerkt...</div>
+<div id="wait-for-order-icon">
+    <embed name="E" id="E" src="{% static "img/clock.svg" %}"/>
+</div>
+
+<div id="wait-for-order-bottom">
+    <span style="display: inline-block; vertical-align: middle;height: 200px">Even geduld a.u.b.</span>
+</div>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static "js/wait_script.js" %}"></script>
+</body>
+
+</html>

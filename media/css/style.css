@@ -521,6 +521,12 @@ textarea {
  * Remove most spacing between table cells.
  */
 
+/**
+Fonts
+*/
+@import url("../webfonts/vaud-display-light.css");
+@import url("../_html/vaud-thin.css");
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -726,3 +732,33 @@ h2 .arrow-down {
     float: right;
 }
 
+#E {
+    max-height: 100%;
+}
+
+.wait-for-order {
+    background-color: #EA303F;
+    font-family: 'Vaud Thin', Helvetica, Arial, Sans-Serif;
+    font-size: 22px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.2em;
+
+}
+
+
+#wait-for-order-title{
+    height: 33%;
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align:  middle;
+}
+
+#wait-for-order-icon{
+    height: 33%;
+}
+
+#wait-for-order-bottom{
+    vertical-align:  50%;
+    height: 34%;
+}

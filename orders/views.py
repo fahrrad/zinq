@@ -2,10 +2,22 @@
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from orders.models import Order
 from places.models import Place, Table
 from places.views import logger
+
+import pika
+
+import logging
+
+logging.basicConfig()
+#
+# credentials = pika.PlainCredentials('guest', 'guest')
+# conn_properties = pika.ConnectionParameters('localhost') #, 5672, '/', credentials)
+# connection = pika.BlockingConnection(conn_properties)
+# channel = connection.channel()
+# channel.queue_declare(queue='hello')
 
 
 def wait(request, order_uuid):
@@ -13,7 +25,7 @@ def wait(request, order_uuid):
      This view returns a rendered view when HTTP_ACCEPT is not json, and a status
      code if json is requested.
     """
-    if request.META["HTTP_ACCEPT"].split(',')[0] == "application/json":
+    if "application/json" in request.META["HTTP_ACCEPT"].split(','):
         response_data = dict()
 
         # lookup the orders in the database
@@ -23,6 +35,7 @@ def wait(request, order_uuid):
 
         response_data['status_display'] = status_display
         response_data['status_code'] = status_code
+        response_data['status_done'] = order.status == Order.DONE
 
         # should I check again
         check_next = status_code != Order.DONE
@@ -37,8 +50,8 @@ def wait(request, order_uuid):
         logger.debug(return_json)
 
         return HttpResponse(return_json, content_type="application/json")
-
-    return render(request, "places/waiting.html")
+    else:
+        return render(request, "orders/wait.html", {"order_uuid": order_uuid})
 
 
 def orders(request, place_pk):
@@ -56,6 +69,7 @@ def orders(request, place_pk):
         |         |      |              |-----------
         |         |      |--------------------------
         |         |
+        |         |
         |         | pk : |--------------------------
         |         |      | tableNr
         |         |      | item_amounts:|-----------
@@ -70,7 +84,7 @@ def orders(request, place_pk):
     # try get places
     try:
         place = Place.objects.get(pk=place_pk)
-        orders = place.get_orders()
+        place_orders = place.get_orders()
 
     except ObjectDoesNotExist:
         return render(request, "places/error.html", {'error_msg': "No places found with id %s!" % place_pk})
@@ -82,7 +96,7 @@ def orders(request, place_pk):
         return_values['interval'] = 2000
         return_values['orders'] = dict()
 
-        for order in orders:
+        for order in place_orders:
             return_values['orders'][order.pk] = dict()
             return_values['orders'][order.pk]['table_nr'] = order.table.table_nr
             return_values['orders'][order.pk]['item_amounts'] = order.get_menuitems_amounts()
@@ -90,22 +104,23 @@ def orders(request, place_pk):
         # just return the data
         return HttpResponse(json.dumps(return_values), content_type='application/json')
     else:
-        return render(request, "places/orders.html", {'orders': orders})
+        return render(request, "places/orders.html", {'orders': place_orders})
 
 
 def place_order(request, table_uuid):
     """Accepts an order in the following form: [{ pk:menu_item_id, amount:amount ... }]"""
 
-    if request.method == 'POST' and 'order' in request.POST.keys():
+    if request.method == 'GET' and 'order' in request.GET.keys():
         order = request.POST['order']
-
         try:
-            table = Table.objects.get(pk=order.table)
+            table = Table.objects.get(pk=table_uuid)
             o = Order(table=table)
             for order_item in order:
                 o.add_item_by_pk(order_item.pk, order_item.amount)
         except:
             raise Http404()
+
+        return HttpResponse(json.dumps({"order_id": o.pk}), content_type='text/json')
 
 
 def rm_order(request, order_id):
@@ -116,8 +131,18 @@ def rm_order(request, order_id):
 
     except Exception as e:
         logger.error(e)
-        return render(request, "places/error.html", {"error_msg" : e})
+        return render(request, "places/error.html", {"error_msg": e})
 
     logger.info('Order id %s is deleted' % order_id)
 
     return HttpResponse("Order %s deleted" % order_id)
+
+
+def get_order_app(request, table_uuid):
+    return render(request, 'orders/order_app.html', {"table_uuid":table_uuid})
+
+
+def sent_message(request):
+    channel.basic_publish(exchange='',
+                      routing_key='hello',
+                      body='Hello World!')

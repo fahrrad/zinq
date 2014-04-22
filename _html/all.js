@@ -38,13 +38,14 @@ $(document).ready(function() {
             price = parseFloat($('.price', $(this).parents('.product:first')).data('price')),
             amount = parseInt(amountWrapper.html());
 
-        amount = checkPositive(amount - 1);
-        amountWrapper.html(amount);
+        if(amount >= 1){
+            amount -= 1;
+            amountWrapper.html(amount);
 
-        totalAmount = parseFloat(totalAmount) - price;
-
-        itemsTotal = checkPositive(itemsTotal - 1);
-        displayItemsTotal();
+            totalAmount = parseFloat(totalAmount) - price;
+            itemsTotal = itemsTotal - 1;
+            displayItemsTotal();
+        }
 
         return false;
     });
