@@ -79,7 +79,7 @@ class Order(models.Model):
         """add a menu item to this order. Fetches it by its PK. Adds @amount times."""
         try:
             mi = MenuItem.objects.get(pk=menu_item_pk)
-            price = amount * mi.price
+            price = int(amount) * mi.price
             order_menu_item = OrderMenuItem(menuItem=mi, order=self
                                           ,amount=amount, price=price)
 

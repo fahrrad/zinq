@@ -18,8 +18,8 @@ def landing(request):
 
 def qr_codes(request, place_id):
     """Renders a view containing a QR code for every table in the places!"""
-    # host_prefix = "HTTP://stormy-peak-3604.herokuapp.com/menu/"
-    host_prefix = "192.168.0.177/menu/"
+    host_prefix = "HTTP://stormy-peak-3604.herokuapp.com/MENU/"
+    # host_prefix = "http://192.168.0.178:8000/menu/"
     try:
         place = Place.objects.get(pk=int(place_id))
     except place.DoesNotExist:

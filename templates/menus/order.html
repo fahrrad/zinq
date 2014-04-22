@@ -1,32 +1,32 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>Zinq</title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-    <link rel="stylesheet" href="style.css?v=1">
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="all.js"></script>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
+<div hidden="" id="table_uuid">720f87d2af224505b72e8c9e81bbb3de</div>
 <div id="product-overview">
     <div id="items">
         <h2 data-clicked="false">Dranken<span class="arrow-down"></span></h2>
-        <div class="product" data-id="">
+        <div class="product" data-id="1">
             <div class="product-top" data-clicked="">
                 <h3>Salade met geitenkaas en gerookte zalm
-                <span class="grey">Mozzarella, Tomaat, Basilicum</span></h3>
-                <div class="price" data-price="12.50">€ 12,50</div>
+                    <span class="grey">Mozzarella, Tomaat, Basilicum</span></h3>
+                <div class="price" data-price="12.50" >€ 12,50</div>
             </div>
             <div class="product-bottom">
                 <div class="amount-wrapper">
                     <span class="amount">0</span>
-                <a href="#" class="plus">+</a>
-                <a href="#" class="min">-</a>
+                    <a href="#" class="plus">+</a>
+                    <a href="#" class="min">-</a>
                 </div>
             </div>
         </div>
-        <div class="product">
+        <div class="product" data-id="2">
             <div class="product-top" data-clicked="">
                 <h3>Warme Croissant
                     <span class="grey">Met kaas</span></h3>
@@ -41,7 +41,7 @@
             </div>
         </div>
         <h2 data-clicked="false">Broodjes<span class="arrow-down"></span></h2>
-        <div class="product">
+        <div class="product" data-id="3">
             <div class="product-top" data-clicked="">
                 <h3>Salade met geitenkaas en gerookte zalm
                     <span class="grey">Mozzarella, Tomaat, Basilicum</span></h3>
@@ -77,5 +77,8 @@
     <a href="#" id="back"><span class="arrow-left"></span> Terug naar menu</a>
     <a href="#" id="confirm">Bevestig bestelling</a>
 </div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="{% static "js/menu.js" %}"></script>
 </body>
 </html>

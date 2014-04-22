@@ -3,6 +3,7 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from orders.models import Order
 from places.models import Place, Table
 from places.views import logger
@@ -26,8 +27,13 @@ def wait_status(request, order_uuid):
     response_data = dict()
 
     # lookup the orders in the database
-    order = Order.objects.get(pk=order_uuid)
+    try:
+        order = Order.objects.get(pk=order_uuid)
+    except Order.DoesNotExist as e:
+        logger.error("Somebody tried to fetch a non existing order! " + e)
+        raise Http404()
 
+    # Is the order done?
     response_data['status_done'] = order.status == Order.DONE
 
     # how long should I wait for next check
@@ -97,20 +103,21 @@ def orders(request, place_pk):
         return render(request, "places/orders.html", {'orders': place_orders})
 
 
+@csrf_exempt
 def place_order(request, table_uuid):
-    """Accepts an order in the following form: [{ pk:menu_item_id, amount:amount ... }]"""
-
-    if request.method == 'GET' and 'order' in request.GET.keys():
-        order = request.POST['order']
+    """Accepts an order in the following form: [{ pk:menu_item_id, amount:amount ... }]
+    Returns 404 if table or one of the order-item ids are not found"""
+    if request.method == 'POST':
         try:
             table = Table.objects.get(pk=table_uuid)
-            o = Order(table=table)
-            for order_item in order:
-                o.add_item_by_pk(order_item.pk, order_item.amount)
-        except:
+            o = Order.objects.create(table=table)
+            for order_item, amount in request.POST.items():
+                o.add_item_by_pk(order_item, amount)
+        except Exception as e:
+            logger.warn(e)
             raise Http404()
 
-        return HttpResponse(json.dumps({"order_id": o.pk}), content_type='text/json')
+        return HttpResponse(json.dumps({"order_uuid": o.pk}), content_type='application/json')
 
 
 def rm_order(request, order_id):
@@ -126,13 +133,3 @@ def rm_order(request, order_id):
     logger.info('Order id %s is deleted' % order_id)
 
     return HttpResponse("Order %s deleted" % order_id)
-
-
-def get_order_app(request, table_uuid):
-    return render(request, 'orders/order_app.html', {"table_uuid":table_uuid})
-
-
-def sent_message(request):
-    channel.basic_publish(exchange='',
-                      routing_key='hello',
-                      body='Hello World!')

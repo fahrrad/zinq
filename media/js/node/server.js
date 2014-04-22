@@ -52,7 +52,7 @@ function contains(array, key) {
 server = http.createServer(function server(req, res) {
     res.setHeader('Content-Type', 'text/html');
     fs.createReadStream(
-        __dirname + (~req.url.indexOf('primus.js') ? '/primus.js' : '/index.html')
+        __dirname + (~req.url.indexOf('primus.js') ? '/primus.js' : '/order.html')
     ).pipe(res);
 });
 
@@ -124,7 +124,7 @@ primus.on('connection', function connection(spark) {
         //
         // Pipe in some data.
         //
-        if (packet.pipe) fs.createReadStream(__dirname + '/index.html').pipe(spark, {
+        if (packet.pipe) fs.createReadStream(__dirname + '/order.html').pipe(spark, {
             end: false
         });
 

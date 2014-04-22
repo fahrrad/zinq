@@ -42,50 +42,19 @@ def menu(request, table_uuid):
     """Typically called from a mobile device when scanning a qr code.
      The second parameter is the unique places identifier. This corresponds to a
      table, and uniquely identifies a menus.
-
-     QR codes can be encoded more efficiently when they only contain capitals.
-     To make it a bit easier on the eyes, I will make them lowercase here, and then
-     call our normal menus function
-
-     see http://code.google.com/p/zxing/wiki/BarcodeContents
+    :param request:
+    :param table_uuid:
     """
-    if request.POST:
-        # Got an order!!
-        logger.info("orders!")
-        logger.info("Post:" + repr(request.POST))
-
-        # Loop over items in the orders, and ad them to a temp collection
-        item_name_amount = []
-        for key, amount in request.POST.items():
-
-            # only keys that end in _amount should have a numeric value
-            if string.find(key, "_amount") > -1:
-                amount = int(amount)
-                if amount > 0:
-                    item_name = string.replace(key, "_amount", "")
-
-                    logger.info("key " + item_name)
-                    logger.info("amount %d" % amount)
-
-                    item_name_amount.append((item_name, amount))
-
-        # places the orders. using Lower: see comment for this function
-        order = place_order(item_name_amount, table_uuid.lower())
-        logger.info("saved an orders")
-
-        # ok, orders is places, please wait now!
-        return HttpResponseRedirect("/wait/" + str(order.pk))
-
-    else:
+    try:
+        table = Table.objects.get(uuid=table_uuid)
         logger.debug("menus requested for table %s", table_uuid)
-        try:
-            table = Table.objects.get(uuid=table_uuid)
-            place = table.place
-            table_menu = table.get_menu()
-        except Table.DoesNotExist:
-            return render(request, "places/error.html", {'error_msg': "No table found with id %s!" % table_uuid})
+        place = table.place
+        table_menu = table.get_menu()
+    except Table.DoesNotExist as e:
+        logger.error("Somebody tried to get a menu for a non " +
+                     "existing table:", e)
+        raise Http404()
 
-        else:
-            # render the template
-            return render(request, "places/menu.html", {'menu': table_menu,
-                                                        'places': place})
+    # render the template
+    return render(request, "menus/order.html", {'menu': table_menu,
+                                                'place': place})

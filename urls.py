@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from menus.views import menu_items, menu
-from orders.views import wait, orders, rm_order, place_order, get_order_app, wait_status
+from orders.views import wait, orders, rm_order, place_order, wait_status
 from places.views import qr_codes
 from places.views import welcome, landing
 import settings
@@ -20,17 +20,18 @@ urlpatterns = patterns('',
 
     url(r'^welcome/$', welcome),
     url(r'^menu/(\w{4,32})/$', menu),
+
+     # QR codes can be encoded more efficiently when they only contain capitals.
+     #
+     # see http://code.google.com/p/zxing/wiki/BarcodeContents
     url(r'^MENU/(\w{4,32})/$', menu),
     url(r'^$', landing),
-
-    # order app
-    url(r'^m/(\w{4,32})/$', get_order_app),
 
     # view orders
     url(r'^orders/(\w{1,5})/$', orders),
 
     # place order
-    # url(r'^orders/p/(\w{4,32})/$', place_order),
+    url(r'^orders/p/(\w{4,32})/$', place_order),
 
     # rest services for the order
     url(r'^mi/(\w{4,32})/$', menu_items),
