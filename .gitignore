@@ -3,3 +3,4 @@ qmenu.db
 ~
 *.pyc
 *.sublime*
+*DS_Store*
