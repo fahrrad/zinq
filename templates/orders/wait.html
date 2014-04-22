@@ -10,7 +10,10 @@
 <div hidden id="order_uuid">{{ order_uuid }}</div>
 <div id="wait-for-order-title">Uw bestelling <br>wordt verwerkt...</div>
 <div id="wait-for-order-icon">
-    <embed name="E" id="E" src="{% static "img/clock.svg" %}"/>
+    <embed name="E" id="E-clock" src="{% static "img/clock.svg" %}"/>
+</div>
+<div id="done-order-icon" hidden>
+    <embed name="E" id="E-smiley" src="{% static "img/smiley.svg" %}"/>
 </div>
 
 <div id="wait-for-order-bottom">
