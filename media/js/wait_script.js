@@ -12,6 +12,9 @@ function orderDone(){
     $('#wait-for-order-title').text("");
     $('#wait-for-order-bottom').html("Uw bestelling is klaar <br> om of te halen aan de bar!");
 
+    // Changing title
+    $(document).attr('title', 'bestelling klaar')
+
     // Popup
     alert("Bestelling klaar!");
 }

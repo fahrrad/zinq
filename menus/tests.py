@@ -5,6 +5,8 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 import logging
+logging.basicConfig()
+
 from decimal import Decimal
 from django.db import IntegrityError, transaction
 
@@ -12,6 +14,7 @@ from django.test import TestCase
 from menus import services
 from menus.models import MenuItem, Menu, Category
 from menus.services import place_order
+from menus.views import get_category_menu_items
 from orders.models import Order
 from places.models import Place, Table
 
@@ -203,3 +206,10 @@ class MenuTest(TestCase):
         # Also, beer can be added to another place!
         p2 = Place.objects.create(name="bogus place")
         Category.objects.create(name='beer', place=p2)
+
+
+
+
+
+
+

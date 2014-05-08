@@ -1,3 +1,4 @@
+from collections import defaultdict
 from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
@@ -29,11 +30,6 @@ class Table(models.Model):
         """Converts a hex number into a base 36 ( shorter, using all characters available in QR"""
         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
-        for (c,d,e) in zip(uuid[0::3], uuid[1::3], uuid[2::3]):
-            print c,d,e
-            print
-
-
     # uuid to map to this table
     uuid = models.CharField(max_length=32, default=lambda: uuid4().hex,
                             primary_key=True)
@@ -47,6 +43,16 @@ class Table(models.Model):
     def get_menu(self):
         """get the menus for a table"""
         return self.place.menu
+
+    def get_category_menu_items(self):
+        """returns a dictionary with categories as keys, and a list of menu items as the value"""
+        cat_menu_items = defaultdict(list)
+        menu_items = self.place.menu.menuitem_set
+
+        for mi in menu_items.all():
+            cat_menu_items[mi.category].append(mi)
+
+        return dict(cat_menu_items)
 
     def __unicode__(self):
         return "table %s at %s" % (self.table_nr, self.place)

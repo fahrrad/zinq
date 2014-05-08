@@ -27,6 +27,9 @@ See wiki for more info on how to start the project
 
 ** TODO feedbackback toevoegen bij klikken op toevoegen
 
+** TODO Bug bij bevestiging
+
+
 * domeinnamen
 
 | me.nu  | X |

@@ -23,24 +23,31 @@ class SimpleTest(TestCase):
         self.dambert.menu = self.dambert_menu
         self.dambert.save()
 
-        mi1 = MenuItem(name="cola", price=2.5, menu=self.dambert_menu)
-        mi1.save()
+        self.mi1 = MenuItem.objects.create(name="cola",
+                                           price=2.5,
+                                           menu=self.dambert_menu,
+                                           category="soft drink")
 
-        mi2 = MenuItem(name="cola light", price=2.8, menu=self.dambert_menu)
-        mi2.save()
+        self.mi2 = MenuItem.objects.create(name="cola light",
+                                           price=2.8,
+                                           menu=self.dambert_menu,
+                                           category="soft drink")
 
-        mi3 = MenuItem(name="duvel", price=3.5, menu=self.dambert_menu)
-        mi3.save()
+        self.mi3 = MenuItem.objects.create(name="duvel",
+                                           price=3.5,
+                                           menu=self.dambert_menu,
+                                           category="beer")
 
-        mi4 = MenuItem(name="fanta", price=1.5, menu=self.dambert_menu)
-        mi4.save()
-
+        self.mi4 = MenuItem.objects.create(name="fanta",
+                                           price=1.5,
+                                           menu=self.dambert_menu,
+                                           category="soft drink")
 
         # tables
-        Table.objects.create(place=self.dambert, table_nr=1)
-        Table.objects.create(place=self.dambert, table_nr=2)
-        Table.objects.create(place=self.dambert, table_nr=3)
-        Table.objects.create(place=self.dambert, table_nr=4)
+        self.t1 = Table.objects.create(place=self.dambert, table_nr=1)
+        self.t2 = Table.objects.create(place=self.dambert, table_nr=2)
+        self.t3 = Table.objects.create(place=self.dambert, table_nr=3)
+        self.t4 = Table.objects.create(place=self.dambert, table_nr=4)
 
     def test_finding_tables_for_dambert(self):
 
@@ -118,6 +125,9 @@ class SimpleTest(TestCase):
             if item == "fanta":
                 self.assertEquals(amount, 3)
 
+    def test_get_category_menu_items(self):
+        cat_menu_items = self.t1.get_category_menu_items()
 
-
-
+        self.assertEqual(2, len(cat_menu_items))
+        self.assertIsNotNone(cat_menu_items['soft drink'])
+        self.assertEqual(3, len(cat_menu_items['soft drink']))

@@ -29,6 +29,8 @@ class MenuItem(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     price = models.DecimalField(null=False, decimal_places=2, max_digits=6)
 
+    category = models.CharField(max_length=255)
+
     menu = models.ForeignKey(Menu)
 
     def __unicode__(self):
