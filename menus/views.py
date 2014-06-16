@@ -13,24 +13,6 @@ import pika
 
 logger = logging.getLogger(__name__)
 
-credentials = pika.PlainCredentials("guest", "guest")
-conn_parameters = pika.ConnectionParameters('localhost', credentials=credentials)
-
-conn_broker = pika.BlockingConnection(conn_parameters)
-channel = conn_broker.channel()
-channel.exchange_declare(exchange="menu_exchange",
-                         exchange_type='direct',
-                         passive=False,
-                         durable=True,
-                         auto_delete=False)
-
-channel.queue_declare(queue="log_messages")
-channel.queue_bind(queue="log_messages",
-                   exchange="menu_exchange",
-                   routing_key="logging")
-channel.close()
-del channel
-
 
 def menu_items(request, table_uuid):
     # only for GET Requests
@@ -61,7 +43,8 @@ def menu(request, table_uuid):
     :param request:
     :param table_uuid:
     """
-    channel = conn_broker.channel()
+    channel = None
+
     try:
         table = Table.objects.get(uuid=table_uuid)
         logger.debug("menus requested for table %s", table_uuid)
@@ -72,10 +55,11 @@ def menu(request, table_uuid):
         msg_properties = pika.BasicProperties()
         msg_properties.content_type = "text/plain"
 
-        channel.basic_publish(body=table_uuid,
-                              exchange="menu_exchange",
-                              properties=msg_properties,
-                              routing_key="logging")
+        if channel:
+            channel.basic_publish(body=table_uuid,
+                                  exchange="menu_exchange",
+                                  properties=msg_properties,
+                                  routing_key="logging")
 
     except Table.DoesNotExist as e:
         logger.error("Somebody tried to get a menu for a non " +

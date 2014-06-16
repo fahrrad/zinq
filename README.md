@@ -44,3 +44,5 @@ Nodig voor het compileren van psyocpg2 en pil
 
 export CPPFLAGS=-Qunused-argument
 export CFLAGS=-Qunused-arguments
+
+* Error on macosX
