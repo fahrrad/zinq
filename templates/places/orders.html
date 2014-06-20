@@ -1,17 +1,51 @@
-{% extends "places/base.html" %}
-{% load static %}
+{% load staticfiles %}
 
-{% block scripts %}
-        <script src="{% static "js/orderscripts.js" %}"></script>
-{% endblock %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders for {{ place.name }}</title>
+    <link href="{% static "css/order_style.css" %}" rel="stylesheet" >
+</head>
+<body>
 
-{% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="{% static "css/stylesheet.css" %}" />
-{% endblock %}
+<div class="main">
+    <div class="header-line">
+        <div class="grid_1of4">Bestelling</div>
+        <div class="grid_1of4">Tafel</div>
+        <div class="grid_1of4">Tijd</div>
 
-{%  block content %}
-    <div class="orders"> </div>
-{% endblock content %}
+    </div>
+    <div class="order-line">
+        <div class="grid_1of4">Ward</div>
+        <div class="grid_1of4">12</div>
+        <div class="grid_1of4">1:10</div>
+        <div class="3bars-icon">
+            <img height="100%" name="3bars" src="{% static "img/3bars.svg" %}"/>
+        </div>
+    </div>
+    <div class="order-line">
+        <div class="grid_1of4">Balder & Theo</div>
+        <div class="grid_1of4">8</div>
+        <div class="grid_1of4">2:30</div>
+        <div class="3bars-icon">
+            <img height="100%" name="3bars" src="{% static "img/3bars.svg" %}"/>
+        </div>
+    </div>
+    <div class="order-line">
+        <div class="grid_1of4">Aurore</div>
+        <div class="grid_1of4">10</div>
+        <div class="grid_1of4">5:70</div>
+        <div class="3bars-icon">
+            <img height="100%" name="3bars" src="{% static "img/3bars.svg" %}"/>
+        </div>
+    </div>
+    <div class="order-line expanded">
+        <div class="grid_1of3">Aurore</div>
+        <div class="grid_1of3">10</div>
+        <div class="grid_1of3">5:70</div>
 
-  <div class="orders"> </div>
-
+    </div>
+</div>
+</body>
+</html>
