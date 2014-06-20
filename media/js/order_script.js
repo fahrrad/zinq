@@ -1,15 +1,22 @@
 $(".order-line.expanded").hide();
 
+function log(text) {
+
+}
 
 function time_tick() {
     if (window.console && window.console.log) {
         console.log("Timetick!");
     }
+
     $(".order-line-wrapper").each(function () {
             $(this).data("seconds", $(this).data("seconds") + 1);
             $(this).find(".time").html(seconds_to_minutes($(this).data("seconds")));
+            $(this).css("background-color", seconds_to_color($(this).data("seconds")));
         }
     )
+
+
 }
 
 function paddy(n, p, c) {
@@ -25,6 +32,16 @@ function seconds_to_minutes(seconds){
     minutes += paddy(secs, 2);
 
     return minutes;
+}
+
+function seconds_to_color(seconds){
+    //var color = "hsla(" +seconds % 360 +", " +(seconds * 3) % 100 +"%, " +"100%, " +"1.0)";
+    var color = "rgb(" + Math.min(255,(seconds * 7) % 255) + ",0,0)";
+    if (window.console && window.console.log) {
+        console.log(color);
+    }
+    return color;
+
 }
 
 
