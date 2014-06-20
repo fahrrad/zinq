@@ -6,9 +6,6 @@
     <meta charset="UTF-8">
     <title>Orders for {{ place.name }}</title>
     <link href="{% static "css/order_style.css" %}" rel="stylesheet">
-
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="{% static "js/order_script.js" %}"></script>
 </head>
 <body>
 
@@ -20,11 +17,12 @@
 
     </div>
 
-    <div class="order-line-wrapper" data-uuid="2700da23204e4d0f9da58d74a1c448e4">
+    <div class="order-line-wrapper" data-uuid="2700da23204e4d0f9da58d74a1c448e4"
+            data-seconds="0">
         <div class="order-line summary">
             <div class="grid_1of4">Ward</div>
             <div class="grid_1of4">12</div>
-            <div class="grid_1of4">1:10</div>
+            <div class="grid_1of4 time">1:10</div>
             <div class="3bars-icon">
                 <img height="100%" name="3bars" class="3bars" src="{% static "img/3bars.svg" %}"/>
             </div>
@@ -35,7 +33,7 @@
             <div class="header-line">
                 <div class="grid_1of3">Ward</div>
                 <div class="grid_1of3">12</div>
-                <div class="grid_1of3">1:10</div>
+                <div class="grid_1of3 time">1:10</div>
             </div>
             <hr width="80%"/>
 
@@ -63,11 +61,12 @@
         </div>
     </div>
 
-    <div class="order-line-wrapper" data-uuid="03ac9fd6b15c4e15a9f40f009a603db9">
+    <div class="order-line-wrapper" data-uuid="03ac9fd6b15c4e15a9f40f009a603db9"
+            data-seconds="35">
         <div class="order-line summary">
             <div class="grid_1of4">Balder & Theo</div>
             <div class="grid_1of4">8</div>
-            <div class="grid_1of4">2:30</div>
+            <div class="grid_1of4 time">2:30</div>
             <div class="3bars-icon">
                 <img height="100%" name="3bars" class="3bars" src="{% static "img/3bars.svg" %}"/>
             </div>
@@ -76,7 +75,7 @@
             <div class="header-line">
                 <div class="grid_1of3">Balder & Theo</div>
                 <div class="grid_1of3">8</div>
-                <div class="grid_1of3">2:30</div>
+                <div class="grid_1of3 time">2:30</div>
             </div>
 
             <hr width="80%"/>
@@ -106,11 +105,12 @@
 
     </div>
 
-    <div class="order-line-wrapper" data-uuid="36e4ab45f846416580a28bbc87667cc4">
+    <div class="order-line-wrapper" data-uuid="36e4ab45f846416580a28bbc87667cc4"
+            data-seconds="250">
         <div class="order-line summary">
             <div class="grid_1of4">Aurore</div>
             <div class="grid_1of4">10</div>
-            <div class="grid_1of4">5:70</div>
+            <div class="grid_1of4 time">5:70</div>
             <div class="3bars-icon">
                 <img height="100%" name="3bars" class="3bars" src="{% static "img/3bars.svg" %}"/>
             </div>
@@ -119,7 +119,7 @@
             <div class="header-line">
                 <div class="grid_1of3">Aurore</div>
                 <div class="grid_1of3">10</div>
-                <div class="grid_1of3">5:70</div>
+                <div class="grid_1of3 time">5:70</div>
             </div>
 
             <hr width="80%"/>
