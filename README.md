@@ -30,15 +30,6 @@ See wiki for more info on how to start the project
 ** TODO Bug bij bevestiging
 
 
-* domeinnamen
-
-| me.nu  | X |
-| nu.me  | X |
-| me.nf  | V |
-| n-u.me | V |
-|    zinq.be    |  V |
-
-
 * voor installatie in Macos X Maverick
 Nodig voor het compileren van psyocpg2 en pil
 
