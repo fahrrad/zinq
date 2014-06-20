@@ -16,13 +16,15 @@ body{
 .main{
     font-family: 'Vaud Display Light', Helvetica, Arial, Sans-Serif;
     width: 960px;
-    height: 600px;
+
     margin: auto;
 
     background-color: hsla(359, 77.1084%, 87.4510%, 1.0000);
     background-image: -moz-linear-gradient(hsla(0, 79.2079%, 60.3922%, 1.0000), hsla(359, 77.1084%, 67.4510%, 1.0000));
 
     font-size: 1.2em;
+
+    padding-bottom: 20px;
 }
 
 .header-line{
@@ -67,29 +69,43 @@ body{
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: #ffffff;
+    height: auto;
+    overflow: auto;
+
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .order-line hr{
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
-.order_item{
-
+.order-item {
+    padding-bottom: 15px;
 }
 
-.order_item.amout {
-    width: 20%;
+.order-line .total{
+    padding-top: 20px;
+    color: cadetblue;
+    width: 100%;
     float: left;
 }
 
-.order_item.description {
+
+.order-item.amount {
+    width: 20%;
+    float: left;
+
+}
+
+.order-item.description {
     width: 60%;
     float: left;
     text-align: left;
 }
 
-.order_item.price {
+.order-item.price {
     width: 20%;
     float: left;
 }
