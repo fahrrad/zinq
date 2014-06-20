@@ -5,7 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Orders for {{ place.name }}</title>
-    <link href="{% static "css/order_style.css" %}" rel="stylesheet" >
+    <link href="{% static "css/order_style.css" %}" rel="stylesheet">
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static "js/order_script.js" %}"></script>
 </head>
 <body>
 
@@ -16,45 +19,130 @@
         <div class="grid_1of4">Tijd</div>
 
     </div>
-    <div class="order-line">
+
+    <div class="order-line-wrapper">
+    <div class="order-line summary">
         <div class="grid_1of4">Ward</div>
         <div class="grid_1of4">12</div>
         <div class="grid_1of4">1:10</div>
         <div class="3bars-icon">
-            <img height="100%" name="3bars" src="{% static "img/3bars.svg" %}"/>
+            <img height="100%" name="3bars" class="3bars" src="{% static "img/3bars.svg" %}"/>
         </div>
     </div>
-    <div class="order-line">
+
+    <div class="order-line expanded">
+        <div class="grid_1of3">Aurore</div>
+        <div class="grid_1of3">10</div>
+        <div class="grid_1of3">5:70</div>
+
+        <hr width="80%"/>
+
+        <div class="grid_3of3 order-item">
+            <div class="order-item amount">1</div>
+            <div class="order-item description">Salade met Mozarella geitenkaas
+                en nog zoveel andere lekkere dingen die hopelijk op een tweede lijn komen
+            </div>
+            <div class="order-item price">€ 12</div>
+        </div>
+        <div class="grid_3of3 order-item">
+
+            <div class="order-item amount">1</div>
+            <div class="order-item description">Chimay</div>
+            <div class="order-item price">€ 6,50</div>
+        </div>
+
+        <div class="total">Totaal € 36,5</div>
+
+        <div class="buttons">
+            <button class="cancel_button">Annuleer</button>
+            <button class="ready_button">Klaar</button>
+        </div>
+
+    </div>
+    </div>
+
+        <div class="order-line-wrapper">
+    <div class="order-line summary">
         <div class="grid_1of4">Balder & Theo</div>
         <div class="grid_1of4">8</div>
         <div class="grid_1of4">2:30</div>
         <div class="3bars-icon">
-            <img height="100%" name="3bars" src="{% static "img/3bars.svg" %}"/>
-        </div>
-    </div>
-    <div class="order-line">
-        <div class="grid_1of4">Aurore</div>
-        <div class="grid_1of4">10</div>
-        <div class="grid_1of4">5:70</div>
-        <div class="3bars-icon">
-            <img height="100%" name="3bars" src="{% static "img/3bars.svg" %}"/>
+            <img height="100%" name="3bars" class="3bars" src="{% static "img/3bars.svg" %}"/>
         </div>
     </div>
     <div class="order-line expanded">
         <div class="grid_1of3">Aurore</div>
         <div class="grid_1of3">10</div>
         <div class="grid_1of3">5:70</div>
+
+        <hr width="80%"/>
+
         <div class="grid_3of3 order-item">
-            <hr width="80%"/>
-            <div class="order-item amount" >1</div>
-            <div class="order-item description" >Salade met Mozarella geitenkaas
-                en nog zoveel andere lekkere dingen die hopelijk op een tweede lijn komen</div>
-            <div class="order-item price" >€ 12</div>
+            <div class="order-item amount">1</div>
+            <div class="order-item description">Salade met Mozarella geitenkaas
+                en nog zoveel andere lekkere dingen die hopelijk op een tweede lijn komen
+            </div>
+            <div class="order-item price">€ 12</div>
+        </div>
+        <div class="grid_3of3 order-item">
+
+            <div class="order-item amount">1</div>
+            <div class="order-item description">Chimay</div>
+            <div class="order-item price">€ 6,50</div>
         </div>
 
-        <div class="total">Total € 36,5</div>
+        <div class="total">Totaal € 36,5</div>
+
+        <div class="buttons">
+            <button class="cancel_button">Annuleer</button>
+            <button class="ready_button">Klaar</button>
+        </div>
+
+    </div>
+
+            </div>
+
+<div class="order-line-wrapper">
+    <div class="order-line summary">
+        <div class="grid_1of4">Aurore</div>
+        <div class="grid_1of4">10</div>
+        <div class="grid_1of4">5:70</div>
+        <div class="3bars-icon">
+            <img height="100%" name="3bars" class="3bars" src="{% static "img/3bars.svg" %}"/>
+        </div>
+    </div>
+    <div class="order-line expanded">
+        <div class="grid_1of3">Aurore</div>
+        <div class="grid_1of3">10</div>
+        <div class="grid_1of3">5:70</div>
+
+        <hr width="80%"/>
+
+        <div class="grid_3of3 order-item">
+            <div class="order-item amount">1</div>
+            <div class="order-item description">Salade met Mozarella geitenkaas
+                en nog zoveel andere lekkere dingen die hopelijk op een tweede lijn komen
+            </div>
+            <div class="order-item price">€ 12</div>
+        </div>
+        <div class="grid_3of3 order-item">
+
+            <div class="order-item amount">1</div>
+            <div class="order-item description">Chimay</div>
+            <div class="order-item price">€ 6,50</div>
+        </div>
+
+        <div class="total">Totaal € 36,5</div>
+
+        <div class="buttons">
+            <button class="cancel_button">Annuleer</button>
+            <button class="ready_button">Klaar</button>
+        </div>
+        </div>
 
     </div>
 </div>
 </body>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static "js/order_script.js" %}"></script>
 </html>

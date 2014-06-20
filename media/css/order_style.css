@@ -1,5 +1,5 @@
 body{
-    background-color: hsla(359, 77.1084%, 87.4510%, 1.0000);
+    background-color: hsla(359, 77.1084%, 98%, 1.0000);
 }
 
 @font-face {
@@ -33,7 +33,7 @@ body{
     margin-right: 20px;
     text-align: center;
     height: 80px;
-
+    font-weight: bold;
 
 }
 
@@ -45,7 +45,6 @@ body{
 }
 
 .grid_1of3 {
-
     width: 33.33%;
     float: left;
 }
@@ -79,6 +78,7 @@ body{
 .order-line hr{
     margin-bottom: 20px;
     margin-top: 40px;
+    clear: both;
 }
 
 .order-item {
@@ -87,9 +87,27 @@ body{
 
 .order-line .total{
     padding-top: 20px;
-    color: cadetblue;
     width: 100%;
-    float: left;
+    text-align: right;
+    width: 80%;
+    clear: left;
+}
+
+.order-line button{
+    border: 1px solid #000000;
+    padding: 20px 30px 20px 30px;
+    background-color:#ffffff;
+    font-size: 80%;
+    margin-top: 15px;
+
+}
+
+.ready_button {
+    font-weight: bold;
+}
+
+.cancel_button{
+    margin-right: 10px;
 }
 
 
