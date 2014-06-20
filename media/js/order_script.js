@@ -1,3 +1,5 @@
+$(".order-line.expanded").hide();
+
 $("img.3bars").click(function(){
     var order_line_wrapper = $(this).closest(".order-line-wrapper");
 
@@ -10,3 +12,6 @@ $("img.3bars").click(function(){
     $(order_line_wrapper).find(".expanded").show()
 });
 
+$("button.cancel_button").click(function(){
+    alert("Cancel");
+})

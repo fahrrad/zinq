@@ -34,7 +34,11 @@ body{
     text-align: center;
     height: 80px;
     font-weight: bold;
+}
 
+.order-line.expanded .header-line{
+    color: #000000;
+    height: auto;
 }
 
 .grid_1of4 {
@@ -73,6 +77,11 @@ body{
 
     margin-left: 20px;
     margin-right: 20px;
+}
+
+
+.order-line.summary{
+    font-weight: bold;
 }
 
 .order-line hr{
