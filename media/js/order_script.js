@@ -7,9 +7,24 @@ function time_tick() {
     }
     $(".order-line-wrapper").each(function () {
             $(this).data("seconds", $(this).data("seconds") + 1);
-            $(this).find(".time").html($(this).data("seconds"));
+            $(this).find(".time").html(seconds_to_minutes($(this).data("seconds")));
         }
     )
+}
+
+function paddy(n, p, c) {
+    var pad_char = typeof c !== 'undefined' ? c : '0';
+    var pad = new Array(1 + p).join(pad_char);
+    return (pad + n).slice(-pad.length);
+}
+
+function seconds_to_minutes(seconds){
+    minutes = Math.floor(seconds / 60);
+    minutes += ':'
+    secs = (seconds % 60);
+    minutes += paddy(secs, 2);
+
+    return minutes;
 }
 
 
