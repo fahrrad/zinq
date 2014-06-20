@@ -43,8 +43,13 @@ body{
 }
 
 .grid_1of3 {
-    height: 100%;
+
     width: 33.33%;
+    float: left;
+}
+
+.grid_3of3 {
+    width: 100%;
     float: left;
 }
 
@@ -60,4 +65,31 @@ body{
 
 .order-line.expanded{
     padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #ffffff;
+}
+
+.order-line hr{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.order_item{
+
+}
+
+.order_item.amout {
+    width: 20%;
+    float: left;
+}
+
+.order_item.description {
+    width: 60%;
+    float: left;
+    text-align: left;
+}
+
+.order_item.price {
+    width: 20%;
+    float: left;
 }
