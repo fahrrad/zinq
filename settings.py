@@ -197,11 +197,15 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'places':{
+        'places': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
-        'menus':{
+        'menus': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'orders': {
             'handlers': ['console'],
             'level': 'DEBUG',
         }

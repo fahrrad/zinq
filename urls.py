@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from menus.views import menu_items, menu
-from orders.views import wait, orders, rm_order, place_order, wait_status
+from orders.views import wait, orders, order_done, place_order, wait_status
 from places.views import qr_codes
 from places.views import welcome, landing
 import settings
@@ -33,11 +33,12 @@ urlpatterns = patterns('',
     # place order
     url(r'^orders/p/(\w{4,32})/$', place_order),
 
+    # order done
+    url(r'^orders/d/(\w{4,32})/$', order_done),
+
     # rest services for the order
     url(r'^mi/(\w{4,32})/$', menu_items),
 
-    # Rest
-    url(r'^rest/orders/delete/(\w{4,32})/$', rm_order),
 
     url(r'^wait/(\w{4,32})/$', wait),
     url(r'^wait_status/(\w{4,32})/$', wait_status),

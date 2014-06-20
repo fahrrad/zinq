@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from orders.models import Order
 from places.models import Place, Table
-from places.views import logger
+
 
 import logging
 
@@ -18,6 +18,7 @@ logging.basicConfig()
 # channel = connection.channel()
 # channel.queue_declare(queue='hello')
 
+logger = logging.getLogger(__name__)
 
 def wait_status(request, order_uuid):
     """
@@ -120,16 +121,16 @@ def place_order(request, table_uuid):
         return HttpResponse(json.dumps({"order_uuid": o.pk}), content_type='application/json')
 
 
-def rm_order(request, order_id):
+def order_done(request, order_id):
     try:
         order = Order.objects.get(pk=order_id)
         order.status = Order.DONE
         order.save()
 
-    except Exception as e:
-        logger.error(e)
-        return render(request, "places/error.html", {"error_msg": e})
+    except Order.DoesNotExist as e:
+        logger.error("trying to put an unexisting order on done! request: %s " % request)
+        # raise Http404()
 
-    logger.info('Order id %s is deleted' % order_id)
+    logger.info('Order id %s is done' % order_id)
 
-    return HttpResponse("Order %s deleted" % order_id)
+    return HttpResponse("Order %s set to done" % order_id)
