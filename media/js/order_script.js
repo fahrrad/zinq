@@ -36,7 +36,7 @@ function seconds_to_minutes(seconds){
 
 function seconds_to_color(seconds){
     //var color = "hsla(" +seconds % 360 +", " +(seconds * 3) % 100 +"%, " +"100%, " +"1.0)";
-    var color = "rgb(" + Math.min(255,(seconds * 7) % 255) + ",0,0)";
+    var color = "rgb(" + Math.min(255,(seconds * 7) ) + ",0,0)";
     if (window.console && window.console.log) {
         console.log(color);
     }
@@ -48,9 +48,9 @@ function seconds_to_color(seconds){
 $("img.3bars").click(function () {
     var order_line_wrapper = $(this).closest(".order-line-wrapper");
 
-    // Show all summaries excelpt this one
-    $(".order-line.summary").slideDown();
-    $(order_line_wrapper).find(".summary").slideUp();
+    // Show all summaries except this one
+//    $(".order-line.summary").slideDown();
+//    $(order_line_wrapper).find(".summary").slideUp();
 
     // Hide all expanded except this one
     $(".order-line.expanded").slideUp();
