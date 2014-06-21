@@ -1,4 +1,4 @@
-var debug = 1;
+var debug = 0;
 
 function log(text) {
     if (debug && window.console && window.console.log) {
@@ -7,26 +7,30 @@ function log(text) {
 }
 
 function time_tick() {
-    log("Timetick!");
+    log("Time tick!");
 
     $(".order-line-wrapper").each(function () {
-            $(this).data("seconds", $(this).data("seconds") + 1);
-            $(this).find(".time").html(seconds_to_minutes($(this).data("seconds")));
-            $(this).css("background-color", seconds_to_color($(this).data("seconds")));
+            $(this).data("seconds",
+                    $(this).data("seconds") + 1);
+            $(this).find(".time").html(
+                seconds_to_minutes($(this).data("seconds")));
+//            $(this).css("background-color",
+//                seconds_to_color(
+//                    $(this).data("seconds")));
         }
     )
 }
 
 function paddy(n, p, c) {
-    var pad_char = typeof c !== 'undefined' ? c : '0';
+    var pad_char = typeof c === 'undefined' ? '0' : c;
     var pad = new Array(1 + p).join(pad_char);
     return (pad + n).slice(-pad.length);
 }
 
 function seconds_to_minutes(seconds){
-    minutes = Math.floor(seconds / 60);
-    minutes += ':'
-    secs = (seconds % 60);
+    var minutes = Math.floor(seconds / 60);
+    minutes += ':';
+    var secs = (seconds % 60);
     minutes += paddy(secs, 2);
 
     return minutes;
@@ -38,17 +42,22 @@ function seconds_to_color(seconds){
     log(color);
 
     return color;
-
 }
 
-
-$("img.3bars").click(function () {
+function barsclick () {
     var order_line_wrapper = $(this).closest(".order-line-wrapper");
 
     // Hide all expanded except this one
     $(".order-line.expanded").slideUp();
     $(order_line_wrapper).find(".expanded").slideDown()
-});
+
+    // disable this button, to avoid opening and closing of an open orderitem
+    $("img.3bars").off("click");
+    $("img.3bars").click(barsclick);
+    $(order_line_wrapper).find("img.3bars").off("click");
+}
+
+
 
 $("button.cancel_button").click(function () {
     log("cancel order");
@@ -73,3 +82,4 @@ $("button.ready_button").click(function () {
 
 $(function(){setInterval(time_tick, 1000);});
 $(".order-line.expanded").hide();
+$("img.3bars").click(barsclick);
