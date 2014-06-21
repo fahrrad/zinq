@@ -1,13 +1,13 @@
-$(".order-line.expanded").hide();
+var debug = 1;
 
 function log(text) {
-
+    if (debug && window.console && window.console.log) {
+        console.log(text);
+    }
 }
 
 function time_tick() {
-    if (window.console && window.console.log) {
-        console.log("Timetick!");
-    }
+    log("Timetick!");
 
     $(".order-line-wrapper").each(function () {
             $(this).data("seconds", $(this).data("seconds") + 1);
@@ -15,8 +15,6 @@ function time_tick() {
             $(this).css("background-color", seconds_to_color($(this).data("seconds")));
         }
     )
-
-
 }
 
 function paddy(n, p, c) {
@@ -37,9 +35,8 @@ function seconds_to_minutes(seconds){
 function seconds_to_color(seconds){
     //var color = "hsla(" +seconds % 360 +", " +(seconds * 3) % 100 +"%, " +"100%, " +"1.0)";
     var color = "rgb(" + Math.min(255,(seconds * 7) ) + ",0,0)";
-    if (window.console && window.console.log) {
-        console.log(color);
-    }
+    log(color);
+
     return color;
 
 }
@@ -48,18 +45,15 @@ function seconds_to_color(seconds){
 $("img.3bars").click(function () {
     var order_line_wrapper = $(this).closest(".order-line-wrapper");
 
-    // Show all summaries except this one
-//    $(".order-line.summary").slideDown();
-//    $(order_line_wrapper).find(".summary").slideUp();
-
     // Hide all expanded except this one
     $(".order-line.expanded").slideUp();
     $(order_line_wrapper).find(".expanded").slideDown()
 });
 
 $("button.cancel_button").click(function () {
-    alert("Cancel");
+    log("cancel order");
 });
+
 
 $("button.ready_button").click(function () {
     var wrapper = $(this).closest(".order-line-wrapper");
@@ -73,10 +67,9 @@ $("button.ready_button").click(function () {
         });
 
     }).error(function () {
-        if (window.console && window.console.log) {
-            console.log("Something went south...");
-        }
+        log("Something went south...");
     });
 });
 
 $(function(){setInterval(time_tick, 1000);});
+$(".order-line.expanded").hide();
