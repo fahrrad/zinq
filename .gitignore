@@ -1,6 +1,6 @@
-qmenu.db
 .idea
 ~
 *.pyc
 *.sublime*
 *DS_Store*
+zinq.db
