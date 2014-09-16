@@ -25,8 +25,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'zinq',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'zinq.db',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'postgres',
         'PASSWORD': 'postgres',
@@ -95,6 +95,10 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'media'),
 )
 
+FIXTURE_DIRS = (
+    os.path.join(PROJECT_PATH, 'fixtures'),
+)
+
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
@@ -157,8 +161,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'debug_toolbar',
-    'qrcode',
+    'debug_toolbar'
 )
 
 # A sample logging configuration. The only tangible logging
