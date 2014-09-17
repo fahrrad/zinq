@@ -1,4 +1,6 @@
-import os
+import os, sys
+
+
 
 # ===========================
 # = Directory Declaractions =
@@ -28,9 +30,8 @@ DATABASES = {
         # The following settings are not used with sqlite3:
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',            # Empty for localhost through domain sockets or '127.0.0.1' for
-                                        # localhost through TCP.
-        'PORT': '',                     # Set to empty string for default.
+        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',                      # Set to empty string for default.
     }
 }
 
@@ -92,10 +93,6 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_PATH, 'media'),
-)
-
-FIXTURE_DIRS = (
-    os.path.join(PROJECT_PATH, 'fixtures'),
 )
 
 # List of finder classes that know how to find static files in
@@ -160,7 +157,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'debug_toolbar'
+    'debug_toolbar',
+    'qrcode',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -187,7 +185,7 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'console': {
+        'console':{
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
