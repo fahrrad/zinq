@@ -49,7 +49,7 @@ function barsclick () {
 
     // Hide all expanded except this one
     $(".order-line.expanded").slideUp();
-    $(order_line_wrapper).find(".expanded").slideDown()
+    $(order_line_wrapper).find(".expanded").slideDown();
 
     // disable this button, to avoid opening and closing of an open orderitem
     $("img.3bars").off("click");
@@ -80,6 +80,36 @@ $("button.ready_button").click(function () {
     });
 });
 
+function fetchData()
+{
+    var template = $('#template').clone(),
+        item_template = $('.order-item', template).clone();
+
+    template.show();
+    template.removeAttr('id');
+    $('.table', template).html('99');
+    $('.total-amount', template).html('€ 33,76');
+    template.data('seconds', 20);
+    template.data('uuid', 'lalaland');
+    $('.order-item-wrapper', template).html('');
+
+    for(var i=1;i<5;i++) {
+
+        console.log(i);
+        $('.amount', item_template).html('1');
+        $('.description', item_template).html('Apekool met Larie');
+        $('.price', item_template).html('€ 2,00');
+
+        $('.order-item-wrapper', template).append(item_template);
+    }
+
+
+    $('.order-wrapper').append(template);
+}
+
+fetchData();
+
 $(function(){setInterval(time_tick, 1000);});
+$(function(){setInterval(fetchData, 10000);});
 $(".order-line.expanded").hide();
 $("img.3bars").click(barsclick);

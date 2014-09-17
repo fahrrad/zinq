@@ -5,17 +5,18 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 from decimal import Decimal
+import json
 
 from django.test import TestCase, Client
-from menus import services
+
 from menus.models import MenuItem, Menu
-from menus.services import place_order
+from orders.services import place_order
+from orders import services
 from orders.models import Order, OrderMenuItem
 from places.models import Place, Table
 
 
 class SimpleTest(TestCase):
-
     def setUp(self):
         """create some stuff"""
         self.m1 = Menu.objects.create(name="menu_test")
@@ -29,7 +30,7 @@ class SimpleTest(TestCase):
         self.t1 = Table(place=self.speyker)
         self.t1.save()
 
-        self.t2 = Table(place=self.speyker)
+        self.t2 = Table(place=self.speyker, table_nr="2")
         self.t2.save()
 
         self.t3 = Table(place=self.speyker)
@@ -54,7 +55,6 @@ class SimpleTest(TestCase):
         self.assertEqual(order.calculate_total_price(), Decimal('3.7'))
 
     def test_more_elaborate_order(self):
-
         order = Order(table=self.t1)
         order.save()
 
@@ -100,7 +100,6 @@ class SimpleTest(TestCase):
         self.assertEquals(all_open_orders[0].ordermenuitem_set.count(), 2)
 
     def test_place_order_price(self):
-
         order = place_order([('fanta', 2), ('cola', 1)], self.t1.pk)
         self.assertEqual(order.calculate_total_price(), Decimal('6.85'))
 
@@ -121,30 +120,28 @@ class SimpleTest(TestCase):
 
     def test_ordered_status(self):
         import json
+
         order = place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
 
         c = Client()
-        response = c.get("/wait/" + str(order.pk) + "/",
-                         {}, False,
+        response = c.get("/wait_status/" + str(order.pk) + "/", {}, False,
                          HTTP_ACCEPT="application/json",
                          HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         response = json.loads(response.content)
-        self.assertEquals(Order.ORDERED, response['status_code'])
-        self.assertTrue(response['check_next'])
+        self.assertEquals(False, response['status_done'])
+        self.assertTrue(response.get('next_check_timeout'))
 
         order.status = Order.DONE
         order.save()
 
         # response should contain
-        response = c.get("/wait/" + str(order.pk) + "/",
-                         {}, False,
+        response = c.get("/wait_status/" + str(order.pk) + "/", {}, False,
                          HTTP_ACCEPT="application/json",
                          HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         response = json.loads(response.content)
-        self.assertEquals(Order.DONE, response['status_code'])
-        self.assertFalse(response['check_next'])
+        self.assertEquals(True, response['status_done'])
 
     def test_place_order_rest_call(self):
         self.assertEqual(Order.objects.filter(table=self.t1).count(), 0)
@@ -156,3 +153,45 @@ class SimpleTest(TestCase):
         self.assertEqual(r.status_code, 200)
 
         self.assertEqual(Order.objects.filter(table=self.t1).count(), 1)
+
+    def test_orders_open(self):
+        place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
+
+        c = Client()
+        r = c.get('/orders/o/%d/' % self.speyker.pk, {}, False,
+                  HTTP_ACCEPT="application/json",
+                  HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        orders = json.loads(r.content)
+
+        self.assertEqual(len(orders), 1)
+        order = orders[0]
+        self.assertEquals(len(order), 5)
+        self.assertEquals(order['table_nr'], self.t2.table_nr)
+        self.assertIsNotNone(order['pk'])
+        self.assertEquals(order['seconds'], 1)
+
+        item_amounts_ = order['item_amounts']
+        self.assertEquals(len(item_amounts_), 2)
+
+        item_amounts_1 = item_amounts_[0]
+        self.assertEquals(item_amounts_1[0], 'fanta')
+        self.assertEquals(item_amounts_1[1], 2)
+        self.assertEquals(item_amounts_1[2], '5.00')
+
+    def test_place_order_get_ordered_items(self):
+        place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
+
+        all_open_orders = services.get_open_orders(self.speyker)
+        self.assertEquals(len(all_open_orders), 1)
+
+        menu_items_amounts = all_open_orders[0].get_menuitems_amounts()
+        for item, amount in menu_items_amounts:
+            if item == "fanta":
+                self.assertEquals(amount, 2)
+
+            elif item == "cola":
+                self.assertEquals(amount, 1)
+
+            else:
+                raise Exception("only cola and fanta!!")

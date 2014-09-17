@@ -51,57 +51,67 @@ def wait(request, order_uuid):
     return render(request, "orders/wait.html", {"order_uuid": order_uuid})
 
 
-def orders(request, place_pk):
-    """list all the orders for a given places
-        Results in something like this:
+def orders_open(request, place_pk):
+    """ Returns json object with the orders for this place.
+    Results looks like this:
 
-        |-------------------------------------------
-        | interval  = 2000
-        | orders: |---------------------------------
-        |         | pk : |--------------------------
-        |         |      | tableNr
-        |         |      | item_amounts:|-----------
-        |         |      |              | (name, amount)
-        |         |      |              | (name, amount)
-        |         |      |              |-----------
-        |         |      |--------------------------
-        |         |
-        |         |
-        |         | pk : |--------------------------
-        |         |      | tableNr
-        |         |      | item_amounts:|-----------
-        |         |      |              | (name, amount)
-        |         |      |              | (name, amount)
-        |         |      |              |-----------
-        |         |      |--------------------------
-        |         |---------------------------------
-        |-------------------------------------------
+    |---LIST------------------------------------
+    | |---MAP---------------------
+    | | pk
+    | | table_nr
+    | | seconds
+    | | total
+    | | item_amounts:|-----------
+    | |              | (name, amount, price)
+    | |              | (name, amount, price)
+    | |              |-----------
+    | |--------------------------
+    |
+    | |---MAP--------------------
+    | | pk
+    | | table_nr
+    | | seconds
+    | | total
+    | | item_amounts:|-----------
+    | |              | (name, amount, price)
+    | |              | (name, amount, price)
+    | |              |-----------
+    | |--------------------------
+    |-------------------------------------------
     """
-
-    # try get places
     try:
         place = Place.objects.get(pk=place_pk)
         place_orders = place.get_orders()
 
-    except ObjectDoesNotExist:
-        return render(request, "places/error.html", {'error_msg': "No places found with id %s!" % place_pk})
+    except Place.DoesNotExist as e:
+        logger.error("Someone tried to fetch orders for a place (pk %s) that does not exists. Request %s"
+                     % (place_pk, request))
+        raise Http404()
 
-            # check if the request is coming from an ajax call (The refresh code on the page)
+    # check if the request is coming from an ajax call (The refresh code on the page)
     if 'application/json' in request.META['HTTP_ACCEPT'].split(','):
-        return_values = dict()
         # interval to wait for next request
-        return_values['interval'] = 2000
-        return_values['orders'] = dict()
-
+        orders = list()
         for order in place_orders:
-            return_values['orders'][order.pk] = dict()
-            return_values['orders'][order.pk]['table_nr'] = order.table.table_nr
-            return_values['orders'][order.pk]['item_amounts'] = order.get_menuitems_amounts()
+            return_order = dict()
+            return_order['pk'] = order.pk
+            return_order['table_nr'] = order.table.table_nr
+            return_order['seconds'] = 1
+            return_order["total"] = 25.5
+            return_order['item_amounts'] = order.get_menuitems_amounts()
+
+            orders.append(return_order)
+
 
         # just return the data
-        return HttpResponse(json.dumps(return_values), content_type='application/json')
+        return HttpResponse(json.dumps(orders), content_type='application/json')
     else:
-        return render(request, "places/orders.html", {'orders': place_orders})
+        logger.error("got a request without HTTP_ACCEPT = application/json")
+        raise Http404()
+
+
+def orders(request, place_pk):
+    return render(request, "places/orders.html", {'place_pk': place_pk})
 
 
 @csrf_exempt
@@ -119,6 +129,8 @@ def place_order(request, table_uuid):
             raise Http404()
 
         return HttpResponse(json.dumps({"order_uuid": o.pk}), content_type='application/json')
+    else:
+        return Http404()
 
 
 def order_done(request, order_id):

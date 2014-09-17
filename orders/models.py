@@ -70,18 +70,18 @@ class Order(models.Model):
 
         price = amount * menuItem.price
 
-        orderMenuItem = OrderMenuItem(menuItem=menuItem, order=self,
+        order_menuitem = OrderMenuItem(menuItem=menuItem, order=self,
                                        amount=amount, price=price)
 
-        orderMenuItem.save()
+        order_menuitem.save()
 
     def add_item_by_pk(self, menu_item_pk, amount):
         """add a menu item to this order. Fetches it by its PK. Adds @amount times."""
         try:
             mi = MenuItem.objects.get(pk=menu_item_pk)
             price = int(amount) * mi.price
-            order_menu_item = OrderMenuItem(menuItem=mi, order=self
-                                          ,amount=amount, price=price)
+            order_menu_item = OrderMenuItem(menuItem=mi, order=self,
+                                            amount=amount, price=price)
 
             order_menu_item.save()
 
@@ -107,7 +107,7 @@ class Order(models.Model):
         menuitems_amounts = []
         for ordermenuitem in self.ordermenuitem_set.all():
             menuitems_amounts.append((ordermenuitem.menuItem.name,
-                                        ordermenuitem.amount))
+                                        ordermenuitem.amount, str(ordermenuitem.price)))
 
         return menuitems_amounts
 

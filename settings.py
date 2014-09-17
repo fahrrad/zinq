@@ -1,6 +1,4 @@
-import os, sys
-
-
+import os
 
 # ===========================
 # = Directory Declaractions =
@@ -30,8 +28,9 @@ DATABASES = {
         # The following settings are not used with sqlite3:
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'HOST': 'localhost',            # Empty for localhost through domain sockets or '127.0.0.1' for
+                                        # localhost through TCP.
+        'PORT': '',                     # Set to empty string for default.
     }
 }
 
@@ -188,7 +187,7 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'console':{
+        'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
@@ -214,16 +213,3 @@ LOGGING = {
         }
     }
 }
-
-# REST_FRAMEWORK = {
-#     # Use hyperlinked styles by default.
-#     # Only used if the `serializer_class` attribute is not set on a view.
-#     'DEFAULT_MODEL_SERIALIZER_CLASS':
-#         'rest_framework.serializers.HyperlinkedModelSerializer',
-#
-#     # Use Django's standard `django.contrib.auth` permissions,
-#     # or allow read-only access for unauthenticated users.
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-#     ]
-# }
