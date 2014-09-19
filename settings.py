@@ -28,9 +28,9 @@ DATABASES = {
         # The following settings are not used with sqlite3:
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',  # Empty for localhost through domain sockets or '127.0.0.1' for
-        # localhost through TCP.
-        'PORT': '',  # Set to empty string for default.
+        'HOST': 'localhost',            # Empty for localhost through domain sockets or '127.0.0.1' for
+                                        # localhost through TCP.
+        'PORT': '',                     # Set to empty string for default.
     }
 }
 
@@ -103,7 +103,7 @@ FIXTURE_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -113,8 +113,10 @@ SECRET_KEY = '+fk^91ak$e74&8u+x%30rzseqv@s2+dh#*0=@2ze3^1w_od)@q'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
+    #   'django.template.loaders.eggs.Loader',
 )
+
+
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -169,7 +171,7 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
+    'formatters':{
         'simple': {
             'format': '%(levelname)s %(message)s'
         },
