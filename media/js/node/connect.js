@@ -11,16 +11,16 @@
 // --url <value>          (the server we want to connect to)
 //
 var argh = require('argh').argv
-  , Primus = require('../../')
-  , Socket;
+    , Primus = require('../../')
+    , Socket;
 
 //
 // Create a socket that's compatible with the given parser and transformer.
 //
 Socket = Primus.createSocket({
-  transformer: argh.transformer || 'engine.io',
-  pathname: argh.pathname || '/primusexample',
-  parser: argh.parser
+    transformer: argh.transformer || 'engine.io',
+    pathname: argh.pathname || '/primusexample',
+    parser: argh.parser
 });
 
 //
@@ -29,11 +29,11 @@ Socket = Primus.createSocket({
 var socket = new Socket(argh.url || 'http://primus-example.nodejitsu.com');
 
 socket.on('open', function open() {
-  console.log('The connection has been opened.');
+    console.log('The connection has been opened.');
 }).on('end', function end() {
-  console.log('The connection has been closed.');
+    console.log('The connection has been closed.');
 }).on('reconnecting', function reconnecting(opts) {
-  console.log('We are scheduling a reconnect operation', opts);
+    console.log('We are scheduling a reconnect operation', opts);
 }).on('data', function incoming(data) {
-  console.log('Received some data', data);
+    console.log('Received some data', data);
 });

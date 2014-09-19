@@ -1,86 +1,87 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6A6A1981-EBB3-B466-2DFE-30C38E1B9359" name="place">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:22:03 UTC</createdTime>
-<generatorID>45DB1FA1-A021-EFC7-50C1-37C9F0731B8A</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<adequatelyNormalized>NO</adequatelyNormalized>
-<expectedVolumes>0</expectedVolumes>
-<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
-<growthPercent>0</growthPercent>
-<growthType>Year</growthType>
-<maxVolumes>9999999</maxVolumes>
-<minVolumes>0</minVolumes>
-<normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="id" id="B7983327-4B3A-AB98-BA21-9C792693407F">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:22:03 UTC</createdTime>
-<generatorID>AC2DDE1D-B04A-D723-04BB-4780ED7D9DF7</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-</Attribute>
-<Attribute name="name" id="F1F8C686-86F1-648A-5920-F89F298BDD4A">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:22:03 UTC</createdTime>
-<generatorID>368C67B1-1C20-B200-B06F-2F3DE4FF1D91</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-</Attribute>
-<Attribute name="Menu id" id="2B74C5BF-0D48-5DB1-D89F-2A8E51A884EB">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:22:03 UTC</createdTime>
-<generatorID>4F329E2F-C066-226F-707E-15956941148F</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<referedAttribute>7F0CE8AD-85F5-F62F-ED0F-FFC69BC28958</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-</Attribute>
-</attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="3C618E42-C1FB-C0ED-76E2-B992D5458486" name="place PK">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:22:03 UTC</createdTime>
-<generatorID>9E0D7E81-3541-0F83-584C-432300D13F82</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<pk>true</pk>
-<usedAttributes>
-<attributeRef>B7983327-4B3A-AB98-BA21-9C792693407F</attributeRef>
-</usedAttributes>
-</identifier>
-<identifier id="B192236B-6989-856C-37E3-657E810F78A9" name="place  UN">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:22:03 UTC</createdTime>
-<generatorID>73CCC7E1-5E2C-6170-DF72-4C0ED1C8CCCA</generatorID>
-<notes>1-1 relation menu - place</notes>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<usedAttributes>
-<attributeRef>2B74C5BF-0D48-5DB1-D89F-2A8E51A884EB</attributeRef>
-</usedAttributes>
-</identifier>
-</identifiers>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0"
+        id="6A6A1981-EBB3-B466-2DFE-30C38E1B9359" name="place">
+    <createdBy>ward</createdBy>
+    <createdTime>2013-07-28 09:22:03 UTC</createdTime>
+    <generatorID>45DB1FA1-A021-EFC7-50C1-37C9F0731B8A</generatorID>
+    <ownerDesignName>datamodel</ownerDesignName>
+    <engineerTo>
+        <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+    </engineerTo>
+    <adequatelyNormalized>NO</adequatelyNormalized>
+    <expectedVolumes>0</expectedVolumes>
+    <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+    <growthPercent>0</growthPercent>
+    <growthType>Year</growthType>
+    <maxVolumes>9999999</maxVolumes>
+    <minVolumes>0</minVolumes>
+    <normalForm>Third</normalForm>
+    <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+        <Attribute name="id" id="B7983327-4B3A-AB98-BA21-9C792693407F">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-28 09:22:03 UTC</createdTime>
+            <generatorID>AC2DDE1D-B04A-D723-04BB-4780ED7D9DF7</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <useDomainConstraints>false</useDomainConstraints>
+            <use>1</use>
+            <logicalDatatype>LOGDT011</logicalDatatype>
+        </Attribute>
+        <Attribute name="name" id="F1F8C686-86F1-648A-5920-F89F298BDD4A">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-28 09:22:03 UTC</createdTime>
+            <generatorID>368C67B1-1C20-B200-B06F-2F3DE4FF1D91</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <nullsAllowed>true</nullsAllowed>
+            <useDomainConstraints>false</useDomainConstraints>
+            <use>1</use>
+            <logicalDatatype>LOGDT024</logicalDatatype>
+        </Attribute>
+        <Attribute name="Menu id" id="2B74C5BF-0D48-5DB1-D89F-2A8E51A884EB">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-28 09:22:03 UTC</createdTime>
+            <generatorID>4F329E2F-C066-226F-707E-15956941148F</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <referedAttribute>7F0CE8AD-85F5-F62F-ED0F-FFC69BC28958</referedAttribute>
+            <useDomainConstraints>false</useDomainConstraints>
+            <use>1</use>
+            <logicalDatatype>LOGDT011</logicalDatatype>
+        </Attribute>
+    </attributes>
+    <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+        <identifier id="3C618E42-C1FB-C0ED-76E2-B992D5458486" name="place PK">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-28 09:22:03 UTC</createdTime>
+            <generatorID>9E0D7E81-3541-0F83-584C-432300D13F82</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <pk>true</pk>
+            <usedAttributes>
+                <attributeRef>B7983327-4B3A-AB98-BA21-9C792693407F</attributeRef>
+            </usedAttributes>
+        </identifier>
+        <identifier id="B192236B-6989-856C-37E3-657E810F78A9" name="place  UN">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-28 09:22:03 UTC</createdTime>
+            <generatorID>73CCC7E1-5E2C-6170-DF72-4C0ED1C8CCCA</generatorID>
+            <notes>1-1 relation menu - place</notes>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <usedAttributes>
+                <attributeRef>2B74C5BF-0D48-5DB1-D89F-2A8E51A884EB</attributeRef>
+            </usedAttributes>
+        </identifier>
+    </identifiers>
 </Entity>

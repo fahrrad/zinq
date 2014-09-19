@@ -1,13 +1,14 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="DAAF21F1-87A7-D1B1-4716-65532DCB3C91" name="order_menuitem_MenuItem_FK">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:25:10 UTC</createdTime>
-<ownerDesignName>datamodel</ownerDesignName>
-<containerWithKeyObject>7815EB9D-4F85-5F9A-B808-2B420A567F93</containerWithKeyObject>
-<deleteRule>NO ACTION</deleteRule>
-<localFKIndex>6BF0893E-8621-73C7-860F-E09DFAD62A2D</localFKIndex>
-<keyObject>4575F3FC-110E-11CD-C270-D09477F8BFF0</keyObject>
-<mandatory>true</mandatory>
-<transferable>true</transferable>
-<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0"
+                    id="DAAF21F1-87A7-D1B1-4716-65532DCB3C91" name="order_menuitem_MenuItem_FK">
+    <createdBy>ward</createdBy>
+    <createdTime>2013-07-28 09:25:10 UTC</createdTime>
+    <ownerDesignName>datamodel</ownerDesignName>
+    <containerWithKeyObject>7815EB9D-4F85-5F9A-B808-2B420A567F93</containerWithKeyObject>
+    <deleteRule>NO ACTION</deleteRule>
+    <localFKIndex>6BF0893E-8621-73C7-860F-E09DFAD62A2D</localFKIndex>
+    <keyObject>4575F3FC-110E-11CD-C270-D09477F8BFF0</keyObject>
+    <mandatory>true</mandatory>
+    <transferable>true</transferable>
+    <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
 </FKIndexAssociation>

@@ -1,7 +1,8 @@
 from collections import defaultdict
+from uuid import uuid4
+
 from django.db import models
 from django.contrib.auth.models import User
-from uuid import uuid4
 
 import orders
 
@@ -10,7 +11,7 @@ class Place(models.Model):
     name = models.CharField(max_length=255)
 
     # owner
-    user = models.ForeignKey(User,  null=True)
+    user = models.ForeignKey(User, null=True)
 
     # One - One
     menu = models.ForeignKey("menus.Menu", null=True, unique=True)
@@ -25,7 +26,6 @@ class Place(models.Model):
 
 
 class Table(models.Model):
-
     def hex_2_base62(self, uuid):
         """Converts a hex number into a base 36 ( shorter, using all characters available in QR"""
         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

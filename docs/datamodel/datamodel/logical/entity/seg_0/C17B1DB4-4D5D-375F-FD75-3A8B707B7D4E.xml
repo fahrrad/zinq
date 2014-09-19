@@ -1,86 +1,87 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C17B1DB4-4D5D-375F-FD75-3A8B707B7D4E" name="Translation">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-21 11:36:42 UTC</createdTime>
-<generatorID>61454A46-3B2A-6D50-D4F2-18A6E1069DF3</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<adequatelyNormalized>NO</adequatelyNormalized>
-<expectedVolumes>0</expectedVolumes>
-<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
-<growthPercent>0</growthPercent>
-<growthType>Year</growthType>
-<maxVolumes>9999999</maxVolumes>
-<minVolumes>0</minVolumes>
-<normalForm>Third</normalForm>
-<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="translation" id="97AC2B41-2EFF-C8E9-046D-208E0F10757D">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-21 11:36:42 UTC</createdTime>
-<generatorID>D549E61E-F938-E4A0-A904-9F72AAC371AD</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-</Attribute>
-<Attribute name="id" id="2B793636-21FD-4CE5-E397-72D16D8DB761">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-21 11:36:42 UTC</createdTime>
-<generatorID>8957987E-6186-8248-6FCA-9806FE9502CE</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-</Attribute>
-<Attribute name="Language id" id="DB10860F-05C6-62BB-49B0-A36FC7FF77D7">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-21 11:36:42 UTC</createdTime>
-<generatorID>C0D700B0-C903-49BE-FC31-F28C1FE1F893</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<referedAttribute>502F69BD-0A2C-47B7-F930-5AD32197CE57</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-</Attribute>
-<Attribute name="MenuItem id" id="F27A8B35-1318-BD59-ACD6-AE5174AC34B1">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-21 11:36:42 UTC</createdTime>
-<generatorID>B2CB4886-046A-91E5-0C8E-C5A23FB92770</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<referedAttribute>47EB4149-4F60-F268-0613-0A04AC90699C</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-</Attribute>
-</attributes>
-<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="FB111960-B727-ABB2-903E-44F4D9851C8D" name="translation PK">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-21 11:36:42 UTC</createdTime>
-<generatorID>BB5FA38A-7892-2D41-D879-5CDBD28736F7</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<pk>true</pk>
-<usedAttributes>
-<attributeRef>2B793636-21FD-4CE5-E397-72D16D8DB761</attributeRef>
-</usedAttributes>
-</identifier>
-</identifiers>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0"
+        id="C17B1DB4-4D5D-375F-FD75-3A8B707B7D4E" name="Translation">
+    <createdBy>ward</createdBy>
+    <createdTime>2013-07-21 11:36:42 UTC</createdTime>
+    <generatorID>61454A46-3B2A-6D50-D4F2-18A6E1069DF3</generatorID>
+    <ownerDesignName>datamodel</ownerDesignName>
+    <engineerTo>
+        <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+    </engineerTo>
+    <adequatelyNormalized>NO</adequatelyNormalized>
+    <expectedVolumes>0</expectedVolumes>
+    <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+    <growthPercent>0</growthPercent>
+    <growthType>Year</growthType>
+    <maxVolumes>9999999</maxVolumes>
+    <minVolumes>0</minVolumes>
+    <normalForm>Third</normalForm>
+    <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+        <Attribute name="translation" id="97AC2B41-2EFF-C8E9-046D-208E0F10757D">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-21 11:36:42 UTC</createdTime>
+            <generatorID>D549E61E-F938-E4A0-A904-9F72AAC371AD</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <nullsAllowed>true</nullsAllowed>
+            <useDomainConstraints>false</useDomainConstraints>
+            <use>1</use>
+            <logicalDatatype>LOGDT024</logicalDatatype>
+        </Attribute>
+        <Attribute name="id" id="2B793636-21FD-4CE5-E397-72D16D8DB761">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-21 11:36:42 UTC</createdTime>
+            <generatorID>8957987E-6186-8248-6FCA-9806FE9502CE</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <useDomainConstraints>false</useDomainConstraints>
+            <use>1</use>
+            <logicalDatatype>LOGDT011</logicalDatatype>
+        </Attribute>
+        <Attribute name="Language id" id="DB10860F-05C6-62BB-49B0-A36FC7FF77D7">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-21 11:36:42 UTC</createdTime>
+            <generatorID>C0D700B0-C903-49BE-FC31-F28C1FE1F893</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <referedAttribute>502F69BD-0A2C-47B7-F930-5AD32197CE57</referedAttribute>
+            <useDomainConstraints>false</useDomainConstraints>
+            <use>1</use>
+            <logicalDatatype>LOGDT011</logicalDatatype>
+        </Attribute>
+        <Attribute name="MenuItem id" id="F27A8B35-1318-BD59-ACD6-AE5174AC34B1">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-21 11:36:42 UTC</createdTime>
+            <generatorID>B2CB4886-046A-91E5-0C8E-C5A23FB92770</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <referedAttribute>47EB4149-4F60-F268-0613-0A04AC90699C</referedAttribute>
+            <useDomainConstraints>false</useDomainConstraints>
+            <use>1</use>
+            <logicalDatatype>LOGDT011</logicalDatatype>
+        </Attribute>
+    </attributes>
+    <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+        <identifier id="FB111960-B727-ABB2-903E-44F4D9851C8D" name="translation PK">
+            <createdBy>ward</createdBy>
+            <createdTime>2013-07-21 11:36:42 UTC</createdTime>
+            <generatorID>BB5FA38A-7892-2D41-D879-5CDBD28736F7</generatorID>
+            <ownerDesignName>datamodel</ownerDesignName>
+            <engineerTo>
+                <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+            </engineerTo>
+            <pk>true</pk>
+            <usedAttributes>
+                <attributeRef>2B793636-21FD-4CE5-E397-72D16D8DB761</attributeRef>
+            </usedAttributes>
+        </identifier>
+    </identifiers>
 </Entity>

@@ -3,9 +3,9 @@
  */
 var timer, order_path
 
-function orderDone(){
+function orderDone() {
     // Toggle visible icon ( from waiting to done )
-    $('#wait-for-order-icon').attr('hidden','');
+    $('#wait-for-order-icon').attr('hidden', '');
     $('#done-order-icon').removeAttr('hidden');
 
     // Change text
@@ -19,16 +19,16 @@ function orderDone(){
     alert("Bestelling klaar!");
 }
 
-function refresh(){
+function refresh() {
     $.ajax({
         url: order_path,
         context: document.body,
         dataType: "json"
-    }).done(function(data){
+    }).done(function (data) {
         window.clearInterval(timer);
-        if(data.status_done){
+        if (data.status_done) {
             orderDone();
-        }else if (data.next_check_timeout){
+        } else if (data.next_check_timeout) {
             timer = window.setInterval(refresh, data.next_check_timeout);
         }
     })

@@ -12,59 +12,58 @@ var timer;
 var path_name;
 
 
-function delete_order(this_button){
+function delete_order(this_button) {
     var order_uuid = $(this_button).closest("div").find("div.id").text()
     $.ajax({
         url: "/rest/orders/delete/" + order_uuid + "/",
         type: "GET"
-     }).done(function(){
-            $(this_button).closest("div").slideUp();
-     });
+    }).done(function () {
+        $(this_button).closest("div").slideUp();
+    });
 
     return false;
 };
 
 // Loads the current orders from the server
-function refresh(){
+function refresh() {
     $.ajax({
         url: path_name,
         dataType: "json"
-    }).done(function(data){
+    }).done(function (data) {
 
-        window.clearInterval(timer);
-        
-        // This div is on the body level
-        var uber_div = document.createElement('div');
-        // |-------------------------------------------
-        // | interval  = 2000
-        // | orders: |---------------------------------
-        // |         | pk : |--------------------------
-        // |         |      | tableNr
-        // |         |      | item_amounts:|-----------
-        // |         |      |              | (name, amount)
-        // |         |      |              | (name, amount) 
-        // |         |      |              |-----------
-        // |         |      |--------------------------
-        // |         |      
-        // |         | pk : |--------------------------
-        // |         |      | tableNr
-        // |         |      | item_amounts:|-----------
-        // |         |      |              | (name, amount)
-        // |         |      |              | (name, amount) 
-        // |         |      |              |-----------
-        // |         |      |--------------------------
-        // |         |---------------------------------   
-        // |-------------------------------------------
+            window.clearInterval(timer);
+
+            // This div is on the body level
+            var uber_div = document.createElement('div');
+            // |-------------------------------------------
+            // | interval  = 2000
+            // | orders: |---------------------------------
+            // |         | pk : |--------------------------
+            // |         |      | tableNr
+            // |         |      | item_amounts:|-----------
+            // |         |      |              | (name, amount)
+            // |         |      |              | (name, amount)
+            // |         |      |              |-----------
+            // |         |      |--------------------------
+            // |         |
+            // |         | pk : |--------------------------
+            // |         |      | tableNr
+            // |         |      | item_amounts:|-----------
+            // |         |      |              | (name, amount)
+            // |         |      |              | (name, amount)
+            // |         |      |              |-----------
+            // |         |      |--------------------------
+            // |         |---------------------------------
+            // |-------------------------------------------
 
 
             // Loop over every orders
-            for(var item in data.orders)
-            {
+            for (var item in data.orders) {
                 // this div will be placed in the Uber diff
                 var div = document.createElement('div');
                 div.setAttribute("class", "order");
                 var order_data = data.orders[item];
-                
+
                 // This div will be used by the delete button to sent backt the Id of the 
                 // thing to end. It should be hidden.
                 var id_text = document.createElement("div");
@@ -87,13 +86,13 @@ function refresh(){
                 var item_amounts = data.orders[item].item_amounts
 
                 // Loop over the amounts and items for each orders
-                for(var key in item_amounts){
+                for (var key in item_amounts) {
                     var item_amount = item_amounts[key]
                     var item = item_amount[0];
                     var amount = item_amount[1];
-                    
+
                     var li_el = document.createElement('li');
-                    li_el.innerHTML = "<span class=\"amount\"> " + amount 
+                    li_el.innerHTML = "<span class=\"amount\"> " + amount
                         + "</span> <span class=\"item\"> " + item + " </span>";
                     list.appendChild(li_el);
                 }
@@ -117,8 +116,10 @@ function refresh(){
     );
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     path_name = window.location.pathname;
-    $("button.delete").click(function(){return delete_order(this);});
+    $("button.delete").click(function () {
+        return delete_order(this);
+    });
     timer = window.setInterval(refresh, 2000)
 })

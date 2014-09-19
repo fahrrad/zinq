@@ -26,7 +26,7 @@
     </style>
     {% bootstrap_javascript_tag %}
 
- <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -42,14 +42,14 @@
     </p>
 
     <footer>
-        <div >
+        <div>
             <p><a href="{% url "places.views.landing" %}">home</a>
                 {% if user.is_authenticated %}
                     <div>Welcome, {{ user.username }}
                 {% endif %}
             </p>
         </div>
-        <div >
+        <div>
             <p>
 
             </p>

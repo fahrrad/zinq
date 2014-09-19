@@ -105,7 +105,6 @@ class MenuTest(TestCase):
         self.assertEquals(len(found_menu.menuitem_set.all()), 3)
 
     def test_menu_can_not_have_twice_the_same_item(self):
-
         # trying to add fanta twice
         self.assertRaises(MenuItem.objects.create, name="fanta", price=2.5, menu=self.m1)
 
@@ -116,7 +115,6 @@ class MenuTest(TestCase):
 
         self.assertEquals(len(orders), 1)
         self.assertEquals(orders[0].table, self.t2)
-
 
 
     def test_get_menu_items(self):
@@ -131,7 +129,7 @@ class MenuTest(TestCase):
                 {"category": "", "menu": 2, "price": "1.85", "name": "cola"}}]
 
         c = Client()
-        r = c.get('/mi/'+self.t1.pk, follow=True)
+        r = c.get('/mi/' + self.t1.pk, follow=True)
 
         self.assertEqual(200, r.status_code)
         self.assertJSONEqual(r.content, json_menu_items)

@@ -12,38 +12,38 @@ import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Uncomment the admin/doc line below to enable admin documentation:
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+                       # Uncomment the admin/doc line below to enable admin documentation:
+                       url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+                       # Uncomment the next line to enable the admin:
+                       url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^welcome/$', welcome),
-    url(r'^menu/(\w{4,32})/$', menu),
+                       url(r'^welcome/$', welcome),
+                       url(r'^menu/(\w{4,32})/$', menu),
 
-     # QR codes can be encoded more efficiently when they only contain capitals.
-     #
-     # see http://code.google.com/p/zxing/wiki/BarcodeContents
-    url(r'^MENU/(\w{4,32})/$', menu),
-    url(r'^$', landing),
+                       # QR codes can be encoded more efficiently when they only contain capitals.
+                       #
+                       # see http://code.google.com/p/zxing/wiki/BarcodeContents
+                       url(r'^MENU/(\w{4,32})/$', menu),
+                       url(r'^$', landing),
 
-    # view orders
-    url(r'^orders/(\w{1,5})/$', orders),
+                       # view orders
+                       url(r'^orders/(\w{1,5})/$', orders),
 
-    # Get open orders (REST call)
-    url(r'^orders/o/(\w{1,5})/$', orders_open),
+                       # Get open orders (REST call)
+                       url(r'^orders/o/(\w{1,5})/$', orders_open),
 
-    # place order
-    url(r'^orders/p/(\w{4,32})$', place_order),
+                       # place order
+                       url(r'^orders/p/(\w{4,32})$', place_order),
 
-    # order done
-    url(r'^orders/d/(\w{4,32})$', order_done),
+                       # order done
+                       url(r'^orders/d/(\w{4,32})$', order_done),
 
-    # rest services for the order
-    url(r'^mi/(\w{4,32})/$', menu_items),
+                       # rest services for the order
+                       url(r'^mi/(\w{4,32})/$', menu_items),
 
 
-    url(r'^wait/(\w{4,32})/$', wait),
-    url(r'^wait_status/(\w{4,32})/$', wait_status),
-    url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
+                       url(r'^wait/(\w{4,32})/$', wait),
+                       url(r'^wait_status/(\w{4,32})/$', wait_status),
+                       url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

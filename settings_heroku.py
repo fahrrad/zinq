@@ -1,5 +1,4 @@
 import os
-import sys
 
 
 # ===========================
@@ -95,8 +94,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -118,7 +115,6 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_PATH, 'templates'),
 )
-
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -148,7 +144,7 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters':{
+    'formatters': {
         'simple': {
             'format': '%(levelname)s %(message)s'
         },
@@ -164,7 +160,7 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'console':{
+        'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
@@ -176,7 +172,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'places':{
+        'places': {
             'handlers': ['console'],
             'level': 'DEBUG',
         }

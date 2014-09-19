@@ -27,7 +27,7 @@ function paddy(n, p, c) {
     return (pad + n).slice(-pad.length);
 }
 
-function seconds_to_minutes(seconds){
+function seconds_to_minutes(seconds) {
     var minutes = Math.floor(seconds / 60);
     minutes += ':';
     var secs = (seconds % 60);
@@ -36,15 +36,15 @@ function seconds_to_minutes(seconds){
     return minutes;
 }
 
-function seconds_to_color(seconds){
+function seconds_to_color(seconds) {
     //var color = "hsla(" +seconds % 360 +", " +(seconds * 3) % 100 +"%, " +"100%, " +"1.0)";
-    var color = "rgb(" + Math.min(255,(seconds * 7) ) + ",0,0)";
+    var color = "rgb(" + Math.min(255, (seconds * 7)) + ",0,0)";
     log(color);
 
     return color;
 }
 
-function barsclick () {
+function barsclick() {
     var order_line_wrapper = $(this).closest(".order-line-wrapper");
 
     // Hide all expanded except this one
@@ -56,7 +56,6 @@ function barsclick () {
     $("img.3bars").click(barsclick);
     $(order_line_wrapper).find("img.3bars").off("click");
 }
-
 
 
 $("button.cancel_button").click(function () {
@@ -80,8 +79,7 @@ $("button.ready_button").click(function () {
     });
 });
 
-function fetchData()
-{
+function fetchData() {
     var template = $('#template').clone(),
         item_template = $('.order-item', template).clone();
 
@@ -93,7 +91,7 @@ function fetchData()
     template.data('uuid', 'lalaland');
     $('.order-item-wrapper', template).html('');
 
-    for(var i=1;i<5;i++) {
+    for (var i = 1; i < 5; i++) {
 
         console.log(i);
         $('.amount', item_template).html('1');
@@ -109,7 +107,11 @@ function fetchData()
 
 fetchData();
 
-$(function(){setInterval(time_tick, 1000);});
-$(function(){setInterval(fetchData, 10000);});
+$(function () {
+    setInterval(time_tick, 1000);
+});
+$(function () {
+    setInterval(fetchData, 10000);
+});
 $(".order-line.expanded").hide();
 $("img.3bars").click(barsclick);

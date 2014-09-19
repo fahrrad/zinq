@@ -52,7 +52,7 @@ function contains(array, key) {
 server = http.createServer(function server(req, res) {
     res.setHeader('Content-Type', 'text/html');
     fs.createReadStream(
-        __dirname + (~req.url.indexOf('primus.js') ? '/primus.js' : '/order.html')
+            __dirname + (~req.url.indexOf('primus.js') ? '/primus.js' : '/order.html')
     ).pipe(res);
 });
 
@@ -98,7 +98,7 @@ primus.on('connection', function connection(spark) {
         }
 
         if (packet.orderDone) {
-            console.log('Order done: '+packet.orderDone);
+            console.log('Order done: ' + packet.orderDone);
             var orderIds = Object.keys(pendingOrders);
             if (contains(orderIds, packet.orderDone)) {
                 console.log("Number of client listening: " + Object.keys(pendingOrders[packet.orderDone]).length);
@@ -111,8 +111,8 @@ primus.on('connection', function connection(spark) {
                 }
                 console.log("Delete order: " + packet.orderDone);
                 delete pendingOrders[packet.orderDone];
-            }else{
-                console.log("No pending orders for "+packet.orderId);
+            } else {
+                console.log("No pending orders for " + packet.orderId);
             }
         }
 
@@ -134,31 +134,31 @@ primus.on('connection', function connection(spark) {
 primus.on('disconnection', function connection(spark) {
     console.log('Connection CLOSE ' + spark.id);
     if (contains(Object.keys(connectedClients), spark.id)) {
-        console.log("Order pending for client: "+spark.id+" - connectedClients: "+Object.keys(connectedClients).length);
+        console.log("Order pending for client: " + spark.id + " - connectedClients: " + Object.keys(connectedClients).length);
         delete connectedClients[spark.id];
-        console.log("Deleted client: "+spark.id+" - connectedClients: "+Object.keys(connectedClients).length);
+        console.log("Deleted client: " + spark.id + " - connectedClients: " + Object.keys(connectedClients).length);
 
         var orderIds = Object.keys(pendingOrders);
         for (var index = 0; index < orderIds.length; index++) {
-            console.log("Running over orders, orderId:"+orderIds[index]);
+            console.log("Running over orders, orderId:" + orderIds[index]);
             if (contains(Object.keys(pendingOrders[orderIds[index]]), spark.id)) {
-                console.log("Deleting client "+spark.id+" for order "+orderIds[index]);
+                console.log("Deleting client " + spark.id + " for order " + orderIds[index]);
                 delete pendingOrders[orderIds[index]][spark.id];
-            }else{
-                console.log("No order to delete for client "+spark.id);
+            } else {
+                console.log("No order to delete for client " + spark.id);
             }
 
             //No more clients are listening for this order, remove the order from the pending orders
-            if(Object.keys(pendingOrders[orderIds[index]]).length == 0){
-                console.log("No clients listening for order "+orderIds[index]+" deleting order...");
+            if (Object.keys(pendingOrders[orderIds[index]]).length == 0) {
+                console.log("No clients listening for order " + orderIds[index] + " deleting order...");
                 delete pendingOrders[orderIds[index]];
-                console.log("Number of pending orders: "+Object.keys(pendingOrders).length)
-            }else{
-                console.log("Not removing pending order "+orderIds[index]+" still "+Object.keys(pendingOrders[orderIds[index]]).length+" clients waiting for order confirmation");
+                console.log("Number of pending orders: " + Object.keys(pendingOrders).length)
+            } else {
+                console.log("Not removing pending order " + orderIds[index] + " still " + Object.keys(pendingOrders[orderIds[index]]).length + " clients waiting for order confirmation");
             }
         }
-    }else{
-        console.log("No pending orders for client "+spark.id);
+    } else {
+        console.log("No pending orders for client " + spark.id);
     }
 });
 //

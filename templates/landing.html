@@ -8,25 +8,25 @@
 
 {% block content %}
 
-<h1>Landing page</h1>
-<h3>some links</h3>
-<ul>
-    <li><a href="{% url "menus.views.menu" "123456" %}">
-        Invalid menu
-    </a></li>
-    <li><a href="{% url "menus.views.menu" "96f3fef887bb42edb2c08631beff4f98" %}">
-        Menu for Barbar Palace
-    </a></li>
+    <h1>Landing page</h1>
+    <h3>some links</h3>
+    <ul>
+        <li><a href="{% url "menus.views.menu" "123456" %}">
+            Invalid menu
+        </a></li>
+        <li><a href="{% url "menus.views.menu" "96f3fef887bb42edb2c08631beff4f98" %}">
+            Menu for Barbar Palace
+        </a></li>
 
-    <li><a href=/orders/1 >
-        Orders for Barbar Palace
-    </a></li>
+        <li><a href=/orders/1>
+            Orders for Barbar Palace
+        </a></li>
 
-    <li><a href="{% url "places.views.qr_codes" 1 %}" >
-        QR codes for Barbar Palace
-    </a></li>
+        <li><a href="{% url "places.views.qr_codes" 1 %}">
+            QR codes for Barbar Palace
+        </a></li>
 
-    <li><a href="admin">Admin page </a></li>
+        <li><a href="admin">Admin page </a></li>
 
-</ul>
+    </ul>
 {% endblock %}

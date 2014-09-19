@@ -1,14 +1,14 @@
 # Create your views here.
 import json
-from django.core.exceptions import ObjectDoesNotExist
+import logging
+
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+
 from orders.models import Order
 from places.models import Place, Table
 
-
-import logging
 
 logging.basicConfig()
 #
@@ -19,6 +19,7 @@ logging.basicConfig()
 # channel.queue_declare(queue='hello')
 
 logger = logging.getLogger(__name__)
+
 
 def wait_status(request, order_uuid):
     """

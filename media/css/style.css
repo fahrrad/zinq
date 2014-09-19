@@ -443,7 +443,7 @@ input[type="reset"],
 input[type="submit"] {
     -webkit-appearance: button; /* 2 */
     cursor: pointer; /* 3 */
-    *overflow: visible;  /* 4 */
+    *overflow: visible; /* 4 */
 }
 
 /**
@@ -525,21 +525,20 @@ textarea {
 Fonts
 */
 @font-face {
-	font-family: 'Vaud Display Light';
-	src: url('../webfonts/vaud-display-light.eot');
-	src: url('../webfonts/vaud-display-light.eot?#iefix') format('embedded-opentype'),
-	     url('../webfonts/vaud-display-light.woff') format('woff'),
-	     url('../webfonts/vaud-display-light.ttf') format('truetype'),
-	     url('../webfonts/vaud-display-light.svg#ywftsvg') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'Vaud Display Light';
+    src: url('../webfonts/vaud-display-light.eot');
+    src: url('../webfonts/vaud-display-light.eot?#iefix') format('embedded-opentype'),
+    url('../webfonts/vaud-display-light.woff') format('woff'),
+    url('../webfonts/vaud-display-light.ttf') format('truetype'),
+    url('../webfonts/vaud-display-light.svg#ywftsvg') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
 
 /* PRODUCTS */
 
@@ -759,27 +758,28 @@ tr {
     height: 33%;
 }
 
-#wait-for-order-title{
+#wait-for-order-title {
     height: 33%;
     margin-top: auto;
     margin-bottom: auto;
-    vertical-align:  middle;
+    vertical-align: middle;
 }
 
-#wait-for-order-icon{
+#wait-for-order-icon {
     height: 33%;
 }
 
-#done-order-icon{
+#done-order-icon {
     height: 33%;
     display: none;
 }
-#wait-for-order-bottom{
-    vertical-align:  middle;
+
+#wait-for-order-bottom {
+    vertical-align: middle;
     height: 34%;
 }
 
-#order-container{
+#order-container {
     width: 225px;
     height: 600px;
 }

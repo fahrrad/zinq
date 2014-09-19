@@ -1,21 +1,22 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="place_Menu_FK" directorySegmentName="seg_0" id="4F329E2F-C066-226F-707E-15956941148F">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:22:03 UTC</createdTime>
-<generatorID>44F1D92C-A469-F0D7-8EED-4C681999E80F</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<sourcePk>7EA409CD-F1A9-EF2D-E9E3-9B8B05DB7EB7</sourcePk>
-<dominantRole>1C342841-BD8A-820A-2BDE-0D8B6AEAA125</dominantRole>
-<identifying>false</identifying>
-<optionalSource>true</optionalSource>
-<optionalTarget>false</optionalTarget>
-<sourceCardinality>1</sourceCardinality>
-<sourceEntity>1C342841-BD8A-820A-2BDE-0D8B6AEAA125</sourceEntity>
-<targetCardinalityString>1</targetCardinalityString>
-<targetEntity>6A6A1981-EBB3-B466-2DFE-30C38E1B9359</targetEntity>
-<transferable>true</transferable>
-<deleteRule>NO ACTION</deleteRule>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="place_Menu_FK" directorySegmentName="seg_0"
+          id="4F329E2F-C066-226F-707E-15956941148F">
+    <createdBy>ward</createdBy>
+    <createdTime>2013-07-28 09:22:03 UTC</createdTime>
+    <generatorID>44F1D92C-A469-F0D7-8EED-4C681999E80F</generatorID>
+    <ownerDesignName>datamodel</ownerDesignName>
+    <engineerTo>
+        <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+    </engineerTo>
+    <sourcePk>7EA409CD-F1A9-EF2D-E9E3-9B8B05DB7EB7</sourcePk>
+    <dominantRole>1C342841-BD8A-820A-2BDE-0D8B6AEAA125</dominantRole>
+    <identifying>false</identifying>
+    <optionalSource>true</optionalSource>
+    <optionalTarget>false</optionalTarget>
+    <sourceCardinality>1</sourceCardinality>
+    <sourceEntity>1C342841-BD8A-820A-2BDE-0D8B6AEAA125</sourceEntity>
+    <targetCardinalityString>1</targetCardinalityString>
+    <targetEntity>6A6A1981-EBB3-B466-2DFE-30C38E1B9359</targetEntity>
+    <transferable>true</transferable>
+    <deleteRule>NO ACTION</deleteRule>
 </Relation>

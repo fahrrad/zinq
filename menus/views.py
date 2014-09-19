@@ -5,11 +5,10 @@ from django.core import serializers
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+import pika
 
 from menus.models import MenuItem
 from places.models import Table
-
-import pika
 
 logger = logging.getLogger(__name__)
 

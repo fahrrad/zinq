@@ -1,20 +1,21 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="table_place_FK" directorySegmentName="seg_0" id="BA79EE5A-F2BA-BAA0-CF3F-AFEB3E8575EB">
-<createdBy>ward</createdBy>
-<createdTime>2013-07-28 09:22:03 UTC</createdTime>
-<generatorID>718EEB79-C262-CC25-04E2-6EAED53698EE</generatorID>
-<ownerDesignName>datamodel</ownerDesignName>
-<engineerTo>
-<item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
-</engineerTo>
-<sourcePk>3C618E42-C1FB-C0ED-76E2-B992D5458486</sourcePk>
-<identifying>false</identifying>
-<optionalSource>true</optionalSource>
-<optionalTarget>false</optionalTarget>
-<sourceCardinality>1</sourceCardinality>
-<sourceEntity>6A6A1981-EBB3-B466-2DFE-30C38E1B9359</sourceEntity>
-<targetCardinalityString>*</targetCardinalityString>
-<targetEntity>D1AB9D65-026A-35AD-84A3-913467BDB1C7</targetEntity>
-<transferable>true</transferable>
-<deleteRule>NO ACTION</deleteRule>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="table_place_FK" directorySegmentName="seg_0"
+          id="BA79EE5A-F2BA-BAA0-CF3F-AFEB3E8575EB">
+    <createdBy>ward</createdBy>
+    <createdTime>2013-07-28 09:22:03 UTC</createdTime>
+    <generatorID>718EEB79-C262-CC25-04E2-6EAED53698EE</generatorID>
+    <ownerDesignName>datamodel</ownerDesignName>
+    <engineerTo>
+        <item key="A3A80152-A0D4-CE56-B5C9-B10DD0091A69" value="true"/>
+    </engineerTo>
+    <sourcePk>3C618E42-C1FB-C0ED-76E2-B992D5458486</sourcePk>
+    <identifying>false</identifying>
+    <optionalSource>true</optionalSource>
+    <optionalTarget>false</optionalTarget>
+    <sourceCardinality>1</sourceCardinality>
+    <sourceEntity>6A6A1981-EBB3-B466-2DFE-30C38E1B9359</sourceEntity>
+    <targetCardinalityString>*</targetCardinalityString>
+    <targetEntity>D1AB9D65-026A-35AD-84A3-913467BDB1C7</targetEntity>
+    <transferable>true</transferable>
+    <deleteRule>NO ACTION</deleteRule>
 </Relation>

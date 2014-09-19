@@ -1,7 +1,8 @@
-from decimal import Decimal
 import logging
 from uuid import uuid4
+
 from django.db import models
+
 
 # Create your models here.
 from menus.models import MenuItem
@@ -107,13 +108,14 @@ class Order(models.Model):
         menuitems_amounts = []
         for ordermenuitem in self.ordermenuitem_set.all():
             menuitems_amounts.append((ordermenuitem.menuItem.name,
-                                        ordermenuitem.amount, str(ordermenuitem.price)))
+                                      ordermenuitem.amount, str(ordermenuitem.price)))
 
         return menuitems_amounts
 
 
 class OrderLineTransferObject():
     """represents one line in an order that will be sent to the server"""
+
     def __init__(self, menu_item_uuid, amount):
         self.menu_item_uuid = menu_item_uuid
         self.amount = amount
@@ -121,6 +123,7 @@ class OrderLineTransferObject():
 
 class OrderTransferObject():
     """This object will be serialised on the client, and sent to the server"""
+
     def __init__(self, uuid, table_uuid, order_line_list):
         self.uuid = uuid
         self.table_uuid = uuid

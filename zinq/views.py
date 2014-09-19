@@ -1,11 +1,12 @@
 # Create your views here.
+import logging
+
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
-
-import logging
 from django.template import RequestContext
 from django.template.loader import get_template
+
 
 logger = logging.getLogger(__name__)
 

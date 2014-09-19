@@ -8,7 +8,6 @@ from places.models import Table, Place
 
 # only show the tables from places linked to the current user
 class PlaceModelAdmin(admin.ModelAdmin):
-
     def add_view(self, request, form_url='', extra_context=None):
 
         if not request.user.is_superuser:
@@ -50,8 +49,9 @@ class TableModelAdmin(admin.ModelAdmin):
         return super(TableModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                      request, **kwargs)
 
-    # needed for easy test
-    # exclude = ("uuid",)
+        # needed for easy test
+        # exclude = ("uuid",)
+
 
 admin.site.register(Place, PlaceModelAdmin)
 admin.site.register(Table, TableModelAdmin)

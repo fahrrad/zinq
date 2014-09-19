@@ -4,15 +4,15 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
-import json
 import logging
 
-from django.test import TestCase, Client
+from django.test import TestCase
+
 from models import Place, Table
 from menus.models import Menu, MenuItem
-from orders.models import Order
 
 logger = logging.getLogger(__name__)
+
 
 class SimpleTest(TestCase):
     def setUp(self):
@@ -50,12 +50,10 @@ class SimpleTest(TestCase):
         self.t4 = Table.objects.create(place=self.dambert, table_nr=4)
 
     def test_finding_tables_for_dambert(self):
-
         dambert = Place.objects.get(name="dambert")
         self.assertEquals(len(dambert.table_set.all()), 4)
 
     def test_find_dambert_menu(self):
-
         place = Place.objects.get(name="dambert")
         t1_uuid = place.table_set.all()[1].uuid
 
