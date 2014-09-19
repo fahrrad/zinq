@@ -113,7 +113,7 @@ $(document).ready(function () {
     });
 
     $('#confirm').click(function () {
-        $.post('/orders/p/' + $('#table_uuid').text() + '/', order, function (data) {
+        $.post('/order/p/' + $('#table_uuid').text(), order, function (data) {
             window.location.href = "/wait/" + data.order_uuid;
         });
     });

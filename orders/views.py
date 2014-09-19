@@ -117,7 +117,7 @@ def orders(request, place_pk):
 
 @csrf_exempt
 def place_order(request, table_uuid):
-    """Accepts an order in the following form: [{ pk:menu_item_id, amount:amount ... }]
+    """Accepts an order in the following form: [menu_item_id: amount:amount...]
     Returns 404 if table or one of the order-item ids are not found"""
     if request.method == 'POST':
         try:

@@ -31,13 +31,13 @@ urlpatterns = patterns('',
                        url(r'^orders/(\w{1,5})/$', orders),
 
                        # Get open orders (REST call)
-                       url(r'^orders/o/(\w{1,5})/$', orders_open),
+                       url(r'^order/o/(\w{1,5})/$', orders_open),
 
                        # place order
-                       url(r'^orders/p/(\w{4,32})$', place_order),
+                       url(r'^order/p/(\w{4,32})$', place_order),
 
                        # order done
-                       url(r'^orders/d/(\w{4,32})$', order_done),
+                       url(r'^order/d/(\w{4,32})$', order_done),
 
                        # rest services for the order
                        url(r'^mi/(\w{4,32})/$', menu_items),

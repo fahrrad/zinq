@@ -108,7 +108,7 @@ class SimpleTest(TestCase):
         c = Client()
 
         # a cola please
-        response = c.post("/menu/%s/" % table_pk, {'cola_amount': '3'})
+        response = c.post("/order/p/%s" % table_pk, {'cola_amount': '3'})
 
         print response.status_code
 
@@ -147,9 +147,10 @@ class SimpleTest(TestCase):
         self.assertEqual(Order.objects.filter(table=self.t1).count(), 0)
 
         c = Client()
-        order_json = "[{pk:%s, amount:2}, {pk:%d, amount:6}]" % (self.mi1.pk, self.mi2.pk)
 
-        r = c.post('/orders/p/%s' % self.t1.pk, {'order': order_json}, follow=True)
+        post_order = {self.mi1.pk: 2, self.mi2.pk: 6}
+
+        r = c.post('/order/p/%s' % self.t1.pk, post_order, follow=True)
         self.assertEqual(r.status_code, 200)
 
         self.assertEqual(Order.objects.filter(table=self.t1).count(), 1)
@@ -158,7 +159,7 @@ class SimpleTest(TestCase):
         place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
 
         c = Client()
-        r = c.get('/orders/o/%d/' % self.speyker.pk, {}, False,
+        r = c.get('/order/o/%d/' % self.speyker.pk, {}, False,
                   HTTP_ACCEPT="application/json",
                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
@@ -177,7 +178,7 @@ class SimpleTest(TestCase):
         item_amounts_1 = item_amounts_[0]
         self.assertEquals(item_amounts_1[0], 'fanta')
         self.assertEquals(item_amounts_1[1], 2)
-        self.assertEquals(item_amounts_1[2], '5.00')
+        self.assertEquals(item_amounts_1[2], '5')
 
     def test_place_order_get_ordered_items(self):
         place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
@@ -186,7 +187,7 @@ class SimpleTest(TestCase):
         self.assertEquals(len(all_open_orders), 1)
 
         menu_items_amounts = all_open_orders[0].get_menuitems_amounts()
-        for item, amount in menu_items_amounts:
+        for item, amount, price in menu_items_amounts:
             if item == "fanta":
                 self.assertEquals(amount, 2)
 
