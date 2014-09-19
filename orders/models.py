@@ -4,6 +4,7 @@ from uuid import uuid4
 from django.db import models
 
 
+
 # Create your models here.
 from menus.models import MenuItem
 from places.models import Table

@@ -10,8 +10,6 @@ import json
 from django.test import TestCase, Client
 
 from menus.models import MenuItem, Menu
-from orders.services import place_order
-from orders import services
 from orders.models import Order, OrderMenuItem
 from places.models import Place, Table
 
@@ -86,22 +84,13 @@ class SimpleTest(TestCase):
         # no next step, except an exception
         self.assertRaises(order.proceed)
 
-    def test_place_order(self):
-        all_open_orders = services.get_open_orders(self.speyker)
-
-        # starting with no orders
-        self.assertEquals(len(all_open_orders), 0)
-
-        place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
-
-        all_open_orders = services.get_open_orders(self.speyker)
-        self.assertEquals(len(all_open_orders), 1)
-
-        self.assertEquals(all_open_orders[0].ordermenuitem_set.count(), 2)
-
     def test_place_order_price(self):
-        order = place_order([('fanta', 2), ('cola', 1)], self.t1.pk)
-        self.assertEqual(order.calculate_total_price(), Decimal('6.85'))
+        order = {self.mi1.pk: 2, self.mi2.pk: 1}
+        c = Client()
+        c.post("/order/p/" + self.t1.pk, order)
+
+        o = Order.objects.get(table=self.t1)
+        self.assertEqual(o.calculate_total_price(), Decimal('6.85'))
 
     def test_posting_an_order(self):
         table_pk = self.t1.pk
@@ -121,7 +110,10 @@ class SimpleTest(TestCase):
     def test_ordered_status(self):
         import json
 
-        order = place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
+        order = Order.objects.create(table=self.t2)
+        order.add_item_by_name(self.mi1, 2)
+        order.add_item_by_name(self.mi2, 1)
+        order.save()
 
         c = Client()
         response = c.get("/wait_status/" + str(order.pk) + "/", {}, False,
@@ -156,7 +148,10 @@ class SimpleTest(TestCase):
         self.assertEqual(Order.objects.filter(table=self.t1).count(), 1)
 
     def test_orders_open(self):
-        place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
+        order = Order.objects.create(table=self.t2)
+        order.add_item_by_name(self.mi1, 2)
+        order.add_item_by_name(self.mi2, 1)
+        order.save()
 
         c = Client()
         r = c.get('/order/o/%d/' % self.speyker.pk, {}, False,
@@ -179,20 +174,3 @@ class SimpleTest(TestCase):
         self.assertEquals(item_amounts_1[0], 'fanta')
         self.assertEquals(item_amounts_1[1], 2)
         self.assertEquals(item_amounts_1[2], '5')
-
-    def test_place_order_get_ordered_items(self):
-        place_order([('fanta', 2), ('cola', 1)], self.t2.pk)
-
-        all_open_orders = services.get_open_orders(self.speyker)
-        self.assertEquals(len(all_open_orders), 1)
-
-        menu_items_amounts = all_open_orders[0].get_menuitems_amounts()
-        for item, amount, price in menu_items_amounts:
-            if item == "fanta":
-                self.assertEquals(amount, 2)
-
-            elif item == "cola":
-                self.assertEquals(amount, 1)
-
-            else:
-                raise Exception("only cola and fanta!!")
