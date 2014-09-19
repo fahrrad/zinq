@@ -46,7 +46,7 @@ class SimpleTest(TestCase):
         order = Order(table=self.t1)
         order.save()
 
-        order.add_item_by_name(cola, 2)
+        order.add_menuitem(cola, 2)
 
         # When comparing with equals, the decimals are converted into floats
         # i guess.
@@ -56,8 +56,8 @@ class SimpleTest(TestCase):
         order = Order(table=self.t1)
         order.save()
 
-        order.add_item_by_name(self.m1.menuitem_set.get(name="cola"), 3)
-        order.add_item_by_name(self.m1.menuitem_set.get(name="fanta"), 1)
+        order.add_menuitem(self.m1.menuitem_set.get(name="cola"), 3)
+        order.add_menuitem(self.m1.menuitem_set.get(name="fanta"), 1)
 
         self.assertEqual(order.calculate_total_price(), Decimal('8.05'))
         self.assertEquals(len(order.menuItems.all()), 2)
@@ -111,8 +111,8 @@ class SimpleTest(TestCase):
         import json
 
         order = Order.objects.create(table=self.t2)
-        order.add_item_by_name(self.mi1, 2)
-        order.add_item_by_name(self.mi2, 1)
+        order.add_menuitem(self.mi1, 2)
+        order.add_menuitem(self.mi2, 1)
         order.save()
 
         c = Client()
@@ -149,8 +149,8 @@ class SimpleTest(TestCase):
 
     def test_orders_open(self):
         order = Order.objects.create(table=self.t2)
-        order.add_item_by_name(self.mi1, 2)
-        order.add_item_by_name(self.mi2, 1)
+        order.add_menuitem(self.mi1, 2)
+        order.add_menuitem(self.mi2, 1)
         order.save()
 
         c = Client()

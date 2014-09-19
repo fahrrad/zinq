@@ -65,7 +65,7 @@ class Order(models.Model):
     status = models.CharField(max_length=2, choices=ORDER_STATUSES,
                               default=ORDERED)
 
-    def add_item_by_name(self, menuItem, amount):
+    def add_menuitem(self, menuItem, amount):
         """ add amount menuitems to the orders. Will also add the total
         price to the total
         """
