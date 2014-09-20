@@ -73,7 +73,7 @@ def wait_status(request, order_uuid):
 
 def wait(request, order_uuid):
     """returns the view where the drinker is asked to wait."""
-    return render(request, "orders/wait.html", {"order_uuid": order_uuid})
+    return render(request, "menus/wait.html", {"order_uuid": order_uuid})
 
 
 def orders_open(request, place_pk):

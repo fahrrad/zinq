@@ -62,7 +62,7 @@ def menu(request, table_uuid):
 
     except Table.DoesNotExist as e:
         logger.error("Somebody tried to get a menu for a non " +
-                     "existing table:", e)
+                     "existing table: %s", table_uuid)
         raise Http404()
 
     # render the template
