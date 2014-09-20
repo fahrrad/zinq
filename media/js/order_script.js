@@ -70,7 +70,7 @@ function barsclick() {
 }
 
 function addOrder(order) {
-    var template = $('#template').clone();
+    var template = $('#template.order-line-wrapper').clone();
 
     template.removeAttr('id');
     $('.table', template).html('99');
@@ -80,7 +80,9 @@ function addOrder(order) {
     $(template).data('uuid', order.pk);
 
     $.each(order.item_amounts, function (i, item_amount_price) {
-        item_template = $('.order-item', template).clone();
+        item_template = $('#template.order-item', template).clone();
+
+        item_template.removeAttr('id');
 
         item = item_amount_price[0]
         amount = item_amount_price[1]
