@@ -70,8 +70,7 @@ function barsclick() {
 }
 
 function addOrder(order) {
-    var template = $('#template').clone(),
-        item_template = $('.order-item', template).clone();
+    var template = $('#template').clone();
 
     template.removeAttr('id');
     $('.table', template).html('99');
@@ -79,17 +78,26 @@ function addOrder(order) {
     template.attr('uuid', order.pk);
     $(template).data('seconds', 20);
     $(template).data('uuid', order.pk);
-    $('.order-item-wrapper', template).html('');
 
-    for (var i = 1; i < 5; i++) {
+    $.each(order.item_amounts, function (i, item_amount_price) {
+        item_template = $('.order-item', template).clone();
+
+        item = item_amount_price[0]
+        amount = item_amount_price[1]
+        price = "€ " + item_amount_price[2]
 
         console.log(i);
-        $('.amount', item_template).html('1');
-        $('.description', item_template).html('Apekool met Larie');
-        $('.price', item_template).html('€ 2,00');
+        console.log("item: " + item);
+        console.log("amount: " + amount);
+        console.log("price: " + price);
+
+        $('.amount', item_template).html(amount);
+        $('.description', item_template).html(item);
+        $('.price', item_template).html(price);
 
         $('.order-item-wrapper', template).append(item_template);
-    }
+        item_template.show()
+    });
 
     $('.order-wrapper').append(template);
 
@@ -123,7 +131,7 @@ $("button.ready_button").click(function () {
 
 function fetchData() {
     $.ajax({
-        url: "/order/o/" + 1,
+        url: "/order/o/" + 1 + "/",
         dataType: "json"
     }).done(function (orders) {
         $.each(orders, function (i, order) {
@@ -141,7 +149,7 @@ $(function () {
 
 fetchData();
 $(function () {
-    setInterval(fetchData, 1000);
+    setInterval(fetchData, 10000);
 });
 
 $("img.3bars").click(barsclick);
