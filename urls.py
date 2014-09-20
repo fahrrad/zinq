@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from menus.views import menu_items, menu
-from orders.views import wait, orders, order_done, place_order, wait_status, orders_open
+from places.views import wait, orders, order_done, place_order, wait_status, orders_open
 from places.views import qr_codes
 from places.views import welcome, landing
 import settings

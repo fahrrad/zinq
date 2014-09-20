@@ -1,6 +1,5 @@
 from django.db import models
 
-from places.models import Place
 
 
 class Menu(models.Model):
@@ -17,6 +16,8 @@ class Category(models.Model):
 
     In a future version, categories could get translations, so when people enter products, categories can
     be automatically proposed"""
+
+    from places.models import Place
 
     name = models.CharField(max_length=255, blank=False, null=False)
     place = models.ForeignKey(Place)

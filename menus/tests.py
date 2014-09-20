@@ -14,7 +14,7 @@ from django.db import IntegrityError, transaction
 
 from django.test import TestCase
 from menus.models import MenuItem, Menu, Category
-from orders.models import Order
+from places.models import Order
 from places.models import Place, Table
 
 # integration testing
