@@ -6,6 +6,18 @@ function log(text) {
     }
 }
 
+function delete_order(this_button) {
+    var order_uuid = $(this_button).closest("div").find("div.id").text()
+    $.ajax({
+        url: "/rest/orders/delete/" + order_uuid + "/",
+        type: "GET"
+    }).done(function () {
+        $(this_button).closest("div").slideUp();
+    });
+
+    return false;
+};
+
 function time_tick() {
     log("Time tick!");
 
@@ -57,6 +69,46 @@ function barsclick() {
     $(order_line_wrapper).find("img.3bars").off("click");
 }
 
+function addOrder(order) {
+    var template = $('#template.order-line-wrapper').clone();
+
+    template.removeAttr('id');
+    $('.table', template).html('99');
+    $('.total-amount', template).html('€ 33,76');
+    template.attr('uuid', order.pk);
+    $(template).data('seconds', 20);
+    $(template).data('uuid', order.pk);
+
+    $.each(order.item_amounts, function (i, item_amount_price) {
+        item_template = $('#template.order-item', template).clone();
+
+        item_template.removeAttr('id');
+
+        item = item_amount_price[0]
+        amount = item_amount_price[1]
+        price = "€ " + item_amount_price[2]
+
+        console.log(i);
+        console.log("item: " + item);
+        console.log("amount: " + amount);
+        console.log("price: " + price);
+
+        $('.amount', item_template).html(amount);
+        $('.description', item_template).html(item);
+        $('.price', item_template).html(price);
+
+        $('.order-item-wrapper', template).append(item_template);
+        item_template.show()
+    });
+
+    $('.order-wrapper').append(template);
+
+    $(template).find("img.3bars").click(barsclick);
+
+    $(template).find(".expanded").hide();
+    template.show();
+}
+
 
 $("button.cancel_button").click(function () {
     log("cancel order");
@@ -80,38 +132,26 @@ $("button.ready_button").click(function () {
 });
 
 function fetchData() {
-    var template = $('#template').clone(),
-        item_template = $('.order-item', template).clone();
-
-    template.show();
-    template.removeAttr('id');
-    $('.table', template).html('99');
-    $('.total-amount', template).html('€ 33,76');
-    template.data('seconds', 20);
-    template.data('uuid', 'lalaland');
-    $('.order-item-wrapper', template).html('');
-
-    for (var i = 1; i < 5; i++) {
-
-        console.log(i);
-        $('.amount', item_template).html('1');
-        $('.description', item_template).html('Apekool met Larie');
-        $('.price', item_template).html('€ 2,00');
-
-        $('.order-item-wrapper', template).append(item_template);
-    }
-
-
-    $('.order-wrapper').append(template);
+    $.ajax({
+        url: "/order/o/" + 1 + "/",
+        dataType: "json"
+    }).done(function (orders) {
+        $.each(orders, function (i, order) {
+            if (!$("[uuid='" + order.pk + "']").length) {
+                addOrder(order)
+            }
+        })
+    })
 }
 
-fetchData();
 
 $(function () {
     setInterval(time_tick, 1000);
 });
+
+fetchData();
 $(function () {
     setInterval(fetchData, 10000);
 });
-$(".order-line.expanded").hide();
+
 $("img.3bars").click(barsclick);
