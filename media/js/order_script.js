@@ -70,7 +70,7 @@ function barsclick() {
 }
 
 function addOrder(order) {
-    var template = $('#template.order-line-wrapper').clone();
+    var template = $('#template.order-line-wrapper').clone(true);
 
     template.removeAttr('id');
     $('.table', template).html('99');
@@ -80,7 +80,7 @@ function addOrder(order) {
     $(template).data('uuid', order.pk);
 
     $.each(order.item_amounts, function (i, item_amount_price) {
-        item_template = $('#template.order-item', template).clone();
+        item_template = $('#template.order-item', template).clone(true);
 
         item_template.removeAttr('id');
 
@@ -103,33 +103,10 @@ function addOrder(order) {
 
     $('.order-wrapper').append(template);
 
-    $(template).find("img.3bars").click(barsclick);
 
     $(template).find(".expanded").hide();
     template.show();
 }
-
-
-$("button.cancel_button").click(function () {
-    log("cancel order");
-});
-
-
-$("button.ready_button").click(function () {
-    var wrapper = $(this).closest(".order-line-wrapper");
-    var order_uuid = $(wrapper).data("uuid");
-    $.ajax({
-        url: "/orders/d/" + order_uuid + "/",
-        type: "GET"
-    }).done(function () {
-        wrapper.slideUp(400, function () {
-            wrapper.remove();
-        });
-
-    }).error(function () {
-        log("Something went south...");
-    });
-});
 
 function fetchData() {
     $.ajax({
@@ -144,14 +121,47 @@ function fetchData() {
     })
 }
 
-
 $(function () {
-    setInterval(time_tick, 1000);
-});
+    $("img.3bars").click(barsclick);
 
-fetchData();
-$(function () {
-    setInterval(fetchData, 10000);
-});
+    $("button.cancel_button").click(function () {
+        var order_uuid = $(this).closest(".order-line-wrapper").attr("uuid");
 
-$("img.3bars").click(barsclick);
+        var request = $.ajax({
+            url: "/order/d/" + order_uuid + "/",
+            context: $(this).closest(".order-line-wrapper")
+        });
+        request.done(function () {
+            $(this).closest(".order-line-wrapper").slideUp(500, function () {
+                $(this).closest(".order-line-wrapper").remove();
+            });
+        });
+
+        log("cancel order");
+    });
+
+    $("button.ready_button").click(function () {
+        var wrapper = $(this).closest(".order-line-wrapper");
+        var order_uuid = $(wrapper).data("uuid");
+        $.ajax({
+            url: "/orders/d/" + order_uuid + "/",
+            type: "GET"
+        }).done(function () {
+            wrapper.slideUp(400, function () {
+                wrapper.remove();
+            });
+
+        }).error(function () {
+            log("Something went south...");
+        });
+    });
+
+    fetchData();
+    $(function () {
+        setInterval(fetchData, 1000);
+    });
+
+    $(function () {
+        setInterval(time_tick, 1000);
+    });
+});

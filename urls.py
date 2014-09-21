@@ -37,7 +37,7 @@ urlpatterns = patterns('',
                        url(r'^order/p/(\w{4,32})/$', place_order),
 
                        # order done
-                       url(r'^order/d/(\w{4,32})$', order_done),
+                       url(r'^order/d/(\w{4,32})/$', order_done),
 
                        # rest services for the order
                        url(r'^mi/(\w{4,32})/$', menu_items),
