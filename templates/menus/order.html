@@ -15,8 +15,8 @@
         {% for cat, menu_items in cat_menu_items.items %}
             <h2 data-clicked="false">{{ cat }}<span class="arrow-down"></span></h2>
             {% for mi in menu_items %}
-                <div class="product" data-id="1">
-                    <div class="product-top" data-clicked="">
+                <div class="product" data-id={{ mi.pk }}>
+                <div class="product-top" data-clicked="">
                         <h3>{{ mi.name }}
                             <span class="grey">{{ mi.name }}</span></h3>
 

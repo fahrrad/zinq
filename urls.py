@@ -34,7 +34,7 @@ urlpatterns = patterns('',
                        url(r'^order/o/(\w{1,5})/$', orders_open),
 
                        # place order
-                       url(r'^order/p/(\w{4,32})$', place_order),
+                       url(r'^order/p/(\w{4,32})/$', place_order),
 
                        # order done
                        url(r'^order/d/(\w{4,32})$', order_done),

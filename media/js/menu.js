@@ -1,5 +1,5 @@
 function add_one_of_item(item_pk, order) {
-    if (item_pk in order) {
+    if (order[item_pk] != undefined) {
         order[item_pk]++;
     } else {
         order[item_pk] = 1;
@@ -10,7 +10,7 @@ function add_one_of_item(item_pk, order) {
 
 
 function decr_one_of_item(item_pk, order) {
-    if (item_pk in order && order[item_pk] > 0) {
+    if (order[item_pk] != undefined && order[item_pk] > 0) {
         order[item_pk]--;
     }
 
@@ -113,7 +113,7 @@ $(document).ready(function () {
     });
 
     $('#confirm').click(function () {
-        $.post('/order/p/' + $('#table_uuid').text(), order, function (data) {
+        $.post('/order/p/' + $('#table_uuid').text() + '/', order, function (data) {
             window.location.href = "/wait/" + data.order_uuid;
         });
     });
