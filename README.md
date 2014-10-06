@@ -9,3 +9,5 @@ export CPPFLAGS=-Qunused-argument
 export CFLAGS=-Qunused-arguments
 
 * Error on macosX
+
+*TODO  bericht als bestelling klaar wodt gemaakt
