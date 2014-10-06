@@ -1,11 +1,12 @@
 import json
 import logging
-from django.http import HttpResponse, Http404
 
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from places.models import Place, Order, Table
+import settings
 
 
 logger = logging.getLogger(__name__)
@@ -21,7 +22,7 @@ def landing(request):
 
 def qr_codes(request, place_id):
     """Renders a view containing a QR code for every table in the places!"""
-    host_prefix = "HTTP://stormy-peak-3604.herokuapp.com/MENU/"
+    host_prefix = settings.MENU_URL
     # host_prefix = "http://192.168.0.178:8000/menu/"
     try:
         place = Place.objects.get(pk=int(place_id))

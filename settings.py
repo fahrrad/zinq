@@ -8,7 +8,7 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # this url will be prepended to all the menus urls where
 # QR codes for are generated
-MENU_URL = "HTTP://192.168.0.227/MENU/"
+MENU_URL = "HTTP://192.168.1.6:8000/MENU/"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -157,7 +157,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'debug_toolbar'
+    'debug_toolbar',
+    'qrcode',
+
 )
 
 # A sample logging configuration. The only tangible logging
