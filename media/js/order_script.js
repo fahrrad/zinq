@@ -6,18 +6,6 @@ function log(text) {
     }
 }
 
-function delete_order(this_button) {
-    var order_uuid = $(this_button).closest("div").find("div.id").text()
-    $.ajax({
-        url: "/rest/orders/delete/" + order_uuid + "/",
-        type: "GET"
-    }).done(function () {
-        $(this_button).closest("div").slideUp();
-    });
-
-    return false;
-};
-
 function time_tick() {
     log("Time tick!");
 
@@ -26,9 +14,9 @@ function time_tick() {
                     $(this).data("seconds") + 1);
             $(this).find(".time").html(
                 seconds_to_minutes($(this).data("seconds")));
-//            $(this).css("background-color",
-//                seconds_to_color(
-//                    $(this).data("seconds")));
+            $(this).css("background-color",
+                seconds_to_color(
+                    $(this).data("seconds")));
         }
     )
 }
@@ -64,8 +52,7 @@ function barsclick() {
     $(order_line_wrapper).find(".expanded").slideDown();
 
     // disable this button, to avoid opening and closing of an open orderitem
-    $("img.3bars").off("click");
-    $("img.3bars").click(barsclick);
+    $("img.3bars").off("click").click(barsclick);
     $(order_line_wrapper).find("img.3bars").off("click");
 }
 
@@ -126,15 +113,14 @@ $(function () {
 
     $("button.cancel_button").click(function () {
         var order_uuid = $(this).closest(".order-line-wrapper").attr("uuid");
+        $(this).closest(".order-line-wrapper").slideUp(500);
 
         var request = $.ajax({
             url: "/order/d/" + order_uuid + "/",
             context: $(this).closest(".order-line-wrapper")
         });
         request.done(function () {
-            $(this).closest(".order-line-wrapper").slideUp(500, function () {
-                $(this).closest(".order-line-wrapper").remove();
-            });
+            $(this).closest(".order-line-wrapper").remove();
         });
 
         log("cancel order");
