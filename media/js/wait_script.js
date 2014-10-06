@@ -1,7 +1,7 @@
 /**
  * Created by wardcoessens on 21/04/14.
  */
-var timer, order_path
+var timer, order_path;
 
 function orderDone() {
     // Toggle visible icon ( from waiting to done )
@@ -13,7 +13,7 @@ function orderDone() {
     $('#wait-for-order-bottom').html("Uw bestelling is klaar <br> om of te halen aan de bar!");
 
     // Changing title
-    $(document).attr('title', 'bestelling klaar')
+    $(document).attr('title', 'bestelling klaar');
 
     // Popup
     alert("Bestelling klaar!");
@@ -32,7 +32,10 @@ function refresh() {
             timer = window.setInterval(refresh, data.next_check_timeout);
         }
     })
-};
+}
 
-order_path = "/wait_status/" + $('#order_uuid').text() + "/";
-refresh();
+$(function () {
+    $('#done-order-icon').attr('hidden', '');
+    order_path = "/wait_status/" + $('#order_uuid').text() + "/";
+    refresh();
+});
