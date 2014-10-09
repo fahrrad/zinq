@@ -58,12 +58,12 @@ function barsclick() {
 
 function addOrder(order) {
     var template = $('#template.order-line-wrapper').clone(true);
+    var total = 0.0;
 
     template.removeAttr('id');
     $('.table', template).html('99');
-    $('.total-amount', template).html('€ 33,76');
     template.attr('uuid', order.pk);
-    $(template).data('seconds', 20);
+    $(template).data('seconds', 0);
     $(template).data('uuid', order.pk);
 
     $.each(order.item_amounts, function (i, item_amount_price) {
@@ -75,18 +75,22 @@ function addOrder(order) {
         amount = item_amount_price[1]
         price = "€ " + item_amount_price[2]
 
-        console.log(i);
-        console.log("item: " + item);
-        console.log("amount: " + amount);
-        console.log("price: " + price);
+        log(i);
+        log("item: " + item);
+        log("amount: " + amount);
+        log("price: " + price);
 
         $('.amount', item_template).html(amount);
         $('.description', item_template).html(item);
         $('.price', item_template).html(price);
 
+        total += parseFloat(item_amount_price[2]);
+
         $('.order-item-wrapper', template).append(item_template);
         item_template.show()
     });
+
+    template.find('.order-line .total').html('totaal € ' + total);
 
     $('.order-wrapper').append(template);
 
@@ -116,6 +120,21 @@ $(function () {
         $(this).closest(".order-line-wrapper").slideUp(500);
 
         var request = $.ajax({
+            url: "/order/x/" + order_uuid + "/",
+            context: $(this).closest(".order-line-wrapper")
+        });
+        request.done(function () {
+            $(this).closest(".order-line-wrapper").remove();
+        });
+
+        log("order " + order_uuid + " done");
+    });
+
+    $("button.ready_button").click(function () {
+        var order_uuid = $(this).closest(".order-line-wrapper").attr("uuid");
+        $(this).closest(".order-line-wrapper").slideUp(500);
+
+        var request = $.ajax({
             url: "/order/d/" + order_uuid + "/",
             context: $(this).closest(".order-line-wrapper")
         });
@@ -123,24 +142,32 @@ $(function () {
             $(this).closest(".order-line-wrapper").remove();
         });
 
-        log("cancel order");
+        log("order " + order_uuid + " done");
     });
 
-    $("button.ready_button").click(function () {
-        var wrapper = $(this).closest(".order-line-wrapper");
-        var order_uuid = $(wrapper).data("uuid");
-        $.ajax({
-            url: "/orders/d/" + order_uuid + "/",
-            type: "GET"
-        }).done(function () {
-            wrapper.slideUp(400, function () {
-                wrapper.remove();
-            });
+    function set_order_status(order, status) {
+        var order_uuid = order.closest(".order-line-wrapper").attr("uuid");
 
-        }).error(function () {
-            log("Something went south...");
+        var endpoint;
+        if (status == 'done') {
+            endpoint = "/order/d/"
+        } else {
+            endpoint = "/order/x/"
+        }
+
+
+        order.closest(".order-line-wrapper").slideUp(500);
+
+        var request = $.ajax({
+            url: endpoint + order_uuid + "/",
+            context: order.closest(".order-line-wrapper")
         });
-    });
+        request.done(function () {
+            order.closest(".order-line-wrapper").remove();
+        });
+
+        log("order " + order_uuid + " done");
+    }
 
     fetchData();
     $(function () {

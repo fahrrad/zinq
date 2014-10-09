@@ -61,7 +61,7 @@ def wait_status(request, order_uuid):
         raise Http404()
 
     # Is the order done?
-    response_data['status_done'] = order.status == Order.DONE
+    response_data['status_done'] = order.status
 
     # how long should I wait for next check
     response_data['next_check_timeout'] = 2000
@@ -166,9 +166,24 @@ def order_done(request, order_id):
         order.save()
 
     except Order.DoesNotExist as e:
-        logger.error("trying to put an unexisting order on done! request: %s " % request)
+        logger.error("trying to put an non existing order on done! request: %s " % request)
         # raise Http404()
 
     logger.info('Order id %s is done' % order_id)
 
     return HttpResponse("Order %s set to done" % order_id)
+
+
+def order_cancel(request, order_id):
+    try:
+        order = Order.objects.get(pk=order_id)
+        order.status = Order.CANCELLED
+        order.save()
+
+    except Order.DoesNotExist as e:
+        logger.error("trying to cancel an non existing order! request: %s " % request)
+        # raise Http404()
+
+    logger.info('Order id %s is cancelled' % order_id)
+
+    return HttpResponse("Order %s was cancelled" % order_id)

@@ -5,6 +5,7 @@ from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import User
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -90,11 +91,13 @@ class Order(models.Model):
     ORDERED = 'OR'
     DONE = 'DO'
     PAYED = 'PA'
+    CANCELLED = 'CA'
 
     ORDER_STATUSES = (
         (ORDERED, 'Ordered'),
         (DONE, 'Done'),
         (PAYED, 'Payed'),
+        (CANCELLED, 'Cancelled'),
     )
     # generated pk
     uuid = models.CharField(max_length=32, default=lambda: uuid4().hex,

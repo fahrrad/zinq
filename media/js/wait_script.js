@@ -19,6 +19,22 @@ function orderDone() {
     alert("Bestelling klaar!");
 }
 
+function orderCancelled() {
+    // Toggle visible icon ( from waiting to done )
+    $('#wait-for-order-icon').attr('hidden', '');
+    $('#cancelled-order-icon').removeAttr('hidden');
+
+    // Change text
+    $('#wait-for-order-title').text("");
+    $('#wait-for-order-bottom').html("Uw bestelling is geweigerd <br> ga naar de bar voor meer info");
+
+    // Changing title
+    $(document).attr('title', 'bestelling geweigerd');
+
+    // Popup
+    alert("Bestelling werd geweigerd");
+}
+
 function refresh() {
     $.ajax({
         url: order_path,
@@ -26,8 +42,10 @@ function refresh() {
         dataType: "json"
     }).done(function (data) {
         window.clearInterval(timer);
-        if (data.status_done) {
+        if (data.status_done == 'DO') {
             orderDone();
+        } else if (data.status_done == 'CA') {
+            orderCancelled();
         } else if (data.next_check_timeout) {
             timer = window.setInterval(refresh, data.next_check_timeout);
         }
