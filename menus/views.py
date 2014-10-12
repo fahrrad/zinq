@@ -5,7 +5,6 @@ from django.core import serializers
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-import pika
 
 from menus.models import MenuItem
 from places.models import Table
@@ -34,6 +33,16 @@ def menu_items(request, table_uuid):
 
 
 # When testing using Curl, need exempt
+def sent_msg(channel, table_uuid):
+    msg_properties = pika.BasicProperties()
+    msg_properties.content_type = "text/plain"
+    if channel:
+        channel.basic_publish(body=table_uuid,
+                              exchange="menu_exchange",
+                              properties=msg_properties,
+                              routing_key="logging")
+
+
 @csrf_exempt
 def menu(request, table_uuid):
     """Typically called from a mobile device when scanning a qr code.
@@ -51,14 +60,6 @@ def menu(request, table_uuid):
         cat_menu_items = table.get_category_menu_items()
         logger.debug("returning %d menu items" % len(cat_menu_items))
 
-        msg_properties = pika.BasicProperties()
-        msg_properties.content_type = "text/plain"
-
-        if channel:
-            channel.basic_publish(body=table_uuid,
-                                  exchange="menu_exchange",
-                                  properties=msg_properties,
-                                  routing_key="logging")
 
     except Table.DoesNotExist as e:
         logger.error("Somebody tried to get a menu for a non " +
