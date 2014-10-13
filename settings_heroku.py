@@ -124,16 +124,17 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap_toolkit',
-    'menus',
-    'orders',
     'places',
+    'menus',
+    # Bootstrap django admin
+    # 'django_admin_bootstrapped',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    # REST
-    'rest_framework',
+    'debug_toolbar',
     'qrcode',
+
 )
 
 # A sample logging configuration. The only tangible logging
@@ -141,6 +142,7 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -175,9 +177,19 @@ LOGGING = {
         'places': {
             'handlers': ['console'],
             'level': 'DEBUG',
+        },
+        'menus': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'orders': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         }
     }
 }
+
+
 DATABASES = {}
 
 DATABASES['default'] = dj_database_url.config()
