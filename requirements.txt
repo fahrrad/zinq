@@ -8,3 +8,4 @@ gunicorn==18.0
 psycopg2==2.5.1
 static==1.0.2
 wsgiref==0.1.2
+﻿django-bootstrap-toolkit==2.15.0
