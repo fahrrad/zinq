@@ -10,7 +10,7 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # this url will be prepended to all the menus urls where
 # QR codes for are generated
-MENU_URL = "HTTP://stormy-peak-3604.herokuapp.com/MENU/"
+MENU_URL = "HTTP://zinq.herokuapp.com/MENU/"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
