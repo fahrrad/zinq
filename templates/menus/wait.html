@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
-<body>
+<body style="height: 100%">
 <div hidden id="order_uuid">{{ order_uuid }}</div>
-<div id="order-container full">
+<div class="order-container full" style="height: 100%">
     <table class="wait-for-order">
         <tr id="wait-for-order-title">
             <td>Uw bestelling<br>wordt verwerkt...</td>
@@ -28,12 +28,13 @@
         </tr>
         <tr>
             <td id="wait-for-order-bottom">
-                <span style="display: inline-block; vertical-align: middle;height: 200px">Even geduld a.u.b.</span>
+   Even geduld a.u.b.
             </td>
         </tr>
     </table>
 </div>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script src="{% static 'js/jquery-1.11.1.js' %}"></script>
 <script src="{% static "js/wait_script.js" %}"></script>
 </body>
 
