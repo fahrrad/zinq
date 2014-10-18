@@ -4,9 +4,9 @@ import logging
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from places.models import Place, Order, Table
-import settings
 
 
 logger = logging.getLogger(__name__)
