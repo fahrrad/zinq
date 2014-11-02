@@ -32,17 +32,6 @@ def menu_items(request, table_uuid):
         return HttpResponse("No Get " + table_uuid)
 
 
-# When testing using Curl, need exempt
-def sent_msg(channel, table_uuid):
-    msg_properties = pika.BasicProperties()
-    msg_properties.content_type = "text/plain"
-    if channel:
-        channel.basic_publish(body=table_uuid,
-                              exchange="menu_exchange",
-                              properties=msg_properties,
-                              routing_key="logging")
-
-
 @csrf_exempt
 def menu(request, table_uuid):
     """Typically called from a mobile device when scanning a qr code.
@@ -51,7 +40,6 @@ def menu(request, table_uuid):
     :param request:
     :param table_uuid:
     """
-    channel = None
 
     try:
         table = Table.objects.get(uuid=table_uuid)
@@ -59,7 +47,6 @@ def menu(request, table_uuid):
         place = table.place
         cat_menu_items = table.get_category_menu_items()
         logger.debug("returning %d menu items" % len(cat_menu_items))
-
 
     except Table.DoesNotExist as e:
         logger.error("Somebody tried to get a menu for a non " +
