@@ -14,6 +14,12 @@ function decr_one_of_item(item_pk, order) {
         order[item_pk]--;
     }
 
+    // Item was reduced to 0 => delete!
+    if (order[item_pk] == 0) {
+        delete order[item_pk];
+    }
+
+
     return order;
 }
 

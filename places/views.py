@@ -149,7 +149,8 @@ def place_order(request, table_uuid):
             table = Table.objects.get(pk=table_uuid)
             o = Order.objects.create(table=table)
             for order_item, amount in request.POST.items():
-                o.add_item_by_pk(order_item, amount)
+                if amount > 0:
+                    o.add_item_by_pk(order_item, amount)
         except Exception as e:
             logger.warn(e)
             raise Http404()

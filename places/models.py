@@ -128,16 +128,18 @@ class Order(models.Model):
     def add_item_by_pk(self, menu_item_pk, amount):
         from menus.models import MenuItem
         """add a menu item to this order. Fetches it by its PK. Adds @amount times."""
-        try:
-            mi = MenuItem.objects.get(pk=menu_item_pk)
-            price = int(amount) * mi.price
-            order_menu_item = OrderMenuItem(menuItem=mi, order=self,
-                                            amount=amount, price=price)
 
-            order_menu_item.save()
+        if amount > 0:
+            try:
+                mi = MenuItem.objects.get(pk=menu_item_pk)
+                price = int(amount) * mi.price
+                order_menu_item = OrderMenuItem(menuItem=mi, order=self,
+                                                amount=amount, price=price)
 
-        except MenuItem.DoesNotExist as mi_doesnotexist:
-            logger.warn("trying to get an unexistsing menuitem (id %d) " % menu_item_pk)
+                order_menu_item.save()
+
+            except MenuItem.DoesNotExist as mi_doesnotexist:
+                logger.warn("trying to get an unexistsing menuitem (id %d) " % menu_item_pk)
 
     def calculate_total_price(self):
         return sum([omi.price for omi in OrderMenuItem.objects.filter(order=self)])
