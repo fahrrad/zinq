@@ -1,11 +1,14 @@
 Django==1.6.1
+distribute==0.7.3
 dj-database-url==0.2.2
 dj-static==0.0.5
+django-admin-bootstrapped==1.6.4
 django-bootstrap-toolkit==2.15.0
 django-debug-toolbar==0.11.0
 django-qrcode==0.3
 docutils==0.11
 gunicorn==18.0
+pika==0.9.14
 psycopg2==2.5.1
 pystache==0.5.4
 sqlparse==0.1.13
