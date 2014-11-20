@@ -118,7 +118,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $('#confirm').click(function () {
+    $('#confirm').one("click", function () {
         $.post('/order/p/' + $('#table_uuid').text() + '/', order, function (data) {
             window.location.href = "/wait/" + data.order_uuid;
         });
@@ -146,6 +146,4 @@ $(document).ready(function () {
             $('#order').hide();
         }
     }
-
-
 });
