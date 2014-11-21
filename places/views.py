@@ -1,15 +1,35 @@
 import json
 import logging
+import os
+import urlparse
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.core import serializers
+import pika
+from pika.exceptions import AMQPConnectionError
 
 from places.models import Place, Order, Table
 
 
+# Logging
 logger = logging.getLogger(__name__)
+logging.basicConfig()
+logger = logging.getLogger(__name__)
+
+url_str = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost//')
+url = urlparse.urlparse(url_str)
+channel = None
+try:
+    params = pika.ConnectionParameters(host=url.hostname, virtual_host=url.path[1:],
+                                       credentials=pika.PlainCredentials(url.username, url.password))
+    connection = pika.BlockingConnection(params)
+    channel = connection.channel()
+    channel.queue_declare("order")
+except AMQPConnectionError as amq_e:
+    logger.info("No amqp available: %s ", amq_e.message)
 
 
 def welcome(request):
@@ -35,15 +55,6 @@ def qr_codes(request, place_id):
                                                     'place_name': place.name})
 
 
-logging.basicConfig()
-#
-# credentials = pika.PlainCredentials('guest', 'guest')
-# conn_properties = pika.ConnectionParameters('localhost') #, 5672, '/', credentials)
-# connection = pika.BlockingConnection(conn_properties)
-# channel = connection.channel()
-# channel.queue_declare(queue='hello')
-
-logger = logging.getLogger(__name__)
 
 
 def wait_status(request, order_uuid):
@@ -110,8 +121,8 @@ def orders_open(request, place_pk):
         place_orders = place.get_orders()
 
     except Place.DoesNotExist as e:
-        logger.error("Someone tried to fetch orders for a place (pk %s) that does not exists. Request %s"
-                     % (place_pk, request))
+        logger.error("Someone tried to fetch orders for a place (pk %s) that does not exists. Request %s, Error %s"
+                     , place_pk, request, e.message)
         raise Http404()
 
     # check if the request is coming from an ajax call (The refresh code on the page)
@@ -127,7 +138,6 @@ def orders_open(request, place_pk):
             return_order['item_amounts'] = order.get_menuitems_amounts()
 
             orders.append(return_order)
-
 
         # just return the data
         return HttpResponse(json.dumps(orders), content_type='application/json')
@@ -151,6 +161,11 @@ def place_order(request, table_uuid):
             for order_item, amount in request.POST.items():
                 if amount > 0:
                     o.add_item_by_pk(order_item, amount)
+
+            # log only to channel when available
+            channel and channel.basic_publish(exchange="",
+                                              routing_key="order",
+                                              body=serializers.serialize("json", o.ordermenuitem_set.all()))
         except Exception as e:
             logger.warn(e)
             raise Http404()
