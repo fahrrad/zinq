@@ -8,7 +8,7 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # this url will be prepended to all the menus urls where
 # QR codes for are generated
-MENU_URL = "HTTP://192.168.1.6:8000/MENU/"
+MENU_URL = "HTTP://192.168.1.100:8000/MENU/"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

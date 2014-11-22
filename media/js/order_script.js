@@ -61,7 +61,7 @@ function addOrder(order) {
     var total = 0.0;
 
     template.removeAttr('id');
-    $('.table', template).html('99');
+    $('.table', template).html(order.table_nr);
     template.attr('uuid', order.pk);
     $(template).data('seconds', 0);
     $(template).data('uuid', order.pk);
