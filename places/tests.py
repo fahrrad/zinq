@@ -12,6 +12,8 @@ from django.test import TestCase, Client
 
 from models import Place, Table, Order, OrderMenuItem
 from menus.models import Menu, MenuItem
+import places.views as places_views
+
 
 logger = logging.getLogger(__name__)
 
@@ -198,7 +200,7 @@ class SimpleTest_orders(TestCase):
                          HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         response = json.loads(response.content)
-        self.assertEquals(False, response['status_done'])
+        self.assertEquals(Order.ORDERED, response['status'])
         self.assertTrue(response.get('next_check_timeout'))
 
         order.status = Order.DONE
@@ -210,7 +212,7 @@ class SimpleTest_orders(TestCase):
                          HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         response = json.loads(response.content)
-        self.assertEquals(True, response['status_done'])
+        self.assertEquals(Order.DONE, response['status'])
 
     def test_place_order_rest_call(self):
         self.assertEqual(Order.objects.filter(table=self.t1).count(), 0)
@@ -251,3 +253,12 @@ class SimpleTest_orders(TestCase):
         self.assertEquals(item_amounts_1[0], 'fanta')
         self.assertEquals(item_amounts_1[1], 2)
         self.assertEquals(item_amounts_1[2], '5')
+
+    def test_order_in_progress(self):
+        order = Order.objects.create(table=self.t2)
+        order.save()
+
+        places_views.order_in_progress(None, order.pk)
+
+        order_2 = Order.objects.get(pk=order.pk)
+        self.assertEquals(order_2.status, Order.IN_PROGRESS)
