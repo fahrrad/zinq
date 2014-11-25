@@ -5,6 +5,7 @@ import os
 # ===========================
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # this url will be prepended to all the menus urls where
 # QR codes for are generated
@@ -211,4 +212,3 @@ LOGGING = {
     }
 }
 
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'

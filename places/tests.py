@@ -165,7 +165,7 @@ class SimpleTest_orders(TestCase):
     def test_place_order_price(self):
         order = {self.mi1.pk: 2, self.mi2.pk: 1}
         c = Client()
-        c.post("/order/p/" + self.t1.pk, order)
+        c.post("/order/p/" + self.t1.pk + '/', order)
 
         o = Order.objects.get(table=self.t1)
         self.assertEqual(o.calculate_total_price(), Decimal('6.85'))
@@ -175,7 +175,7 @@ class SimpleTest_orders(TestCase):
         c = Client()
 
         # a cola please
-        response = c.post("/order/p/%s" % table_pk, {'cola_amount': '3'})
+        response = c.post("/order/p/%s/" % table_pk, {'cola_amount': '3'})
 
         print response.status_code
 
@@ -220,7 +220,7 @@ class SimpleTest_orders(TestCase):
 
         post_order = {self.mi1.pk: 2, self.mi2.pk: 6}
 
-        r = c.post('/order/p/%s' % self.t1.pk, post_order, follow=True)
+        r = c.post('/order/p/%s/' % self.t1.pk, post_order, follow=True)
         self.assertEqual(r.status_code, 200)
 
         self.assertEqual(Order.objects.filter(table=self.t1).count(), 1)
