@@ -14,7 +14,7 @@ class PlaceModelAdmin(admin.ModelAdmin):
             self.exclude = ('user',)
         return super(PlaceModelAdmin, self).add_view(request, form_url, extra_context)
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         qs = super(PlaceModelAdmin, self).queryset(request)
         if not request.user.is_superuser:
             return qs.filter(user=request.user)
@@ -36,7 +36,7 @@ class PlaceModelAdmin(admin.ModelAdmin):
 
 # only show the tables from places linked to the current user
 class TableModelAdmin(admin.ModelAdmin):
-    def queryset(self, request):
+    def get_queryset(self, request):
         qs = super(TableModelAdmin, self).queryset(request)
         if not request.user.is_superuser:
             return qs.filter(place__user=request.user)
