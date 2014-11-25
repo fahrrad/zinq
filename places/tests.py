@@ -13,6 +13,7 @@ from django.test import TestCase, Client
 from models import Place, Table, Order, OrderMenuItem
 from menus.models import Menu, MenuItem
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -198,7 +199,7 @@ class SimpleTest_orders(TestCase):
                          HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         response = json.loads(response.content)
-        self.assertEquals(False, response['status_done'])
+        self.assertEquals(Order.ORDERED, response['status_done'])
         self.assertTrue(response.get('next_check_timeout'))
 
         order.status = Order.DONE
@@ -210,7 +211,7 @@ class SimpleTest_orders(TestCase):
                          HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         response = json.loads(response.content)
-        self.assertEquals(True, response['status_done'])
+        self.assertEquals(Order.DONE, response['status_done'])
 
     def test_place_order_rest_call(self):
         self.assertEqual(Order.objects.filter(table=self.t1).count(), 0)
