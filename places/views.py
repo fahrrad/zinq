@@ -14,6 +14,7 @@ from pika.exceptions import AMQPConnectionError
 from places.models import Place, Order, Table
 
 
+
 # Logging
 logger = logging.getLogger(__name__)
 logging.basicConfig()
@@ -72,7 +73,7 @@ def wait_status(request, order_uuid):
         raise Http404()
 
     # Is the order done?
-    response_data['status_done'] = order.status
+    response_data['status'] = order.status
 
     # how long should I wait for next check
     response_data['next_check_timeout'] = 2000
@@ -184,10 +185,22 @@ def order_done(request, order_id):
     except Order.DoesNotExist as e:
         logger.error("trying to put an non existing order on done! request: %s " % request)
         # raise Http404()
-
+        return Http404()
     logger.info('Order id %s is done' % order_id)
 
     return HttpResponse("Order %s set to done" % order_id)
+
+
+def order_in_progress(request, order_id):
+    try:
+        order = Order.objects.get(pk=order_id)
+        order.status = Order.IN_PROGRESS
+        order.save()
+    except Order.DoesNotExist as e:
+        logger.error("trying to change state of an order that does not exists to in progress %s" % request)
+        return Http404()
+
+    return HttpResponse("")
 
 
 def order_cancel(request, order_id):

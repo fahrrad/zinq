@@ -4,6 +4,7 @@ from uuid import uuid4
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 logger = logging.getLogger(__name__)
@@ -23,7 +24,8 @@ class Place(models.Model):
 
     # Get all orders for this places
     def get_orders(self):
-        return list(Order.objects.filter(table__place=self, status=Order.ORDERED).all())
+        return list(Order.objects.filter(Q(table__place=self),
+                                         Q(status=Order.ORDERED) | Q(status=Order.IN_PROGRESS)).all())
 
 
 class Table(models.Model):
@@ -92,9 +94,11 @@ class Order(models.Model):
     DONE = 'DO'
     PAYED = 'PA'
     CANCELLED = 'CA'
+    IN_PROGRESS = "IP"
 
     ORDER_STATUSES = (
         (ORDERED, 'Ordered'),
+        (IN_PROGRESS, "In Progress"),
         (DONE, 'Done'),
         (PAYED, 'Payed'),
         (CANCELLED, 'Cancelled'),

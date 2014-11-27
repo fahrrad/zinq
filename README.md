@@ -11,4 +11,4 @@ export CFLAGS=-Qunused-arguments
 * Error on macosX
 
 * TODO  bericht als bestelling klaar wordt gemaakt
-* DONE make all links to webresources (like jquery availble ofline
+* DONE make all links to webresources (like jquery availble) ofline
