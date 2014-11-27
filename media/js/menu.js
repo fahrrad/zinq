@@ -104,6 +104,9 @@ $(document).ready(function () {
 
     $('#order').click(function () {
 
+        $.each(order, function (item, amount) {
+            console.log(amount, "of", item);
+        });
         $('#product-overview').fadeOut(500);
         $('#basket-overview').delay(500).fadeIn(500);
 

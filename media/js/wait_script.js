@@ -46,6 +46,8 @@ function refresh() {
             orderDone();
         } else if (data.status == 'CA') {
             orderCancelled();
+        } else if (data.status == 'PO') {
+            console.log("order is being processed");
         } else if (data.next_check_timeout) {
             timer = window.setInterval(refresh, data.next_check_timeout);
         }
