@@ -42,9 +42,9 @@ function refresh() {
         dataType: "json"
     }).done(function (data) {
         window.clearInterval(timer);
-        if (data.status_done == 'DO') {
+        if (data.status == 'DO') {
             orderDone();
-        } else if (data.status_done == 'CA') {
+        } else if (data.status == 'CA') {
             orderCancelled();
         } else if (data.next_check_timeout) {
             timer = window.setInterval(refresh, data.next_check_timeout);
