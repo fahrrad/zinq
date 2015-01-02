@@ -30,7 +30,7 @@
         "pk": 3,
         "model": "menus.menuitem",
         "fields": {
-            "category": "soft drinks",
+            "category": "Soft Drink",
             "menu": 1,
             "price": "2",
             "name": "Cola"
@@ -40,10 +40,10 @@
         "pk": 4,
         "model": "menus.menuitem",
         "fields": {
-            "category": "soft drinks",
+            "category": "Soft Drink",
             "menu": 1,
             "price": "2",
-            "name": "fanta"
+            "name": "Fanta"
         }
     }
 ]
