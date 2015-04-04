@@ -1,5 +1,4 @@
 Django==1.7.1
-distribute==0.7.3
 dj-database-url==0.2.2
 dj-static==0.0.6
 django-admin-bootstrapped==1.6.4
