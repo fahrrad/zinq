@@ -1,17 +1,16 @@
 import json
 import logging
-import os
-import urlparse
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.core import serializers
-import pika
+
 from pika.exceptions import AMQPConnectionError
 
 from places.models import Place, Order, Table
+
 
 
 
@@ -20,17 +19,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 
-url_str = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost//')
-url = urlparse.urlparse(url_str)
+
 channel = None
-try:
-    params = pika.ConnectionParameters(host=url.hostname, virtual_host=url.path[1:],
-                                       credentials=pika.PlainCredentials(url.username, url.password))
-    connection = pika.BlockingConnection(params)
-    channel = connection.channel()
-    channel.queue_declare("order")
-except AMQPConnectionError as amq_e:
-    logger.info("No amqp available: %s ", amq_e.message)
 
 
 def welcome(request):
@@ -160,6 +150,7 @@ def place_order(request, table_uuid):
             table = Table.objects.get(pk=table_uuid)
             o = Order.objects.create(table=table)
             for order_item, amount in request.POST.items():
+                amount = int(amount)
                 if amount > 0:
                     o.add_item_by_pk(order_item, amount)
 
@@ -168,6 +159,8 @@ def place_order(request, table_uuid):
                                               routing_key="order",
                                               body=serializers.serialize("json", o.ordermenuitem_set.all()))
         except Exception as e:
+            o.delete()
+
             logger.warn(e)
             raise Http404()
 
