@@ -7,8 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.core import serializers
 
-from pika.exceptions import AMQPConnectionError
-
 from places.models import Place, Order, Table
 
 
