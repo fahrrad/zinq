@@ -39,9 +39,11 @@ def qr_codes(request, place_id):
         return render(request, "places/error.html",
                       {'error_msg': "No place found with id %s!" % place_id})
     table_qr_list = [host_prefix + x.pk + "/" for x in place.table_set.all()]
+    place_orders = str.format("{}orders/{}", settings.HOST_URL, place_id)
 
     return render(request, "places/qr_codes.html", {'table_qr_list': table_qr_list,
-                                                    'place_name': place.name})
+                                                    'place_name': place.name,
+                                                    'place_orders': place_orders})
 
 
 

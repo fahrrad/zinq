@@ -9,7 +9,8 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # this url will be prepended to all the menus urls where
 # QR codes for are generated
-MENU_URL = "HTTP://192.168.1.102:5000/MENU/"
+HOST_URL = "HTTP://192.168.1.102:5000/"
+MENU_URL = HOST_URL + "MENU/"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
