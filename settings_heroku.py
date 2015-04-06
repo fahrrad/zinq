@@ -12,7 +12,7 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 # QR codes for are generated
 MENU_URL = "HTTP://zinq.herokuapp.com/MENU/"
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
