@@ -10,3 +10,4 @@ gunicorn==18.0
 psycopg2==2.5.1
 pystache==0.5.4
 sqlparse==0.1.13
+whitenoise==1.0.6

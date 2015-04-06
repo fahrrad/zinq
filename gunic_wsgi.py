@@ -19,6 +19,9 @@ import os
 # if running multiple sites in the same mod_wsgi process. To fix this, use
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 # os.environ["DJANGO_SETTINGS_MODULE"] = "qmenu.settings"
+from dj_static import Cling
+from whitenoise.django import DjangoWhiteNoise
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
 # This application object is used by any WSGI server configured to use this
@@ -26,4 +29,5 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 # setting points here.
 from django.core.wsgi import get_wsgi_application
 
-application = get_wsgi_application()
+application = Cling(get_wsgi_application())
+application = DjangoWhiteNoise(application)
