@@ -151,12 +151,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'adminsortable',
     'bootstrap_toolkit',
     'places',
     'menus',
     # Bootstrap django admin
     # 'django_admin_bootstrapped',
+    # skin for the admin
+    'grappelli',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

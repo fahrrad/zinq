@@ -112,7 +112,7 @@ class Order(models.Model):
 
     # the table that ordered
     table = models.ForeignKey(Table)
-    menuItems = models.ManyToManyField("menus.MenuItem", through=OrderMenuItem, related_name="order_for_menu_items")
+    menuItems = models.ManyToManyField("menus.MenuItem", through=OrderMenuItem)
 
     # the status of the orders ( ordered -> done -> payed)
     # to display the status user friendly, use
