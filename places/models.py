@@ -10,6 +10,9 @@ from django.db.models import Q
 logger = logging.getLogger(__name__)
 
 
+def uuid_generator():
+    return uuid4().hex
+
 class Place(models.Model):
     name = models.CharField(max_length=255)
 
@@ -19,7 +22,7 @@ class Place(models.Model):
     # One - One
     menu = models.ForeignKey("menus.Menu", null=True, unique=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     # Get all orders for this places
@@ -34,7 +37,7 @@ class Table(models.Model):
         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
     # uuid to map to this table
-    uuid = models.CharField(max_length=32, default=lambda: uuid4().hex,
+    uuid = models.CharField(max_length=32, default=uuid_generator,
                             primary_key=True)
 
     # places specific identification of tables
@@ -57,7 +60,7 @@ class Table(models.Model):
 
         return dict(cat_menu_items)
 
-    def __unicode__(self):
+    def __str__(self):
         return "table %s at %s" % (self.table_nr, self.place)
 
 
@@ -104,12 +107,12 @@ class Order(models.Model):
         (CANCELLED, 'Cancelled'),
     )
     # generated pk
-    uuid = models.CharField(max_length=32, default=lambda: uuid4().hex,
+    uuid = models.CharField(max_length=32, default=uuid_generator,
                             primary_key=True)
 
     # the table that ordered
     table = models.ForeignKey(Table)
-    menuItems = models.ManyToManyField("menus.MenuItem", through=OrderMenuItem)
+    menuItems = models.ManyToManyField("menus.MenuItem", through=OrderMenuItem, related_name="order_for_menu_items")
 
     # the status of the orders ( ordered -> done -> payed)
     # to display the status user friendly, use

@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'adminsortable',
     'bootstrap_toolkit',
     'places',
     'menus',

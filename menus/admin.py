@@ -1,3 +1,4 @@
+from adminsortable.admin import SortableAdmin
 from django.contrib import admin
 
 from menus.models import Menu, MenuItem
@@ -12,7 +13,7 @@ class MenuModelAdmin(admin.ModelAdmin):
             return qs
 
 
-class MenuItemModelAdmin(admin.ModelAdmin):
+class MenuItemModelAdmin(SortableAdmin):
     def get_queryset(self, request):
         qs = super(MenuItemModelAdmin, self).queryset(request)
         if not request.user.is_superuser:

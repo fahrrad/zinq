@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     'bootstrap_toolkit',
     'places',
     'menus',
+    'adminsortable',
     # Bootstrap django admin
     # 'django_admin_bootstrapped',
     # Uncomment the next line to enable the admin:

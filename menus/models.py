@@ -1,3 +1,4 @@
+from adminsortable.models import Sortable
 from django.db import models
 
 
@@ -6,7 +7,7 @@ class Menu(models.Model):
     """ An aggregate of MenuItems. """
     name = models.CharField(max_length=255, blank=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -26,7 +27,7 @@ class Category(models.Model):
         unique_together = ("name", "place")
 
 
-class MenuItem(models.Model):
+class MenuItem(Sortable):
     """ A single item on a menus"""
     name = models.CharField(max_length=255, blank=False, null=False)
     price = models.DecimalField(null=False, decimal_places=2, max_digits=6)
@@ -35,7 +36,7 @@ class MenuItem(models.Model):
 
     menu = models.ForeignKey(Menu)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
