@@ -13,7 +13,9 @@ class MenuModelAdmin(admin.ModelAdmin):
             return qs
 
 
-class MenuItemModelAdmin(SortableAdmin):
+class MenuItemModelAdmin(admin.TabularInline):
+    sortable_field_name = "position"
+
     def get_queryset(self, request):
         qs = super(MenuItemModelAdmin, self).queryset(request)
         if not request.user.is_superuser:
