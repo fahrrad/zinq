@@ -21,11 +21,17 @@ class MenuItemModelAdmin(admin.ModelAdmin):
             return qs
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        self.exclude = []
         if not request.user.is_superuser:
+            self.exclude.append('menu')
             if db_field.name == "menus":
                 kwargs["queryset"] = Menu.objects.filter(place__user=request.user)
         return super(MenuItemModelAdmin, self).formfield_for_foreignkey(db_field,
                                                                         request, **kwargs)
+
+    def save_model(self, request, obj, form, change):
+        obj.menu = Menu.objects.filter(place__user=request.user).first()
+        return super(MenuItemModelAdmin, self).save_model(request, obj, form, change)
 
 
 admin.site.register(Menu, MenuModelAdmin)
