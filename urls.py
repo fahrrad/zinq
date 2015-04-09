@@ -5,13 +5,14 @@ from django.contrib import admin
 from menus.views import menu_items, menu
 from places.views import wait, orders, order_done, place_order, wait_status, orders_open, order_cancel
 from places.views import qr_codes
-from places.views import welcome, landing
+from places.views import landing
 import settings
 
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
+                       (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
                        # Uncomment the admin/doc line below to enable admin documentation:
                        url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
                        # Uncomment the next line to enable the admin:

@@ -110,16 +110,15 @@ INSTALLED_APPS = (
     'bootstrap_toolkit',
     'places',
     'menus',
-    'adminsortable',
     # Bootstrap django admin
     # 'django_admin_bootstrapped',
-    # Uncomment the next line to enable the admin:
+    #  Uncomment the next line to enable the admin, with grappelli skin
+    'grappelli',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     # 'debug_toolbar',
     'qrcode',
-
 )
 
 # A sample logging configuration. The only tangible logging

@@ -1,4 +1,3 @@
-from adminsortable.admin import SortableAdmin
 from django.contrib import admin
 
 from menus.models import Menu, MenuItem

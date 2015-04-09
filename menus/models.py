@@ -1,4 +1,3 @@
-from adminsortable.models import Sortable
 from django.db import models
 
 

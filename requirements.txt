@@ -2,7 +2,6 @@ Django==1.7.1
 dj-database-url==0.2.2
 dj-static==0.0.6
 django-admin-bootstrapped==1.6.4
-django-admin-sortable==1.8.2
 django-bootstrap-toolkit==2.15.0
 django-debug-toolbar==1.2.2
 django-qrcode==0.3
