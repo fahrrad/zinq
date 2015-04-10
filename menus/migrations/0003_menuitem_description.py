@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='menuitem',
-            name='order',
-            field=models.PositiveIntegerField(default=1, db_index=True, editable=False),
+            name='description',
+            field=models.CharField(null=True, blank=True, max_length=1024),
             preserve_default=True,
         ),
     ]

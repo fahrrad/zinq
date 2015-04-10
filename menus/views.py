@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def menu_items(request, table_uuid):
+    table_uuid = table_uuid.lower()
     # only for GET Requests
     if request.method == "GET":
         logger.debug("Got an GET for menu_items")
@@ -40,6 +41,7 @@ def menu(request, table_uuid):
     :param request:
     :param table_uuid:
     """
+    table_uuid = table_uuid.lower()
 
     try:
         table = Table.objects.get(uuid=table_uuid)

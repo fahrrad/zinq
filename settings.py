@@ -9,7 +9,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # this url will be prepended to all the menus urls where
 # QR codes for are generated
-HOST_URL = "HTTP://192.168.1.102:5000/"
+HOST_URL = "HTTP://192.168.1.103:8000/"
 MENU_URL = HOST_URL + "MENU/"
 
 DEBUG = True
@@ -156,9 +156,9 @@ INSTALLED_APPS = (
     'menus',
     # Bootstrap django admin
     # 'django_admin_bootstrapped',
-    # skin for the admin
+    # Uncomment the next line to enable the admin, with grappelli skin
     'grappelli',
-    # Uncomment the next line to enable the admin:
+>>>>>>> sortable
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
