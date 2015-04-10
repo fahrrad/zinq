@@ -158,7 +158,6 @@ INSTALLED_APPS = (
     # 'django_admin_bootstrapped',
     # Uncomment the next line to enable the admin, with grappelli skin
     'grappelli',
->>>>>>> sortable
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
