@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 def uuid_generator():
     return uuid4().hex
 
+
 class Place(models.Model):
     name = models.CharField(max_length=255)
 
