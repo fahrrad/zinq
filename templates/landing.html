@@ -9,20 +9,19 @@
 {% block content %}
 
         <a href="{% url "menus.views.menu" "123456" %}">
-            <h2>Invalid menu</h2></a>
+            <h2>Ongeldig menu</h2></a>
         <h2><a href="{% url "menus.views.menu" table_uuid %}">
-        Menu for Barbar Palace
+        Test Menu
         </a></h2>
 
-        <h2><a href=/orders/1>
-            Orders for Barbar Palace
+        <h2><a href=/orders/1>Bestellingen
         </a></h2>
 
         <h2><a href="{% url "places.views.qr_codes" 1 %}">
-            QR codes for Barbar Palace
+            QR codes
         </a></h2>
 
-        <h2><a href="admin">Admin page </a></h2>
+        <h2><a href="admin">Admin pagina </a></h2>
 
  
 {% endblock %}

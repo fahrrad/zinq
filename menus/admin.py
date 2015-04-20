@@ -15,6 +15,7 @@ class MenuModelAdmin(admin.ModelAdmin):
 
 class MenuItemModelAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'description', 'price']
+    list_filter = ('category',)
 
     def get_queryset(self, request):
         qs = super(MenuItemModelAdmin, self).get_queryset(request)

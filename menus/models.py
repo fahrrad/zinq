@@ -42,3 +42,5 @@ class MenuItem(models.Model):
     class Meta:
         # no menus can contain the same menu item twice!
         unique_together = ("menu", "name")
+        verbose_name_plural = "Producten"
+        verbose_name = "Product"

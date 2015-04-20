@@ -31,6 +31,10 @@ class Place(models.Model):
         return list(Order.objects.filter(Q(table__place=self),
                                          Q(status=Order.ORDERED) | Q(status=Order.IN_PROGRESS)).all())
 
+    class Meta:
+        verbose_name="Plaats"
+        verbose_name_plural="Plaatsen"
+
 
 class Table(models.Model):
     def hex_2_base62(self, uuid):
@@ -62,7 +66,11 @@ class Table(models.Model):
         return dict(cat_menu_items)
 
     def __str__(self):
-        return "table %s at %s" % (self.table_nr, self.place)
+        return "tafel %s @ %s" % (self.table_nr, self.place)
+
+    class Meta:
+        verbose_name="Tafel"
+        verbose_name_plural="Tafels"
 
 
 class OrderMenuItem(models.Model):

@@ -207,3 +207,5 @@ LOGGING = {
     }
 }
 
+# Grapelli, see http://django-grappelli.readthedocs.org/en/latest/customization.html
+GRAPPELLI_ADMIN_TITLE='ZinQ'
