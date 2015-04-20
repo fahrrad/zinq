@@ -35,6 +35,7 @@ class MenuItemModelAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not request.user.is_superuser:
             obj.menu = Menu.objects.filter(place__user=request.user).first()
+
         return super(MenuItemModelAdmin, self).save_model(request, obj, form, change)
 
 
