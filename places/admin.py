@@ -35,13 +35,13 @@ class PlaceModelAdmin(admin.ModelAdmin):
                                                                      request, **kwargs)
 
 
-# only show the tables from places linked to the current user
+
 class TableModelAdmin(admin.ModelAdmin):
 
+    # only show the tables from places linked to the current user
     def get_queryset(self, request):
         qs = super(TableModelAdmin, self).get_queryset(request)
         if not request.user.is_superuser:
-
             return qs.filter(place__user=request.user)
         else:
             return qs
@@ -56,12 +56,10 @@ class TableModelAdmin(admin.ModelAdmin):
                                                                      request, **kwargs)
 
     def save_model(self, request, obj, form, change):
-        obj.place = Place.objects.filter(user=request.user).first()
+        if not request.user.is_superuser:
+            obj.place = Place.objects.filter(user=request.user).first()
+
         return super(TableModelAdmin, self).save_model(request, obj, form, change)
-
-        # needed for easy test
-        # exclude = ("uuid",)
-
 
 admin.site.register(Place, PlaceModelAdmin)
 admin.site.register(Table, TableModelAdmin)
