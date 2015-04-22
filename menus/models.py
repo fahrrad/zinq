@@ -36,11 +36,26 @@ class MenuItem(models.Model):
 
     description = models.CharField(max_length=1024, blank=True, null=True)
 
+    position = models.PositiveSmallIntegerField("Position")
+
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        model = self.__class__
+
+        if self.position is None:
+            try:
+                last = model.objects.filter(category=self.category).order_by('-position')[0]
+                self.position = last.position + 1
+            except IndexError:
+                # First Row
+                self.position = 0
+        return super(MenuItem, self).save(*args, **kwargs)
 
     class Meta:
         # no menus can contain the same menu item twice!
         unique_together = ("menu", "name")
         verbose_name_plural = "Producten"
         verbose_name = "Product"
+        ordering = ['position']

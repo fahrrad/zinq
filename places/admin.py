@@ -61,6 +61,7 @@ class TableModelAdmin(admin.ModelAdmin):
 
         return super(TableModelAdmin, self).save_model(request, obj, form, change)
 
+
 admin.site.register(Place, PlaceModelAdmin)
 admin.site.register(Table, TableModelAdmin)
 

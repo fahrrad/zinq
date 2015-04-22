@@ -14,8 +14,9 @@ class MenuModelAdmin(admin.ModelAdmin):
 
 
 class MenuItemModelAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'description', 'price']
+    list_display = ['name', 'category', 'description', 'price', 'position']
     list_filter = ('category',)
+    list_editable = ('position',)
 
     def get_queryset(self, request):
         qs = super(MenuItemModelAdmin, self).get_queryset(request)
@@ -38,6 +39,14 @@ class MenuItemModelAdmin(admin.ModelAdmin):
             obj.menu = Menu.objects.filter(place__user=request.user).first()
 
         return super(MenuItemModelAdmin, self).save_model(request, obj, form, change)
+
+    class Media:
+        js = (
+            'js/admin_list_reorder.js',
+        )
+
+
+
 
 
 

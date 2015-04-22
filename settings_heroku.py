@@ -193,3 +193,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'media'),
 )
+
+from settings_common import GRAPPELLI_ADMIN_TITLE
