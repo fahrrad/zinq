@@ -27,6 +27,7 @@ class PlaceModelAdmin(admin.ModelAdmin):
         obj.save()
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+
         if not request.user.is_superuser:
             if db_field.name == "menus":
                 kwargs["queryset"] = Menu.objects.filter(place__user=request.user)
@@ -36,15 +37,19 @@ class PlaceModelAdmin(admin.ModelAdmin):
 
 # only show the tables from places linked to the current user
 class TableModelAdmin(admin.ModelAdmin):
+
     def get_queryset(self, request):
         qs = super(TableModelAdmin, self).get_queryset(request)
         if not request.user.is_superuser:
-            self.exclude = ['place']
+
             return qs.filter(place__user=request.user)
         else:
             return qs
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        self.exclude = []
+        if not request.user.is_superuser:
+            self.exclude.append('place',)
         if db_field.name == "places":
             kwargs["queryset"] = Place.objects.filter(user=request.user)
         return super(TableModelAdmin, self).formfield_for_foreignkey(db_field,
