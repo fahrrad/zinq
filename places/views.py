@@ -21,12 +21,9 @@ logger = logging.getLogger(__name__)
 channel = None
 
 
-def welcome(request):
-    return render(request, "places/welcome.html")
-
-
 def landing(request):
-    return render(request, 'landing.html')
+    table = Table.objects.filter(place__pk=1).first()
+    return render(request, 'landing.html', {'table_uuid': table.pk})
 
 
 def qr_codes(request, place_id):

@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 def uuid_generator():
     return uuid4().hex
 
+
 class Place(models.Model):
     name = models.CharField(max_length=255)
 
@@ -36,6 +37,10 @@ class Place(models.Model):
     def get_orders(self):
         return list(Order.objects.filter(Q(table__place=self),
                                          Q(status=Order.ORDERED) | Q(status=Order.IN_PROGRESS)).all())
+
+    class Meta:
+        verbose_name="Plaats"
+        verbose_name_plural="Plaatsen"
 
 
 class Table(models.Model):
@@ -68,7 +73,11 @@ class Table(models.Model):
         return dict(cat_menu_items)
 
     def __str__(self):
-        return "table %s at %s" % (self.table_nr, self.place)
+        return "tafel %s @ %s" % (self.table_nr, self.place)
+
+    class Meta:
+        verbose_name="Tafel"
+        verbose_name_plural="Tafels"
 
 
 class OrderMenuItem(models.Model):

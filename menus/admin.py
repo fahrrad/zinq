@@ -12,10 +12,9 @@ class MenuModelAdmin(admin.ModelAdmin):
             return qs
 
 
+
 class MenuItemModelAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'description', 'price']
-    list_editable = ('price',)
-    list_filter = ('category', )
 
     def get_queryset(self, request):
         qs = super(MenuItemModelAdmin, self).get_queryset(request)
@@ -39,5 +38,7 @@ class MenuItemModelAdmin(admin.ModelAdmin):
         return super(MenuItemModelAdmin, self).save_model(request, obj, form, change)
 
 
+
 admin.site.register(Menu, MenuModelAdmin)
 admin.site.register(MenuItem, MenuItemModelAdmin)
+
