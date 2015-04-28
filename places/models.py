@@ -6,6 +6,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Q
 
+from django.core.urlresolvers import reverse
+
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +23,11 @@ class Place(models.Model):
 
     # One - One
     menu = models.ForeignKey("menus.Menu", null=True, unique=True)
+
+    def qr_url(self):
+        return '<a href="%s">qr codes &nbsp;</a>' % reverse("qr_codes", args=(self.pk,))
+    qr_url.short_description = "Qr Codes"
+    qr_url.allow_tags=True
 
     def __str__(self):
         return self.name

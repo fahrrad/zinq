@@ -52,5 +52,5 @@ urlpatterns = patterns('',
                        url(r'^wait_status/(\w{4,32})/$', wait_status),
 
                        # to get all the QR codes for a place
-                       url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),) \
+                       url(r'^qrcodes/([0-9]{1,5})/$', qr_codes, name="qr_codes"),) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
