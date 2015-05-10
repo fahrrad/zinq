@@ -122,6 +122,14 @@ $(document).ready(function () {
     });
 
     $('#confirm').one("click", function () {
+        function install_demo_timer() {
+            window.setInterval(function(){console.log("installing demo tiner"); window.location.href="/orders/1";}, 5000);
+        }
+
+        if ($('#demo_menu').html() == "True"){
+            install_demo_timer();
+        }
+
         $.post('/order/p/' + $('#table_uuid').text() + '/', order, function (data) {
             window.location.href = "/wait/" + data.order_uuid;
         });
