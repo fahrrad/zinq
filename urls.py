@@ -2,8 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from menus.views import menu_items, menu
-from places.views import wait, orders, order_done, place_order, wait_status, orders_open, order_cancel
+from menus.views import menu_items, menu, wait, wait_status, place_order
+from places.views import orders, order_done, orders_open, order_cancel
 from places.views import qr_codes
 from places.views import landing
 import settings
