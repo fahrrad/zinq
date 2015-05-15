@@ -208,4 +208,7 @@ LOGGING = {
 }
 
 # Grapelli, see http://django-grappelli.readthedocs.org/en/latest/customization.html
-GRAPPELLI_ADMIN_TITLE='ZinQ'
+GRAPPELLI_ADMIN_TITLE = 'ZinQ'
+
+# milliseconds the clients will check again if the order is done
+NEXT_CHECKOUT_TIMEOUT = 2000

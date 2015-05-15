@@ -10,5 +10,11 @@ export CFLAGS=-Qunused-arguments
 
 * Error on macosX
 
-* TODO  bericht als bestelling klaar wordt gemaakt
 * DONE make all links to webresources (like jquery availble) ofline
+
+running on macosX
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+running against the heroku settings
+export DJANGO_SETTINGS_MODULE=settings_heroku

@@ -2,8 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from menus.views import menu_items, menu
-from places.views import wait, orders, order_done, place_order, wait_status, orders_open, order_cancel
+from menus.views import menu_items, menu, wait_status, wait, place_order, set_next_timeout
+from places.views import orders, order_done, orders_open, order_cancel
 from places.views import qr_codes
 from places.views import landing
 import settings
@@ -50,6 +50,9 @@ urlpatterns = patterns('',
                        #  When ordered, check the wait status here
                        url(r'^wait/(\w{4,32})/$', wait),
                        url(r'^wait_status/(\w{4,32})/$', wait_status),
+
+                       # next timeout setter
+                       url(r'^settings/next_timeout/(\d+)$', set_next_timeout),
 
                        # to get all the QR codes for a place
                        url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),) \
