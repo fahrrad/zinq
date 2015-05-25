@@ -4,3 +4,4 @@
 *.sublime*
 *DS_Store*
 zinq.db
+staticfiles
