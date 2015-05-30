@@ -10,8 +10,8 @@ import logging
 
 from django.test import TestCase, Client
 
-from models import Place, Table, Order, OrderMenuItem
 from menus.models import Menu, MenuItem
+from places.models import Table, Place, Order, OrderMenuItem
 import places.views as places_views
 
 logger = logging.getLogger(__name__)
@@ -176,10 +176,6 @@ class SimpleTest_orders(TestCase):
 
         # a cola please
         response = c.post("/order/p/%s/" % table_pk, {'cola_amount': '3'})
-
-        print response.status_code
-
-        print response.content
 
         # find the orders in the database
         orders = Order.objects.filter(table__pk=table_pk).all()

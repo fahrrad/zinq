@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Zinq</title>
+
+    <link rel="stylesheet" type="text/css" href="jquery.fullPage.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+
+    <script src="jquery-1.11.1.js"></script>
+    <script src="jquery.fullPage.min.js"></script>
+
+    <script>
+        $(function () {
+            $("#fullpage").fullpage({
+                anchors: ['home', 'demo', 'contact'],
+                navigation: true,
+
+                //Design
+                controlArrows: true,
+                verticalCentered: true,
+                resize: false,
+                sectionsColor: ['#ccc', '#ddd', '#eee']
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+<div id="fullpage">
+    <div class="section" id="section-home">
+        <img src="logo.jpgeg" alt="Logo" width="300" height="300"
+                align="">
+
+    </div>
+    <div class="section" id="section-demo">
+        <div class="slide"> Menu</div>
+        <div class="slide"> Order</div>
+        <div class="slide"> Orders</div>
+        <div class="slide"> Done</div>
+    </div>
+    <div class="section" id="section-contact"> Contact</div>
+</div>
+
+</body>
+</html>

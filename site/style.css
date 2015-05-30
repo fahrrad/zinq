@@ -1,0 +1,20 @@
+html {
+    font-family: 'Vaud Display Light', Helvetica, Arial, Sans-Serif;
+}
+
+.section{
+    text-align: center;
+}
+
+#section-home {
+    background: -webkit-gradient(linear, top left, bottom left, from(#EA4A4A), to(#EC6C6E));
+	background: -webkit-linear-gradient(#EA4A4A, #EC6C6E);
+	background: linear-gradient(#EA4A4A,#EC6C6E);
+
+
+
+}
+
+img{
+    margin: 10px auto 10px auto;
+}
