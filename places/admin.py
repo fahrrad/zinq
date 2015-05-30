@@ -8,6 +8,8 @@ from places.models import Table, Place
 
 # only show the tables from places linked to the current user
 class PlaceModelAdmin(admin.ModelAdmin):
+    list_display = ('name', 'qr_url')
+
     def add_view(self, request, form_url='', extra_context=None):
 
         if not request.user.is_superuser:
@@ -27,7 +29,6 @@ class PlaceModelAdmin(admin.ModelAdmin):
         obj.save()
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-
         if not request.user.is_superuser:
             if db_field.name == "menus":
                 kwargs["queryset"] = Menu.objects.filter(place__user=request.user)
@@ -35,10 +36,8 @@ class PlaceModelAdmin(admin.ModelAdmin):
                                                                      request, **kwargs)
 
 
-
+# only show the tables from places linked to the current user
 class TableModelAdmin(admin.ModelAdmin):
-
-    # only show the tables from places linked to the current user
     def get_queryset(self, request):
         qs = super(TableModelAdmin, self).get_queryset(request)
         if not request.user.is_superuser:
