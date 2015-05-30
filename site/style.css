@@ -6,15 +6,13 @@ html {
     text-align: center;
 }
 
+.slide {
+    text-align: center;
+}
+
 #section-home {
     background: -webkit-gradient(linear, top left, bottom left, from(#EA4A4A), to(#EC6C6E));
 	background: -webkit-linear-gradient(#EA4A4A, #EC6C6E);
 	background: linear-gradient(#EA4A4A,#EC6C6E);
-
-
-
 }
 
-img{
-    margin: 10px auto 10px auto;
-}
