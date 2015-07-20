@@ -1,3 +1,4 @@
+import site
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -7,6 +8,7 @@ from places.views import orders, order_done, orders_open, order_cancel
 from places.views import qr_codes
 from places.views import landing
 import settings
+from website.views import contact
 
 
 admin.autodiscover()
@@ -55,5 +57,10 @@ urlpatterns = patterns('',
                        url(r'^settings/next_timeout/(\d+)$', set_next_timeout),
 
                        # to get all the QR codes for a place
-                       url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),) \
+                       url(r'^qrcodes/([0-9]{1,5})/$', qr_codes),
+
+                       # site specific
+                       url(r'^site/$', site, name='site'),
+                       url(r'^contact/$', contact, name='contact'),
+                       ) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

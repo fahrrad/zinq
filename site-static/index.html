@@ -49,7 +49,11 @@
                     alt="User is notified that the order is ready">
         </div>
     </div>
-    <div class="section" id="section-contact"> Contact</div>
+    <div class="section" id="section-contact">
+    <form method="POST" action="{% url 'contact'%}">
+        {{ form.as_p}}
+    </form>
+    </div>
 </div>
 
 </body>
