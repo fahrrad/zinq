@@ -22,9 +22,10 @@
 (defn product-component
   "Component that displays 1 product."
   [{:keys [id name description price] :as all}]
-  [:div.product {:data-id id
-                 :on-click #(swap! app-state update :expanded-product (constantly id))}
-   [:div.product-top 
+  [:div.product {
+    :data-id id
+    :on-click #(swap! app-state update :expanded-product (constantly id))}
+   [:div.product-top
     [:h3 name
      [:span.grey description]]
     [:div.price (format-price price)]]
@@ -54,9 +55,8 @@
         [:span.arrow-down]]
        (when @visibility
          [:div#products
-          (doall
-           (for [product products]
-             [product-component product]))])])))
+          (for [product products]
+             ^{:key (:id product)} [product-component product])])])))
 
 (defn total-selected []
   (apply + (vals (:selected @app-state))))
@@ -74,8 +74,24 @@
 (defn product-overview-component []
   [:div#product-overview
    [:div#items
-    [product-category "bier" demo-products]
-    [basket-component]]]) 
+   (for [[k v] (group-by :cat demo-products)]
+       ^{:key k} [product-category k v])
+    [basket-component]]])
+
+(defn waiting-component []
+  [:form {:action "/pay" :method "POST"}
+    [:script {
+      :async true
+      :src "https://checkout.stripe.com/checkout.js"
+      :class "stripe-button"
+      :data-key "pk_test_zMA8enjpMXxak5u07IHd38A4"
+      :data-amount "999"
+      :data-name "zinq"
+      :data-description "Example charge"
+      :data-image "https://stripe.com/img/documentation/checkout/marketplace.png"
+      :data-locale "auto"
+      :data-zip-code "true"
+      :data-currency "eur"}]])
 
 (defn done-component []
   [:div "Done"])
