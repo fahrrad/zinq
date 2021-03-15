@@ -44,9 +44,8 @@
          #(swap! app-state update-in [:selected id] dec-but-not-below-0)}
         "-"]]])])
 
-(defn product-category [category products]
-  (let [visibility (r/atom true)
-        selected (r/atom 0)]
+(defn product-category [_ _]
+  (let [visibility (r/atom true)]
     (fn [category products]
       [:div {:key category}
        [:h2
