@@ -136,3 +136,5 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/git,macos,linux,emacs,clojure,windows
+backend/.calva/output-window/output.calva-repl
+frontend/.calva/output-window/output.calva-repl
