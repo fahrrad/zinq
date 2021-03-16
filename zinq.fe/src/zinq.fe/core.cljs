@@ -1,8 +1,11 @@
-(ns frontend.core
-  (:require [reagent.core :as r]
-            [clojure.string :as s]))
+(ns ^:figwheel-hooks zinq.fe.core
+  (:require
+   [goog.dom :as gdom]
+   [clojure.string :as s]
+   [reagent.core :as r :refer [atom]]
+   [reagent.dom :as rdom]))
 
-(enable-console-print!)
+(println "This text is printed from src/hello_world/core.cljs. Go ahead and edit it and see reloading in action.")
 
 (defn format-price [price]
   (let [[msp lsp] (s/split (/ price 100) #"\.")]
@@ -10,9 +13,10 @@
 
 (def demo-products
   [{:cat "warm" :key 124 :id 124 :name "Thee" :description "Warm" :price 235}
-   {:cat "bier" :key 123 :id 123 :name "duvel" :description "duivels lekker" :price 666}])
+   {:cat "bier" :key 123 :id 123 :name "Duvel" :description "duivels lekker" :price 666}])
 
 (defonce app-state (r/atom {:selected {}
+                            :products demo-products
                             :step :menu}))
 
 (defn dec-but-not-below-0
@@ -21,7 +25,7 @@
 
 (defn product-component
   "Component that displays 1 product."
-  [{:keys [id name description price] :as all}]
+  [{:keys [id name description price]}]
   [:div.product {
     :data-id id
     :on-click #(swap! app-state update :expanded-product (constantly id))}
@@ -73,7 +77,7 @@
 (defn product-overview-component []
   [:div#product-overview
    [:div#items
-   (for [[k v] (group-by :cat demo-products)]
+   (for [[k v] (group-by :cat (:products @app-state))]
        ^{:key k} [product-category k v])
     [basket-component]]])
 
@@ -102,6 +106,27 @@
       :waiting [waiting-component]
       :done [done-component])))
 
-(r/render
-   [menu-component]
-   (.getElementById js/document "app"))
+
+;; define your app data so that it doesn't get over-written on reload
+
+(defn get-app-element []
+  (gdom/getElement "app"))
+
+(defn mount [el]
+  (rdom/render [menu-component] el))
+
+
+(defn mount-app-element []
+  (when-let [el (get-app-element)]
+    (mount el)))
+
+;; conditionally start your application based on the presence of an "app" element
+;; this is particularly helpful for testing this ns without launching the app
+(mount-app-element)
+
+;; specify reload hook with ^;after-load metadata
+(defn ^:after-load on-reload []
+  (mount-app-element)
+  ;; optionally touch your app-state to force rerendering depending on
+  ;; your application
+  (swap! app-state update-in [:__figwheel_counter] inc))
