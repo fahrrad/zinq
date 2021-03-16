@@ -1,27 +1,46 @@
-(ns ^:figwheel-hooks zinq.fe.core
+(ns ^:figwheel-hooks zinq-fe.core
   (:require
    [goog.dom :as gdom]
    [clojure.string :as s]
    [reagent.core :as r :refer [atom]]
    [reagent.dom :as rdom]))
 
-(println "This text is printed from src/hello_world/core.cljs. Go ahead and edit it and see reloading in action.")
+;; Demo data
+(def demo-products
+  [{:cat "warm" :key 124 :id 124 :name "Thee" :description "Warm" :price 235}
+   {:cat "bier" :key 123 :id 123 :name "Duvel" :description "Duivels lekker" :price 666}])
+
+
+;; appstate
+(def app-state (atom {:__figwheel_counter 0
+                          :text "Hello world!"
+                          :selected {}
+                            :products demo-products
+                            :step :menu }))
+
+;; Helper Fns
+(defn multiply [a b] (* a b))
+
+(defn total-selected []
+  (apply + (vals (:selected @app-state))))
 
 (defn format-price [price]
   (let [[msp lsp] (s/split (/ price 100) #"\.")]
     (str "€ " msp "," lsp)))
 
-(def demo-products
-  [{:cat "warm" :key 124 :id 124 :name "Thee" :description "Warm" :price 235}
-   {:cat "bier" :key 123 :id 123 :name "Duvel" :description "duivels lekker" :price 666}])
-
-(defonce app-state (r/atom {:selected {}
-                            :products demo-products
-                            :step :menu}))
-
 (defn dec-but-not-below-0
   [n]
   (max 0 (dec n)))
+
+(defn get-app-element []
+  (gdom/getElement "app"))
+
+;; Components
+
+(defn hello-world []
+  [:div
+   [:h1 (:text @app-state)]
+   [:h3 {:style {:color "blue"}} "Edit This in src/zinq_fe/core.cljs and watch it change!"]])
 
 (defn product-component
   "Component that displays 1 product."
@@ -61,9 +80,6 @@
           (for [product products]
              ^{:key (:id product)} [product-component product])])])))
 
-(defn total-selected []
-  (apply + (vals (:selected @app-state))))
-
 (defn basket-component
   "Contains information about the selected items for order"
   []
@@ -99,7 +115,7 @@
 (defn done-component []
   [:div "Done"])
 
-(defn menu-component []
+(defn app-component []
   (fn []
     (case (get @app-state :step)
       :menu [product-overview-component]
@@ -107,14 +123,9 @@
       :done [done-component])))
 
 
-;; define your app data so that it doesn't get over-written on reload
-
-(defn get-app-element []
-  (gdom/getElement "app"))
-
+;; Mount when loading
 (defn mount [el]
-  (rdom/render [menu-component] el))
-
+  (rdom/render [app-component] el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]
@@ -129,4 +140,5 @@
   (mount-app-element)
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
-  (swap! app-state update-in [:__figwheel_counter] inc))
+  (swap! app-state update-in [:__figwheel_counter] inc)
+)
